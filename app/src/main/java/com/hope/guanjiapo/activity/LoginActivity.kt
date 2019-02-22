@@ -22,11 +22,10 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import retrofit2.http.FieldMap
 
 
-class LoginActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-    }
+class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -66,7 +65,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnChe
     }
 
     override fun initData() {
-        cbSavePass.setOnCheckedChangeListener(this)
         tvCallPhone.setOnClickListener(this)
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
@@ -99,22 +97,24 @@ class LoginActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnChe
             PreferencesUtils.putString(this, "pass", "")
         }
 
-        val map = hashMapOf(
-            "account" to phone,
-            "clientCategory" to 3,
-            "clientVersion" to "1.8",
-            "id" to "9d5fd200e7a2467dab3f2228353b0d2d",
-            "ignore" to true,
-            "isForce" to 0,
-            "mobile" to phone,
-            "password" to MD5Utils.MD5Encode(pass, "utf-8"),
-            "sessionId" to 0
+        HttpNetUtils.getInstance().getManager()?.login(
+            hashMapOf(
+                "account" to phone,
+                "clientCategory" to 3,
+                "clientVersion" to "1",
+                "id" to "9d5fd200e7a2467dab3f2228353b0d2d",
+                "ignore" to true,
+                "isForce" to 0,
+                "mobile" to phone,
+                "password" to MD5Utils.MD5Encode(pass, "utf-8"),
+                "sessionId" to 0
+            )
         )
-        val body = HttpNetUtils.getInstance().getParamsBody(map)
-        HttpNetUtils.getInstance().getManager()?.login(body)
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
+
+                    startActivity<MainActivity>()
                 }
             })
     }

@@ -3,8 +3,8 @@ package com.hope.guanjiapo.utils
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.LoginModel
 import io.reactivex.Observable
-import okhttp3.RequestBody
-import retrofit2.http.Body
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 /**
@@ -16,8 +16,10 @@ import retrofit2.http.POST
 interface ApiInter {
 
     @POST(ApiUtils.login)
-    fun login(@Body body: RequestBody): Observable<BaseModel<LoginModel>>
+    @FormUrlEncoded
+    fun login(@FieldMap map: HashMap<String,Any>): Observable<BaseModel<LoginModel>>
 
     @POST(ApiUtils.regist)
-    fun register(@Body body: RequestBody): Observable<BaseModel<LoginModel>>
+    @FormUrlEncoded
+    fun register(@FieldMap map: HashMap<String,Any>): Observable<BaseModel<LoginModel>>
 }

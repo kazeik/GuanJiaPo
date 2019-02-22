@@ -33,8 +33,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         ivBackup.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
 
-        if(BuildConfig.DEBUG){
-            etAccount.setText("18573183417")
+        if (BuildConfig.DEBUG) {
+            etAccount.setText("18573183418")
             etCompane.setText("123456")
             etPass.setText("123456")
         }
@@ -57,17 +57,17 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             toast("公司名称不能为空")
             return
         }
-        val map = hashMapOf(
-            "clientCategory" to 3
-            , "clientVersion" to "1.0.0"
-            , "companyName" to compane, "mobile" to mobile, "password" to MD5Utils.MD5Encode(pass, "utf-8")
+        HttpNetUtils.getInstance().getManager()?.register(
+            hashMapOf(
+                "clientCategory" to 3
+                , "clientVersion" to "1.0.0"
+                , "companyName" to compane, "mobile" to mobile, "password" to MD5Utils.MD5Encode(pass, "utf-8")
+            )
         )
-        val body = HttpNetUtils.getInstance().getParamsBody(map)
-        HttpNetUtils.getInstance().getManager()?.register(body)
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
-                    toast(data?.msg!!)
+                    toast("注册成功")
                 }
             })
     }

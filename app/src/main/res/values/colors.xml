@@ -7,8 +7,8 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
     <color name="colorAccent">#2887b4</color>
-    <!--<color name="main_tab_select_color">#9f9f9f</color>-->
-    <!--<color name="main_bottom_color">#3366cc</color>-->
+    <color name="main_tab_select_color">#9f9f9f</color>
+    <color name="main_bottom_color">#3366cc</color>
     <color name="main_mine_text_color">#646464</color>
     <!--<color name="transparent">#00000000</color>-->
     <!--<color name="transparent_red">#ddff5654</color>-->
@@ -23,7 +23,7 @@
     <!--&lt;!&ndash;  字体颜色&ndash;&gt;-->
     <!--<color name="text_onemore">#212121</color>-->
 
-    <!--<color name="tab_color">#f5f5f5</color>-->
+    <color name="tab_color">#f5f5f5</color>
 
     <!--<color name="note_text_color">#336699</color>-->
     <color name="item_text">#969696</color>

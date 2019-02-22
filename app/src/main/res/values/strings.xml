@@ -7,6 +7,11 @@
     <string name="callphone">是否要拨打电话15988879319?</string>
     <string name="phonenum">tel:15988879319</string>
 
+    <string name="tab_main">首页</string>
+    <string name="tab_two">基础数据</string>
+    <string name="tab_three">业绩</string>
+    <string name="tab_four">设置</string>
+
 
     <string name="prompt_email">请输入手机号</string>
     <string name="prompt_password">请输入密码</string>
@@ -31,6 +36,8 @@
     <string name="title_gh">规划:</string>
     <string name="title_type">类型:</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
