@@ -1,11 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
     <include layout="@layout/view_title"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:text="手机号"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etAccount"
+                android:hint="请输入注册手机号"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:text="密码"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etPass"
+                android:hint="请输入密码"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:text="公司名"
+                  android:layout_gravity="center_vertical"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etCompane"
+                android:hint="请输入公司名称"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_marginTop="16dp"
+            android:text="注册" />
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="提示：手机号用于找回密码\n仅限老板注册，员工号可直接在软件内添加"
+              android:layout_margin="@dimen/dp_10"/>
 
 </LinearLayout>

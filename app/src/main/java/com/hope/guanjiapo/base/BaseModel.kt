@@ -8,7 +8,7 @@ package com.hope.guanjiapo.base
  * 类说明:
  */
 open class BaseModel<T> {
-    var httpCode: Int = -1
-    var error: String? = null
-    var payload:T ?= null
+    var code: String? = ""
+    var msg: String? = null
+    var data:T ?= null
 }

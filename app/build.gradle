@@ -17,8 +17,17 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField("boolean", "LOG_DEBUG", "false")
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    outputFileName = new Date().format('yyyyMMdd') + '_v' + defaultConfig.versionName + '_' + variant.buildType.name + '.apk'
+                }
+            }
+        }
+        debug {
+            buildConfigField("boolean", "LOG_DEBUG", "true")
         }
     }
     compileOptions {
@@ -42,6 +51,13 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
     //权限运行时
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     //控制条

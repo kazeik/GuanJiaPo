@@ -73,13 +73,13 @@ abstract class BaseActivity : AppCompatActivity() {
         showDialog("加载中", cancel)
     }
 
-//    fun hideDialog() {
+    fun hideDialog() {
 //        if (loadingView?.activity != null) {
 //            loadingView?.dialog?.dismiss()
 //            loadingView?.dismissAllowingStateLoss()
 //            loadingView = null
 //        }
-//        isShow = false
-//    }
+        isShow = false
+    }
 
 }
