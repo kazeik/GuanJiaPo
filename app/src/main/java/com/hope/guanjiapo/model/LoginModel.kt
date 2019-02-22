@@ -16,23 +16,21 @@ data class LoginModel(
     @SerializedName("invitedmobile")
     val invitedmobile: String,
     @SerializedName("mobile")
-    val mobile: Long,
+    val mobile: String,
     @SerializedName("overTime")
     val overTime: Long,
     @SerializedName("payTime")
     val payTime: Long,
-    @SerializedName("sessionid")
-    val sessionid: Long,
     @SerializedName("sort")
     val sort: Int,
     @SerializedName("status")
-    val status: Int,
+    val status: Boolean,
     @SerializedName("updateDate")
     val updateDate: Long,
     @SerializedName("userLevel")
     val userLevel: Int,
     @SerializedName("userName")
-    val userName: Long,
+    val userName: String,
     @SerializedName("userPwd")
     val userPwd: String,
     @SerializedName("userType")

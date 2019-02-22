@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.text.TextUtils
 import android.view.View
-import android.widget.CompoundButton
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
@@ -22,7 +21,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import retrofit2.http.FieldMap
 
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -69,8 +67,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
 
-        etPhone.setText("15988879319")
-        password.setText("1234")
+        etPhone.setText("18573183417")
+        password.setText("123456")
 
         checkPermission()
     }

@@ -27,7 +27,6 @@ abstract class HttpSimpleSubscriber<T> : Observer<T> {
                     onError(-998, model.msg)
                 else if (model.code == "success")
                     onSuccess(model.data)
-
             }
         } catch (e: Exception) {
             onError(e)
