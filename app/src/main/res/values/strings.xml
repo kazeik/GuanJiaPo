@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">物流管家婆</string>
+    <string name="title_activity_login">登录</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="title">提示</string>
+    <string name="callphone">是否要拨打电话15988879319?</string>
+    <string name="phonenum">tel:15988879319</string>
+
+
+    <string name="prompt_email">请输入手机号</string>
+    <string name="prompt_password">请输入密码</string>
+    <string name="prompt_verfiycode">请输入验证码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_verfiy_code">发送验证码</string>
+    <string name="action_register">立即注册</string>
+    <string name="action_forget">忘记密码</string>
+    <string name="msg_app_exit">再按一次退出应用</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_submit">提交</string>
+    <string name="action_inquire">查询</string>
+    <string name="action_reset">重置</string>
+    <string name="alert_phone_error">手机号格式不正确</string>
+    <string name="error_email_empty">帐号不能为空</string>
+    <string name="error_password_empty">密码不能为空</string>
+    <string name="error_password_length">密码长度不能小于6位或大于16位</string>
+    <string name="str">2019-06-30 23:59:59</string>
+    <string name="title_location">坐标:</string>
+    <string name="title_area">区域:</string>
+    <string name="title_name">名称:</string>
+    <string name="title_gh">规划:</string>
+    <string name="title_type">类型:</string>
+
+
+
+</resources>

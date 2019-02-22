@@ -1,0 +1,59 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="loadingDialogStyle" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item><!--设置dialog的背景-->
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowNoTitle">true</item><!--是否显示title-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--是否半透明-->
+        <item name="android:windowContentOverlay">@null</item><!--是否半透明-->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog
+        </item><!-- 对话框是否有遮盖 -->
+        <item name="android:backgroundDimEnabled">false</item><!--背景是否模糊显示-->
+        <item name="android:backgroundDimAmount">0.6</item><!--背景的灰度-->
+    </style>
+
+    <!--<style name="SureButtonStyle">-->
+        <!--<item name="android:textColor">@color/white</item>-->
+        <!--<item name="android:background">@drawable/button_round_shape</item>-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:textSize">@dimen/sp_14</item>-->
+        <!--<item name="android:layout_gravity">center_horizontal</item>-->
+        <!--<item name="android:layout_margin">@dimen/dp_15</item>-->
+    <!--</style>-->
+
+    <style name="inputStyle">
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/item_text</item>
+        <item name="android:background">@drawable/edittext_empty_shape</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="texttitle">
+        <item name="android:layout_width">@dimen/dp_100</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+        <item name="android:textColor">@color/main_mine_text_color</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="custom_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>
