@@ -32,4 +32,6 @@ object ApiUtils {
     const val addcompanyPoint:String ="set/addcompanyPoint"
 
     const val deletecompanyPoint:String = "set/deletecompanyPoint"
+
+    const val editcompanyPoint:String = "set/editcompanyPoint"
 }

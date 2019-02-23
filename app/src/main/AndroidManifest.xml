@@ -39,6 +39,7 @@
         <activity android:name=".activity.ConsignerActivity"/>
         <activity android:name=".activity.DestinationActivity"/>
         <activity android:name=".activity.AddDestinationActivity"/>
+        <activity android:name=".activity.ShipmentsActivity"/>
     </application>
 
 </manifest>

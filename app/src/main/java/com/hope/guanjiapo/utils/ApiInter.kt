@@ -46,7 +46,7 @@ interface ApiInter {
 
     @POST(ApiUtils.addcompanyPoint)
     @FormUrlEncoded
-    fun addcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<PerformanceListModel>>>
+    fun addcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 
     @POST(ApiUtils.deletecompanyPoint)
     @FormUrlEncoded

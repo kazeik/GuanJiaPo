@@ -27,15 +27,15 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_add_destination
     }
 
-    private var type: Int = 0
+    private var type: Boolean = false
     @SuppressLint("SetTextI18n")
     override fun initData() {
-        tvTitle.text = "添加地区"
         ivBackup.setOnClickListener(this)
         btnAdd.setOnClickListener(this)
 
-        type = intent.getIntExtra("change", 0)
+        type = intent.getBooleanExtra("change", false)
         tvId.text = "id:${intent.getIntExtra("id", 0)}"
+        tvTitle.text = if (type) "修改地区" else "添加地区"
     }
 
     private fun addcontent() {
@@ -46,7 +46,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
-        HttpNetUtils.getInstance().getManager()?.addoreditex(
+        HttpNetUtils.getInstance().getManager()?.addcompanyPoint(
             hashMapOf(
                 "isadd" to 1,
                 "mobile" to loginModel?.mobile!!,
