@@ -25,14 +25,13 @@ class SettingAdapter<A> : BaseAdapter<A>() {
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val icon = holder.getViewById<ImageView>(R.id.ivDataIcon)
+        val tvRight = holder.getViewById<TextView>(R.id.tvRight)
         val text = holder.getViewById<TextView>(R.id.tvItemName)
-        val rlItem = holder.getViewById<LinearLayout>(R.id.llItem)
+        val rlItem = holder.getViewById<RelativeLayout>(R.id.rlItem)
 
         val entity = dataList?.get(position) as AdapterItemModel
-        icon.setImageResource(entity.imgs!!)
+        tvRight.text = entity.rightItem
         text.text = entity.items
-        logs("tag",entity.items!!)
         rlItem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
