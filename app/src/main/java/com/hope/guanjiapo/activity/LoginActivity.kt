@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.TextUtils
 import android.view.View
+import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
@@ -67,15 +68,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
 
-        etPhone.setText("18573183417")
-        password.setText("123456")
-
+        if (BuildConfig.DEBUG) {
+            etPhone.setText("18573183417")
+            password.setText("123456")
+        }
         checkPermission()
     }
 
+    var phone: String = ""
+    var pass: String = ""
     private fun login() {
-        val phone = etPhone.text.toString()
-        val pass = password.text.toString()
+        phone = etPhone.text.toString()
+        pass = password.text.toString()
         if (TextUtils.isEmpty(phone)) {
             toast("手机号不能为空")
             return
@@ -95,6 +99,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             PreferencesUtils.putString(this, "pass", "")
         }
 
+        relogin(0)
+    }
+
+    private fun relogin(isFore: Int) {
         HttpNetUtils.getInstance().getManager()?.login(
             hashMapOf(
                 "account" to phone,
@@ -102,7 +110,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 "clientVersion" to "1",
                 "id" to "9d5fd200e7a2467dab3f2228353b0d2d",
                 "ignore" to true,
-                "isForce" to 0,
+                "isForce" to isFore,
                 "mobile" to phone,
                 "password" to MD5Utils.MD5Encode(pass, "utf-8"),
                 "sessionId" to 0
@@ -110,11 +118,17 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
-                override fun onSuccess(data: BaseModel<LoginModel>?) {
-
+                override fun onSuccess(data: BaseModel<BaseModel<LoginModel>>?) {
                     startActivity<MainActivity>()
+                }
+
+                override fun reLogin() {
+                    super.reLogin()
+                    JFDialog.Builder(this@LoginActivity).setContentText(getString(R.string.relogin))
+                        .setTitleText(getString(R.string.title))
+                        .setCancelText(getString(R.string.cancel)).setSureText(getString(R.string.sure))
+                        .setDialogSureListener { relogin(1) }.create().show()
                 }
             })
     }
-
 }

@@ -17,6 +17,9 @@ abstract class ProgressSubscriber<T>(private val baseActivity: BaseActivity?, ms
         baseActivity?.showDialog(msg, cancel)
     }
 
+    override fun reLogin() {
+    }
+
     override fun onError(e: Throwable) {
         super.onError(e)
         baseActivity?.hideDialog()

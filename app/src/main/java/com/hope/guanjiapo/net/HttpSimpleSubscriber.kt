@@ -1,10 +1,8 @@
 package com.hope.guanjiapo.net
 
-import android.text.TextUtils
 import com.hope.guanjiapo.base.BaseModel
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import retrofit2.Response
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -26,7 +24,7 @@ abstract class HttpSimpleSubscriber<T> : Observer<T> {
                 if (model.code == "error")
                     onError(-998, model.msg)
                 else if (model.code == "success")
-                    onSuccess(model.data)
+                    onSuccess(model)
             }
         } catch (e: Exception) {
             onError(e)
@@ -61,6 +59,6 @@ abstract class HttpSimpleSubscriber<T> : Observer<T> {
     override fun onSubscribe(d: Disposable) {
     }
 
-    abstract fun onSuccess(data: T?)
+    abstract fun onSuccess(data: BaseModel<T>?)
     abstract fun onError(errorCode: Int, msg: String?)
 }

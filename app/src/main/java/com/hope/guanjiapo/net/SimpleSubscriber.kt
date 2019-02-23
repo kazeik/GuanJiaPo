@@ -19,5 +19,9 @@ abstract class SimpleSubscriber<T>(private val activity: BaseActivity?) : HttpSi
     override fun onError(errorCode: Int, msg: String?) {
         logs("tag", "错误消息 $msg")
         activity?.toast(msg!!)
+        if (msg == "账号在其他地方登录")
+            reLogin()
     }
+
+    abstract fun reLogin()
 }
