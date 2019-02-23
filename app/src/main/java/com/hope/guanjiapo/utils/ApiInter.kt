@@ -2,6 +2,7 @@ package com.hope.guanjiapo.utils
 
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.LoginModel
+import com.hope.guanjiapo.model.PerformanceListModel
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
@@ -17,9 +18,19 @@ interface ApiInter {
 
     @POST(ApiUtils.login)
     @FormUrlEncoded
-    fun login(@FieldMap map: HashMap<String,Any>): Observable<BaseModel<LoginModel>>
+    fun login(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<LoginModel>>
 
     @POST(ApiUtils.regist)
     @FormUrlEncoded
-    fun register(@FieldMap map: HashMap<String,Any>): Observable<BaseModel<LoginModel>>
+    fun register(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<LoginModel>>
+
+    @POST(ApiUtils.getmonthrevenue)
+    @FormUrlEncoded
+    fun getmonthrevenue(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<PerformanceListModel>>>
+
+    @POST(ApiUtils.getdayrevenue)
+    @FormUrlEncoded
+    fun getdayrevenue(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<PerformanceListModel>>>
+
+
 }

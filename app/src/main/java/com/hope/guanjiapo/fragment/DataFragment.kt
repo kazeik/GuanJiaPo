@@ -8,25 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.hope.guanjiapo.R
+import com.hope.guanjiapo.base.BaseFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class DataFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_data, container, false)
+class DataFragment : BaseFragment() {
+    override fun initView(): Int {
+        return R.layout.fragment_data
     }
 
+    override fun bindData() {
+    }
 
 }

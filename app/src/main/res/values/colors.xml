@@ -97,7 +97,7 @@
     <!--&lt;!&ndash; 紫红色 &ndash;&gt;-->
     <!--<color name="magenta">#FF00FF</color>-->
     <!--&lt;!&ndash; 红紫色 &ndash;&gt;-->
-    <!--<color name="red">#FF0000</color>-->
+    <color name="red">#FF0000</color>
     <!--&lt;!&ndash; 红色 &ndash;&gt;-->
     <!--<color name="oldlace">#FDF5E6</color>-->
     <!--&lt;!&ndash; 老花色 &ndash;&gt;-->

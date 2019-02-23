@@ -14,6 +14,38 @@
     <string name="tab_four">设置</string>
 
 
+    <string-array name="homedata">
+        <item>新开运单</item>
+        <item>运单记录</item>
+        <item>批量操作</item>
+        <item>微信运单</item>
+    </string-array>
+    <string-array name="basedata">
+        <item>收货人</item>
+        <item>发货人</item>
+        <item>目的地</item>
+        <item>发货点</item>
+        <item>供应商</item>
+        <item>车次</item>
+    </string-array>
+
+    <string-array name="setdata">
+        <item>公司设置</item>
+        <item>打印设置</item>
+        <item>偏好设置</item>
+        <item>电子面单打印机购买</item>
+        <item>升级会员</item>
+        <item>分享</item>
+        <item>联系客服</item>
+        <item>修改密码</item>
+        <item>安全退出</item>
+    </string-array>
+
+    <string-array name="listdialog">
+        <item>按月查看</item>
+        <item>按日查看</item>
+    </string-array>
+
     <string name="prompt_email">请输入手机号</string>
     <string name="prompt_password">请输入密码</string>
     <string name="prompt_verfiycode">请输入验证码</string>

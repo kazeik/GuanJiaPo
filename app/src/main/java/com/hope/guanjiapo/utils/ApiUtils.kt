@@ -1,5 +1,7 @@
 package com.hope.guanjiapo.utils
 
+import com.hope.guanjiapo.model.LoginModel
+
 
 /**
  * @author kazeik chen
@@ -8,9 +10,16 @@ package com.hope.guanjiapo.utils
  * 类说明:
  */
 object ApiUtils {
+
+    var loginModel:LoginModel? = null
+
     const val baseUrl: String = "http://wl56.mmd520.cn/api/"
 
-    const val login :String ="user/wllogin"
+    const val login: String = "user/wllogin"
 
-    const val regist:String = "user/wlreg"
+    const val regist: String = "user/wlreg"
+
+    const val getmonthrevenue: String = "order/getmonthrevenue"
+
+    const val getdayrevenue:String="order/getdayrevenue"
 }

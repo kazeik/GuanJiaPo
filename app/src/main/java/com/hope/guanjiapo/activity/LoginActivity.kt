@@ -15,6 +15,7 @@ import com.hope.guanjiapo.model.LoginModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.MD5Utils
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.view.JFDialog
@@ -69,8 +70,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btnRegister.setOnClickListener(this)
 
         if (BuildConfig.DEBUG) {
-            etPhone.setText("18573183417")
-            password.setText("123456")
+            etPhone.setText("15988879319")
+            password.setText("1234")
         }
         checkPermission()
     }
@@ -118,10 +119,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
-                override fun onSuccess(data: BaseModel<BaseModel<LoginModel>>?) {
+                override fun onSuccess(data: BaseModel<LoginModel>?) {
+                    loginModel= data?.data
                     startActivity<MainActivity>()
                 }
-
                 override fun reLogin() {
                     super.reLogin()
                     JFDialog.Builder(this@LoginActivity).setContentText(getString(R.string.relogin))

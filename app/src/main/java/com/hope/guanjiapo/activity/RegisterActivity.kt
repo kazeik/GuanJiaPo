@@ -66,7 +66,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
-                override fun onSuccess(data: BaseModel<BaseModel<LoginModel>>?) {
+                override fun onSuccess(data: BaseModel<LoginModel>?) {
                     toast("注册成功")
                 }
             })

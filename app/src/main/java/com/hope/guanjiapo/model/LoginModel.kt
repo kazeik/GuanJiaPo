@@ -34,5 +34,7 @@ data class LoginModel(
     @SerializedName("userPwd")
     val userPwd: String,
     @SerializedName("userType")
-    val userType: Int
+    val userType: Int,
+    @SerializedName("sessionid")
+    val sessionid: Long
 )
