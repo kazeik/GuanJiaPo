@@ -21,6 +21,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.AddConsigneeActivity">
+        </activity>
+        <activity android:name=".activity.ConsigneeActivity">
+        </activity>
         <activity android:name=".activity.ChangePassActivity">
         </activity>
         <activity android:name=".activity.RegisterActivity"/>
@@ -32,6 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activity.ConsignerActivity"/>
     </application>
 
 </manifest>

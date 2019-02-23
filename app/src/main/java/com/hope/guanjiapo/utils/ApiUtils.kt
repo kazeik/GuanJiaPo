@@ -11,7 +11,7 @@ import com.hope.guanjiapo.model.LoginModel
  */
 object ApiUtils {
 
-    var loginModel:LoginModel? = null
+    var loginModel: LoginModel? = null
 
     const val baseUrl: String = "http://wl56.mmd520.cn/api/"
 
@@ -21,5 +21,9 @@ object ApiUtils {
 
     const val getmonthrevenue: String = "order/getmonthrevenue"
 
-    const val getdayrevenue:String="order/getdayrevenue"
+    const val getdayrevenue: String = "order/getdayrevenue"
+
+    const val getConnector: String = "connector/getConnector"
+
+    const val addoreditex:String = "connector/addoreditex"
 }

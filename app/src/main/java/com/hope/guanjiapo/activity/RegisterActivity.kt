@@ -59,9 +59,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         }
         HttpNetUtils.getInstance().getManager()?.register(
             hashMapOf(
-                "clientCategory" to 3
-                , "clientVersion" to "1.0.0"
-                , "companyName" to compane, "mobile" to mobile, "password" to MD5Utils.MD5Encode(pass, "utf-8")
+                "companyName" to compane, "mobile" to mobile, "password" to MD5Utils.MD5Encode(pass, "utf-8")
             )
         )
             ?.compose(NetworkScheduler.compose())

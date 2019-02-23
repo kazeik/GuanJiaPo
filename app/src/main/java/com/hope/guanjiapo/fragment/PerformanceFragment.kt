@@ -74,8 +74,6 @@ class PerformanceFragment : LazyFragment(), OnItemEventListener, View.OnClickLis
     private fun getData() {
         HttpNetUtils.getInstance().getManager()?.getmonthrevenue(
             hashMapOf(
-                "clientCategory" to 3,
-                "clientVersion" to "1.0",
                 "id" to loginModel?.id!!,
                 "isBuy" to 0,
                 "mobile" to loginModel?.mobile!!,
@@ -90,10 +88,8 @@ class PerformanceFragment : LazyFragment(), OnItemEventListener, View.OnClickLis
     }
 
     private fun getDataByDay() {
-        HttpNetUtils.getInstance().getManager()?.getmonthrevenue(
+        HttpNetUtils.getInstance().getManager()?.getdayrevenue(
             hashMapOf(
-                "clientCategory" to 3,
-                "clientVersion" to "1.0",
                 "id" to loginModel?.id!!,
                 "isBuy" to 0,
                 "mobile" to loginModel?.mobile!!,

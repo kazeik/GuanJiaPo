@@ -107,8 +107,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.login(
             hashMapOf(
                 "account" to phone,
-                "clientCategory" to 3,
-                "clientVersion" to "1",
                 "id" to "9d5fd200e7a2467dab3f2228353b0d2d",
                 "ignore" to true,
                 "isForce" to isFore,
