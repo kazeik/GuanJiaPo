@@ -2,6 +2,7 @@ package com.hope.guanjiapo.utils
 
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.ConsigneeModel
+import com.hope.guanjiapo.model.DestinationModel
 import com.hope.guanjiapo.model.LoginModel
 import com.hope.guanjiapo.model.PerformanceListModel
 import io.reactivex.Observable
@@ -32,11 +33,22 @@ interface ApiInter {
     fun getdayrevenue(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<PerformanceListModel>>>
 
     @GET(ApiUtils.getConnector)
-    fun getConnector(@QueryMap map:HashMap<String,Any>):Observable<BaseModel<List<ConsigneeModel>>>
+    fun getConnector(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<ConsigneeModel>>>
 
     @POST(ApiUtils.addoreditex)
     @FormUrlEncoded
     fun addoreditex(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 
 
+    @GET(ApiUtils.getcompanyPointList)
+    fun getcompanyPointList(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<DestinationModel>>>
+
+
+    @POST(ApiUtils.addcompanyPoint)
+    @FormUrlEncoded
+    fun addcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<PerformanceListModel>>>
+
+    @POST(ApiUtils.deletecompanyPoint)
+    @FormUrlEncoded
+    fun deletecompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }

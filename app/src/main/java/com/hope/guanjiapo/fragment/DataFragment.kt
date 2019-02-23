@@ -7,6 +7,7 @@ import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.activity.ConsigneeActivity
 import com.hope.guanjiapo.activity.ConsignerActivity
+import com.hope.guanjiapo.activity.DestinationActivity
 import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
@@ -25,6 +26,7 @@ class DataFragment : BaseFragment(), OnItemEventListener {
         when (pos) {
             0 -> startActivity<ConsigneeActivity>()
             1 -> startActivity<ConsignerActivity>()
+            2 -> startActivity<DestinationActivity>()
         }
     }
 

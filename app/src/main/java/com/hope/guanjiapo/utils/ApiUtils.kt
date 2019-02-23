@@ -26,4 +26,10 @@ object ApiUtils {
     const val getConnector: String = "connector/getConnector"
 
     const val addoreditex:String = "connector/addoreditex"
+
+    const val getcompanyPointList:String ="set/getcompanyPointList"
+
+    const val addcompanyPoint:String ="set/addcompanyPoint"
+
+    const val deletecompanyPoint:String = "set/deletecompanyPoint"
 }

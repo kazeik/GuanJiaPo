@@ -37,6 +37,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ConsignerActivity"/>
+        <activity android:name=".activity.DestinationActivity"/>
+        <activity android:name=".activity.AddDestinationActivity"/>
     </application>
 
 </manifest>
