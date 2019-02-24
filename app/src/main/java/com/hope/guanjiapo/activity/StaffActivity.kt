@@ -37,7 +37,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
-                0 -> startActivity<AddDestinationActivity>("change" to true, "item" to itemData!![pos])
+                0 -> startActivity<AddStaffActivity>("change" to true, "item" to itemData!![pos])
                 1 -> delete(itemData!![pos])
             }
         }

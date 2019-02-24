@@ -45,6 +45,9 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
         mSegmentedGroup.setOnCheckedChangeListener(this)
+
+        val change = intent.getBooleanExtra("change",false)
+        var itemData:StaffModel?  = intent.getSerializableExtra("item") as? StaffModel
     }
 
     private fun addstaff() {
