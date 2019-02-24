@@ -29,11 +29,12 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         ivBackup.visibility = View.GONE
 
         val itemArr = resources.getStringArray(R.array.homedata)
+        val iconArr = arrayOf<Int>(R.drawable.icon1,R.drawable.icon2,R.drawable.icon3 ,R.drawable.icon4)
         val allItem = arrayListOf<AdapterItemModel>()
-        itemArr.forEach {
+        for(i in 0 until itemArr.size){
             val item = AdapterItemModel()
-            item.items = it
-            item.imgs = R.mipmap.ic_launcher
+            item.items = itemArr[i]
+            item.imgs = iconArr[i]
             allItem.add(item)
         }
         val adapter = DataAdapter<AdapterItemModel>()

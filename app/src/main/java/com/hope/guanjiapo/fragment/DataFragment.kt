@@ -42,10 +42,18 @@ class DataFragment : BaseFragment(), OnItemEventListener {
 
         val itemArr = resources.getStringArray(R.array.basedata)
         val allItem = arrayListOf<AdapterItemModel>()
-        itemArr.forEach {
+        val iconArr = arrayOf<Int>(
+            R.drawable.icon5,
+            R.drawable.icon6,
+            R.drawable.icon7,
+            R.drawable.icon8,
+            R.drawable.icon9,
+            R.drawable.icon10
+        )
+        for (i in 0 until itemArr.size) {
             val item = AdapterItemModel()
-            item.items = it
-            item.imgs = R.mipmap.ic_launcher
+            item.items = itemArr[i]
+            item.imgs = iconArr[i]
             allItem.add(item)
         }
         val adapter = DataAdapter<AdapterItemModel>()
