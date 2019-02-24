@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <include layout="@layout/view_title"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:text="名字"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etAccount"
+                android:hint="员工名字"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textSize="@dimen/sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:text="登录帐号"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etPhone"
+                android:hint="登录手机号"
+                android:singleLine="true"
+                android:textSize="@dimen/sp_14"
+                android:maxLines="1"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:text="新登录密码"
+                  android:layout_gravity="center_vertical"
+                  android:layout_margin="@dimen/dp_10"/>
+        <EditText
+                android:id="@+id/etPass"
+                android:hint="登录密码"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textSize="@dimen/sp_14"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:orientation="horizontal">
+        <TextView android:layout_width="@dimen/dp_80"
+                  android:layout_height="wrap_content"
+                  android:text="权限类型"
+                  android:layout_gravity="center_vertical"
+                  android:layout_margin="@dimen/dp_10"/>
+        <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/mSegmentedGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_checked_text_color="@color/white"
+                segmentedgroup:sc_corner_radius="10dp"
+                segmentedgroup:sc_tint_color="@color/blue">
+
+            <RadioButton
+                    android:id="@+id/radioButtonOne"
+                    style="@style/RadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="经理"/>
+
+            <RadioButton
+                    android:id="@+id/radioButtonTwo"
+                    style="@style/RadioButton"
+                    android:layout_width="0dp"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="员工"/>
+            <RadioButton
+                    android:id="@+id/radioButtonThree"
+                    style="@style/RadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="客户"/>
+        </info.hoang8f.android.segmented.SegmentedGroup>
+    </LinearLayout>
+
+</LinearLayout>

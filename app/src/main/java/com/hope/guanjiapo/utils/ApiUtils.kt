@@ -25,13 +25,15 @@ object ApiUtils {
 
     const val getConnector: String = "connector/getConnector"
 
-    const val addoreditex:String = "connector/addoreditex"
+    const val addoreditex: String = "connector/addoreditex"
 
-    const val getcompanyPointList:String ="set/getcompanyPointList"
+    const val getcompanyPointList: String = "set/getcompanyPointList"
 
-    const val addcompanyPoint:String ="set/addcompanyPoint"
+    const val addcompanyPoint: String = "set/addcompanyPoint"
 
-    const val deletecompanyPoint:String = "set/deletecompanyPoint"
+    const val deletecompanyPoint: String = "set/deletecompanyPoint"
 
-    const val editcompanyPoint:String = "set/editcompanyPoint"
+    const val editcompanyPoint: String = "set/editcompanyPoint"
+
+    const val wladdOrDel: String = "user/wladdOrDel"
 }

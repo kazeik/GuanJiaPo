@@ -1,10 +1,7 @@
 package com.hope.guanjiapo.utils
 
 import com.hope.guanjiapo.base.BaseModel
-import com.hope.guanjiapo.model.ConsigneeModel
-import com.hope.guanjiapo.model.DestinationModel
-import com.hope.guanjiapo.model.LoginModel
-import com.hope.guanjiapo.model.PerformanceListModel
+import com.hope.guanjiapo.model.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -51,4 +48,8 @@ interface ApiInter {
     @POST(ApiUtils.deletecompanyPoint)
     @FormUrlEncoded
     fun deletecompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @POST(ApiUtils.wladdOrDel)
+    @FormUrlEncoded
+    fun wladdOrDel(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<ArrayList<StaffModel>>>
 }

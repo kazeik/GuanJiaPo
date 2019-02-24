@@ -4,9 +4,7 @@
     <color name="title_start">#2887b4</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#2887b4</color>
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <!--<color name="colorAccent">#FF4081</color>-->
-    <color name="colorAccent">#2887b4</color>
+    <color name="colorAccent">#303F9F</color>
     <color name="main_tab_select_color">#9f9f9f</color>
     <color name="main_bottom_color">#3366cc</color>
     <color name="main_mine_text_color">#646464</color>
@@ -315,7 +313,7 @@
     <!--&lt;!&ndash; 绿色 &ndash;&gt;-->
     <!--<color name="darkgreen">#006400</color>-->
     <!--&lt;!&ndash; 暗绿色 &ndash;&gt;-->
-    <!--<color name="blue">#0000FF</color>-->
+    <color name="blue">#0000FF</color>
     <!--&lt;!&ndash; 蓝色 &ndash;&gt;-->
     <!--<color name="mediumblue">#0000CD</color>-->
     <!--&lt;!&ndash; 中兰色 &ndash;&gt;-->

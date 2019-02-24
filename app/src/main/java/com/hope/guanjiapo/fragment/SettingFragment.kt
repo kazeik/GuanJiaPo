@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.activity.ChangePassActivity
+import com.hope.guanjiapo.activity.StaffActivity
 import com.hope.guanjiapo.adapter.SettingAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
@@ -32,14 +33,15 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
     override fun onItemEvent(pos: Int) {
         when (pos) {
             0 -> showInputDialog()
-            6 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
+            1 -> startActivity<StaffActivity>()
+            7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
                 getString(R.string.sure)
             ).setDialogSureListener {
                 startActivity(
                     Intent().setAction(Intent.ACTION_CALL).setData(Uri.parse(getString(R.string.phonenum)))
                 )
             }.setContentText(getString(R.string.callphone)).create().show()
-            7 -> startActivity<ChangePassActivity>()
+            8 -> startActivity<ChangePassActivity>()
         }
 
     }

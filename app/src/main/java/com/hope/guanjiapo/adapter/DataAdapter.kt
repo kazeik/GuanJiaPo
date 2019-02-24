@@ -31,7 +31,6 @@ class DataAdapter<A> : BaseAdapter<A>() {
         val entity = dataList?.get(position) as AdapterItemModel
         icon.setImageResource(entity.imgs!!)
         text.text = entity.items
-        logs("tag",entity.items!!)
         rlItem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
