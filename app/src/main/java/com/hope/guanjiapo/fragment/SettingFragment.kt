@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.support.v4.startActivity
 
 
+
+
 /**
  * A simple [Fragment] subclass.
  *
@@ -34,12 +36,17 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
         when (pos) {
             0 -> showInputDialog()
             1 -> startActivity<StaffActivity>()
+            4 ->{
+                val intent = Intent()
+                intent.action = "android.intent.action.VIEW"
+                intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
+                intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
+                startActivity(intent)
+            }
             7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
                 getString(R.string.sure)
             ).setDialogSureListener {
-                startActivity(
-                    Intent().setAction(Intent.ACTION_CALL).setData(Uri.parse(getString(R.string.phonenum)))
-                )
+                startActivity(Intent().setAction(Intent.ACTION_CALL).setData(Uri.parse(getString(R.string.phonenum))))
             }.setContentText(getString(R.string.callphone)).create().show()
             8 -> startActivity<ChangePassActivity>()
         }
