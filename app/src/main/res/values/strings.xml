@@ -63,7 +63,7 @@
     <string name="error_email_empty">帐号不能为空</string>
     <string name="error_password_empty">密码不能为空</string>
     <string name="error_password_length">密码长度不能小于6位或大于16位</string>
-    <string name="str">2019-06-30 23:59:59</string>
+    <string name="str">2019-04-15 23:59:59</string>
     <string name="title_location">坐标:</string>
     <string name="title_area">区域:</string>
     <string name="title_name">名称:</string>

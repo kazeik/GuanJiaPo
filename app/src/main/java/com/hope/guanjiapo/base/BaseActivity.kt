@@ -5,6 +5,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.hope.guanjiapo.MainApplication
+import com.hope.guanjiapo.R
+import com.hope.guanjiapo.utils.TimeUtil
+import com.hope.guanjiapo.view.LoadingView
 
 /**
  * @author hope.chen, QQ:77132995, email:kazeik@163.com
@@ -13,7 +16,7 @@ import com.hope.guanjiapo.MainApplication
  */
 abstract class BaseActivity : AppCompatActivity() {
     var myApplicaton: MainApplication? = null
-//    private var loadingView: LoadingView? = null
+    private var loadingView: LoadingView? = null
 
     private var isShow = false
 
@@ -53,8 +56,17 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 //        MobclickAgent.onResume(this)
+        check()
     }
 
+    private fun check() {
+        val str = resources.getString(R.string.str)
+        val milidate: Long = TimeUtil.StringTimeToLong(str, TimeUtil.DATE_YMD_HMS)
+        if (System.currentTimeMillis() > milidate) {
+            myApplicaton?.exitApp()
+            finish()
+        }
+    }
 
     override fun onPause() {
         super.onPause()
@@ -64,8 +76,8 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showDialog(msg: String? = "加载中", cancel: Boolean = false) {
         if (!isShow) {
             isShow = true
-//            loadingView = LoadingView.getInstance(msg, cancel)
-//            loadingView?.show(fragmentManager, "dialog")
+            loadingView = LoadingView.getInstance(msg, cancel)
+            loadingView?.show(fragmentManager, "dialog")
         }
     }
 
@@ -74,12 +86,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun hideDialog() {
-//        if (loadingView?.activity != null) {
-//            loadingView?.dialog?.dismiss()
-//            loadingView?.dismissAllowingStateLoss()
-//            loadingView = null
-//        }
+        if (loadingView?.activity != null) {
+            loadingView?.dialog?.dismiss()
+            loadingView?.dismissAllowingStateLoss()
+            loadingView = null
+        }
         isShow = false
     }
-
 }
