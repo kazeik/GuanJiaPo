@@ -36,4 +36,8 @@ object ApiUtils {
     const val editcompanyPoint: String = "set/editcompanyPoint"
 
     const val wladdOrDel: String = "user/wladdOrDel"
+    /**
+     * 查询当前用户下的运单记录
+     */
+    const val wlget:String ="order/wlget"
 }

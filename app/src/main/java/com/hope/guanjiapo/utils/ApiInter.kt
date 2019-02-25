@@ -52,4 +52,9 @@ interface ApiInter {
     @POST(ApiUtils.wladdOrDel)
     @FormUrlEncoded
     fun wladdOrDel(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<ArrayList<StaffModel>>>
+
+
+    @POST(ApiUtils.wlget)
+    @FormUrlEncoded
+    fun wlget(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<WaybillModel>>>
 }

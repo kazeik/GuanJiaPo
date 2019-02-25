@@ -5,12 +5,15 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
+import com.hope.guanjiapo.activity.WaybillActivity
+import com.hope.guanjiapo.activity.WaybillControlActivity
 import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
+import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -18,6 +21,10 @@ import kotlinx.android.synthetic.main.view_title.*
  */
 class HomeFragment : BaseFragment(), OnItemEventListener {
     override fun onItemEvent(pos: Int) {
+        when (pos) {
+            1 -> startActivity<WaybillActivity>()
+            2 -> startActivity<WaybillControlActivity>()
+        }
     }
 
     override fun initView(): Int {
@@ -29,9 +36,9 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         ivBackup.visibility = View.GONE
 
         val itemArr = resources.getStringArray(R.array.homedata)
-        val iconArr = arrayOf<Int>(R.drawable.icon1,R.drawable.icon2,R.drawable.icon3 ,R.drawable.icon4)
+        val iconArr = arrayOf<Int>(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3, R.drawable.icon4)
         val allItem = arrayListOf<AdapterItemModel>()
-        for(i in 0 until itemArr.size){
+        for (i in 0 until itemArr.size) {
             val item = AdapterItemModel()
             item.items = itemArr[i]
             item.imgs = iconArr[i]

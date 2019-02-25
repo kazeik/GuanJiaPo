@@ -47,6 +47,19 @@
         <item>按日查看</item>
     </string-array>
 
+    <string-array name="waybillcontrol">
+        <item>搜索</item>
+        <item>修改状态</item>
+        <item>收款结帐</item>
+    </string-array>
+
+    <string-array name="waybillhistroy">
+        <item>搜索</item>
+        <item>打印便签</item>
+        <item>打印小票</item>
+        <item>汇总打印</item>
+    </string-array>
+
     <string name="prompt_email">请输入手机号</string>
     <string name="prompt_password">请输入密码</string>
     <string name="prompt_verfiycode">请输入验证码</string>
