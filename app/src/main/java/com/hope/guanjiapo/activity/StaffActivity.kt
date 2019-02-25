@@ -38,14 +38,14 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
-                0 -> startActivity<AddStaffActivity>("change" to true, "item" to itemData!![pos])
-                1 -> delete(itemData!![pos])
+                0 -> startActivity<AddStaffActivity>("change" to true, "item" to itemData[pos])
+                1 -> delete(itemData[pos])
             }
         }
         listDialog.show()
     }
 
-    private var itemData: ArrayList<StaffModel>? = null
+    private val itemData: ArrayList<StaffModel> by lazy { arrayListOf<StaffModel>() }
     private val adapter: StaffAdapter<StaffModel> by lazy { StaffAdapter<StaffModel>() }
     override fun getLayoutView(): Int {
         return R.layout.activity_staff
@@ -63,7 +63,8 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
                 override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
-                    itemData = data?.data
+                    itemData.clear()
+                    itemData.addAll(data?.data!!)
                 }
             })
     }
@@ -78,7 +79,9 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
-        adapter.setDataEntityList(allStaffModel!!)
+        adapter.itemListener = this
+        itemData.addAll(allStaffModel!!)
+        adapter.setDataEntityList(itemData)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,8 +89,10 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         if (data == null) return
         when (resultCode) {
             99 -> {
-                itemData = intent.getSerializableExtra("data") as ArrayList<StaffModel>
-                adapter.setDataEntityList(itemData!!)
+                val tempData = intent.getSerializableExtra("data") as ArrayList<StaffModel>
+                itemData.clear()
+                itemData.addAll(tempData)
+                adapter.setDataEntityList(itemData)
             }
         }
     }

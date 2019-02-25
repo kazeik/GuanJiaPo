@@ -47,7 +47,12 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         mSegmentedGroup.setOnCheckedChangeListener(this)
 
         val change = intent.getBooleanExtra("change",false)
-        var itemData:StaffModel?  = intent.getSerializableExtra("item") as? StaffModel
+        val itemData:StaffModel?  = intent.getSerializableExtra("item") as? StaffModel
+        if(change){
+            etAccount.setText(itemData?.userName)
+            etPhone.setText(itemData?.mobile)
+            etPhone.isEnabled = false
+        }
     }
 
     private fun addstaff() {

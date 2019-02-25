@@ -29,7 +29,7 @@ class StaffAdapter<A> : BaseAdapter<A>() {
 
         val entity = dataList?.get(position) as StaffModel
         tvType.text = when (entity.userType) {
-            0->"老板"
+            0 -> "老板"
             1 -> "店长"
             2 -> "员工"
             10 -> "VIP 客户"
@@ -39,10 +39,9 @@ class StaffAdapter<A> : BaseAdapter<A>() {
         tvName.text = entity.userName
         tvAddress.text = entity.mobile
 
-        consigneeitem.setOnLongClickListener {
+        consigneeitem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
-            return@setOnLongClickListener true
         }
     }
 }
