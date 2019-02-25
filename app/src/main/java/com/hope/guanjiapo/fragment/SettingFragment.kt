@@ -10,10 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
-import com.hope.guanjiapo.activity.ChangePassActivity
-import com.hope.guanjiapo.activity.LoginActivity
-import com.hope.guanjiapo.activity.PreferenceActivity
-import com.hope.guanjiapo.activity.StaffActivity
+import com.hope.guanjiapo.activity.*
 import com.hope.guanjiapo.adapter.SettingAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.base.BaseModel
@@ -51,6 +48,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
                 startActivity(intent)
             }
+            5 -> startActivity<PayActivity>()
             7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
                 getString(R.string.sure)
             ).setDialogSureListener {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <include layout="@layout/view_title"/>
+    <TextView
+            android:id="@+id/tvInfo"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14"
+            android:layout_margin="@dimen/dp_25"
+            android:text="物流管家婆与你一起拓展事业版图，\n试用期到后，请付费使用"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:id="@+id/btnPay"
+            android:background="@color/green"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:text="高级会员年费 ￥618.00元"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"/>
+
+    <Button
+            android:id="@+id/btnRePay"
+            android:background="@color/green"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:text="恢复购买"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"/>
+
+    <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14"
+            android:layout_margin="@dimen/dp_25"
+            android:text="邮箱：37688599@qq.com，\n客服QQ：37688599"
+            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

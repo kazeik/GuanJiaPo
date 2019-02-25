@@ -2,7 +2,6 @@ package com.hope.guanjiapo.activity
 
 import android.text.TextUtils
 import android.view.View
-import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
@@ -32,12 +31,6 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
         ivBackup.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
-
-        if (BuildConfig.DEBUG) {
-            etAccount.setText("18573183418")
-            etCompane.setText("123456")
-            etPass.setText("123456")
-        }
     }
 
     private fun register() {
