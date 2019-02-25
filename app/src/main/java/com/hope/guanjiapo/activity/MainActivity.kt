@@ -32,7 +32,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
     override fun initData() {
         val adapter = FtPagerAdapter(
             supportFragmentManager,
-            arrayListOf<Fragment>(HomeFragment(), DataFragment(), PerformanceFragment(), SettingFragment())
+            arrayListOf(HomeFragment(), DataFragment(), PerformanceFragment(), SettingFragment())
         )
         viewpager.adapter = adapter
         viewpager.offscreenPageLimit = 4

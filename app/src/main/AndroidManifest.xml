@@ -50,6 +50,9 @@
         <activity android:name=".activity.ShipmentsActivity"/>
         <activity android:name=".activity.WaybillControlActivity"/>
         <activity android:name=".activity.SupplierActivity"/>
+        <activity android:name=".activity.PreferenceActivity"/>
+        <activity android:name=".activity.WaybillPreferenceActivity"/>
+        <activity android:name=".activity.CollectPreferenceActivity"/>
     </application>
 
 </manifest>

@@ -11,18 +11,24 @@ import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.activity.ChangePassActivity
+import com.hope.guanjiapo.activity.PreferenceActivity
 import com.hope.guanjiapo.activity.StaffActivity
 import com.hope.guanjiapo.adapter.SettingAdapter
 import com.hope.guanjiapo.base.BaseFragment
+import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.net.HttpNetUtils
+import com.hope.guanjiapo.net.NetworkScheduler
+import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.JFDialog
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
+import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
-
-
+import org.jetbrains.anko.support.v4.toast
 
 
 /**
@@ -36,7 +42,8 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
         when (pos) {
             0 -> showInputDialog()
             1 -> startActivity<StaffActivity>()
-            4 ->{
+            3 -> startActivity<PreferenceActivity>()
+            4 -> {
                 val intent = Intent()
                 intent.action = "android.intent.action.VIEW"
                 intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
@@ -56,11 +63,23 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
     private fun showInputDialog() {
         val editText = EditText(activity)
         val inputDialog = AlertDialog.Builder(activity)
-        inputDialog.setTitle("编辑").setView(editText)
+        inputDialog.setTitle("编辑公司名称").setView(editText)
         inputDialog.setNegativeButton("取消") { _, _ -> }
         inputDialog.setPositiveButton("确定") { _, _ ->
-            allItem[0].rightItem = editText.text.toString()
+            val name = editText.text.toString()
+            allItem[0].rightItem = name
             adapter.setDataEntityList(allItem)
+
+            HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
+                hashMapOf(
+                    "companyname" to name, "mobile" to loginModel?.mobile!!
+                )
+            )?.compose(NetworkScheduler.compose())
+                ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity!!) {
+                    override fun onSuccess(data: BaseModel<String>?) {
+                        toast(data?.msg!!)
+                    }
+                })
         }
         inputDialog.show()
     }

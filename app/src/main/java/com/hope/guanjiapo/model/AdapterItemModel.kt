@@ -11,4 +11,6 @@ class AdapterItemModel {
     var imgs: Int? = 0
     var items: String? = ""
     var rightItem: String? = ""
+
+    var flag:Boolean = false
 }

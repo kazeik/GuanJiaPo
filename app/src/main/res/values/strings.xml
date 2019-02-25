@@ -47,6 +47,45 @@
         <item>按日查看</item>
     </string-array>
 
+    <string-array name="perferencedata">
+        <item>汇总导出清单设置</item>
+        <item>新建运单默认设置</item>
+    </string-array>
+
+    <string-array name="hzdata">
+        <item>序号</item>
+        <item>单号</item>
+        <item>快递单号</item>
+        <item>日期</item>
+        <item>修改时间</item>
+        <item>车次</item>
+        <item>发货点</item>
+        <item>发货人</item>
+        <item>目的地</item>
+        <item>收货人</item>
+        <item>货物名称</item>
+        <item>件数</item>
+        <item>重量</item>
+        <item>体积</item>
+        <item>中转费</item>
+        <item>保费</item>
+        <item>应收运费</item>
+        <item>成本</item>
+        <item>利润</item>
+        <item>供应商</item>
+        <item>支付</item>
+        <item>已付</item>
+        <item>欠款</item>
+        <item>代收款</item>
+        <item>小计</item>
+        <item>业务员</item>
+        <item>返款</item>
+        <item>回单份数</item>
+        <item>通知放货</item>
+        <item>备注</item>
+        <item>提货人签名</item>
+    </string-array>
+
     <string-array name="waybillcontrol">
         <item>搜索</item>
         <item>修改状态</item>
