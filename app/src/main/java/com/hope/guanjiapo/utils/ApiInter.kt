@@ -68,4 +68,8 @@ interface ApiInter {
     @POST(ApiUtils.wlreg)
     @FormUrlEncoded
     fun wlreg(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @POST(ApiUtils.wllogout)
+    @FormUrlEncoded
+    fun wllogout(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }

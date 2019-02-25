@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.activity.ChangePassActivity
+import com.hope.guanjiapo.activity.LoginActivity
 import com.hope.guanjiapo.activity.PreferenceActivity
 import com.hope.guanjiapo.activity.StaffActivity
 import com.hope.guanjiapo.adapter.SettingAdapter
@@ -21,12 +22,12 @@ import com.hope.guanjiapo.model.AdapterItemModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.JFDialog
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
@@ -56,9 +57,27 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 startActivity(Intent().setAction(Intent.ACTION_CALL).setData(Uri.parse(getString(R.string.phonenum))))
             }.setContentText(getString(R.string.callphone)).create().show()
             8 -> startActivity<ChangePassActivity>()
+            9 -> logout()
         }
-
     }
+
+    private fun logout() {
+        HttpNetUtils.getInstance().getManager()?.wllogout(
+            hashMapOf(
+                "id" to ApiUtils.loginModel?.id!!,
+                "mobile" to ApiUtils.loginModel?.mobile!!,
+                "sessionId" to ApiUtils.loginModel?.sessionid!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    activity?.myApplicaton?.exitApp()
+                    startActivity<LoginActivity>()
+                    activity?.finish()
+                }
+            })
+    }
+
 
     private fun showInputDialog() {
         val editText = EditText(activity)
