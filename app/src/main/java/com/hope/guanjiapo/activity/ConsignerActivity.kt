@@ -30,8 +30,8 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-        tvTitle.text = "发货人列表"
-        tvTitleRight.text = "新建"
+        tvTitle.setText(R.string.fhrlist)
+        tvTitleRight.setText(R.string.create)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

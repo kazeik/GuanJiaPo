@@ -12,6 +12,25 @@
     <string name="tab_two">基础数据</string>
     <string name="tab_three">业绩</string>
     <string name="tab_four">设置</string>
+    <string name="create">新建</string>
+    <string name="shrlist">收货人列表</string>
+    <string name="fhrlist">发货人列表</string>
+    <string name="fhdlist">发货点列表</string>
+    <string name="mddlist">目的地列表</string>
+    <string name="requestper">请同意权限</string>
+    <string name="gys">供应商</string>
+    <string name="carnum">车次</string>
+    <string name="more">更多</string>
+    <string name="histroy">运单记录</string>
+    <string name="save">保存</string>
+    <string name="addmember">添加员工</string>
+    <string name="membermanager">员工管理</string>
+    <string name="install">添加</string>
+    <string name="editcompanyname">编辑公司名称</string>
+    <string name="contacts">添加联系人</string>
+    <string name="changeadd">修改地区</string>
+    <string name="addaddress">添加地区</string>
+    <string name="perference">清单设置</string>
 
 
     <string-array name="homedata">
@@ -45,6 +64,11 @@
     <string-array name="listdialog">
         <item>按月查看</item>
         <item>按日查看</item>
+    </string-array>
+
+    <string-array name="alertmenu">
+        <item>修改</item>
+        <item>删除</item>
     </string-array>
 
     <string-array name="perferencedata">
@@ -112,15 +136,17 @@
     <string name="action_inquire">查询</string>
     <string name="action_reset">重置</string>
     <string name="alert_phone_error">手机号格式不正确</string>
+    <string name="error_phone_empty">手机号不能为空</string>
     <string name="error_email_empty">帐号不能为空</string>
+    <string name="error_name_empty">名字不能为空</string>
     <string name="error_password_empty">密码不能为空</string>
+    <string name="error_company_empty">公司名称不能为空</string>
+    <string name="register_ok">注册成功</string>
+    <string name="error_address_empty">地址信息不能为空</string>
     <string name="error_password_length">密码长度不能小于6位或大于16位</string>
     <string name="str">2019-04-15 23:59:59</string>
-    <string name="title_location">坐标:</string>
-    <string name="title_area">区域:</string>
-    <string name="title_name">名称:</string>
-    <string name="title_gh">规划:</string>
-    <string name="title_type">类型:</string>
+    <string name="payaccount">购买会员</string>
+    <string name="perfersetting">偏好设置</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

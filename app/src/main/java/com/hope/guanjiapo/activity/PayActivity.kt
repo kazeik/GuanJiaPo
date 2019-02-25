@@ -21,7 +21,7 @@ class PayActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-        tvTitle.text = "购买会员"
+        tvTitle.setText(R.string.payaccount)
         ivBackup.setOnClickListener(this)
     }
 

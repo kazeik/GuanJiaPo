@@ -26,7 +26,7 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
     }
 
     override fun initData() {
-        tvTitle.text = "清单设置"
+        tvTitle.setText(R.string.perference)
         ivBackup.setOnClickListener(this)
 
         val itemArr = resources.getStringArray(R.array.hzdata)

@@ -35,14 +35,14 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
 
         type = intent.getBooleanExtra("change", false)
         tvId.text = "id:${intent.getIntExtra("id", 0)}"
-        tvTitle.text = if (type) "修改地区" else "添加地区"
+        tvTitle.text = if (type) getString(R.string.changeadd) else getString(R.string.addaddress)
     }
 
     private fun addcontent() {
         val name = etName.text.toString()
 
         if (TextUtils.isEmpty(name)) {
-            toast("名称不能为空")
+            toast(R.string.error_name_empty)
             return
         }
 

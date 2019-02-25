@@ -34,7 +34,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
     }
 
     private fun showListDialog(pos: Int) {
-        val items = arrayOf("修改", "删除")
+        val items = resources.getStringArray(R.array.alertmenu)
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
@@ -70,8 +70,8 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
     }
 
     override fun initData() {
-        tvTitle.text = "员工管理"
-        tvTitleRight.text = "添加"
+        tvTitle.setText(R.string.membermanager)
+        tvTitleRight.setText(R.string.install)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

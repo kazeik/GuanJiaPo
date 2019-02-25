@@ -81,9 +81,9 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
     private fun showInputDialog() {
         val editText = EditText(activity)
         val inputDialog = AlertDialog.Builder(activity)
-        inputDialog.setTitle("编辑公司名称").setView(editText)
-        inputDialog.setNegativeButton("取消") { _, _ -> }
-        inputDialog.setPositiveButton("确定") { _, _ ->
+        inputDialog.setTitle(R.string.editcompanyname).setView(editText)
+        inputDialog.setNegativeButton(R.string.cancel) { _, _ -> }
+        inputDialog.setPositiveButton(R.string.sure) { _, _ ->
             val name = editText.text.toString()
             allItem[0].rightItem = name
             adapter.setDataEntityList(allItem)
@@ -107,7 +107,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
     }
 
     override fun bindData() {
-        tvTitle.text = "设置"
+        tvTitle.setText(R.string.tab_four)
         ivBackup.visibility = View.GONE
 
         val itemArr = resources.getStringArray(R.array.setdata)

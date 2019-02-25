@@ -43,8 +43,8 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
     }
 
     override fun initData() {
-        tvTitle.text = "运单记录"
-        tvTitleRight.text = "更多"
+        tvTitle.setText(R.string.histroy)
+        tvTitleRight.setText(R.string.more)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

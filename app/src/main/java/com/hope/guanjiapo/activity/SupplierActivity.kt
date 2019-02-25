@@ -31,6 +31,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
             R.id.tvTitleRight -> showInputDialog("")
         }
     }
+
     private fun showInputDialog(msg: String) {
         val editText = EditText(this)
         if (!TextUtils.isEmpty(msg))
@@ -38,7 +39,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         val inputDialog = AlertDialog.Builder(this)
         inputDialog.setTitle("请输入供应商名字").setView(editText)
         inputDialog.setPositiveButton(
-            "确定"
+            R.string.sure
         ) { dialog, which ->
             dialog.dismiss()
             val car = editText.text.toString()
@@ -74,8 +75,8 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
     }
 
     override fun initData() {
-        tvTitle.text = "供应商"
-        tvTitleRight.text = "新建"
+        tvTitle.setText(R.string.gys)
+        tvTitleRight.setText(R.string.create)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

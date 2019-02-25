@@ -25,7 +25,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
     }
 
     private fun showListDialog(pos: Int) {
-        val items = arrayOf("修改", "删除")
+        val items = resources.getStringArray(R.array.alertmenu)
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
@@ -50,8 +50,8 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
 
     private var allitem: List<DestinationModel>? = null
     override fun initData() {
-        tvTitle.text = "目的地列表"
-        tvTitleRight.text = "新建"
+        tvTitle.setText(R.string.mddlist)
+        tvTitleRight.setText(R.string.create)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

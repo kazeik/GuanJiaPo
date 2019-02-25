@@ -53,7 +53,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             )
                 .subscribe { permission ->
                     if (!permission) {
-                        toast("请同意权限")
+                        toast(R.string.requestper)
                         finish()
                     }
                 }
@@ -82,12 +82,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         phone = etPhone.text.toString()
         pass = password.text.toString()
         if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空")
+            toast(R.string.error_phone_empty)
             return
         }
 
         if (TextUtils.isEmpty(pass)) {
-            toast("密码不能为空")
+            toast(R.string.error_password_empty)
             return
         }
 

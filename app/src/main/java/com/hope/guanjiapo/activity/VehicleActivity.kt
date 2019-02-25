@@ -41,7 +41,7 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         val inputDialog = AlertDialog.Builder(this)
         inputDialog.setTitle("请输入车次").setView(editText)
         inputDialog.setPositiveButton(
-            "确定"
+            R.string.sure
         ) { dialog, which ->
             dialog.dismiss()
             val car = editText.text.toString()
@@ -79,8 +79,8 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     }
 
     override fun initData() {
-        tvTitle.text = "车次"
-        tvTitleRight.text = "新建"
+        tvTitle.setText(R.string.carnum)
+        tvTitleRight.setText(R.string.create)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)

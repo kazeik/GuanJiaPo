@@ -25,7 +25,7 @@ class PreferenceActivity : BaseActivity(), OnItemEventListener, View.OnClickList
         }
     }
     override fun initData() {
-        tvTitle.text = "偏好设置"
+        tvTitle.setText(R.string.perfersetting)
         ivBackup.setOnClickListener(this)
 
         val itemArr = resources.getStringArray(R.array.perferencedata)

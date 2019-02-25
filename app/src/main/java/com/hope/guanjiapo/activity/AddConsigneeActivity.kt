@@ -28,7 +28,7 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
 
     private var type: Int = 0
     override fun initData() {
-        tvTitle.text = "添加联系人"
+        tvTitle.setText(R.string.contacts)
         ivBackup.setOnClickListener(this)
         btnAdd.setOnClickListener(this)
 
@@ -41,15 +41,15 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
         val address = etAdd.text.toString()
 
         if (TextUtils.isEmpty(name)) {
-            toast("名称不能为空")
+            toast(R.string.error_name_empty)
             return
         }
         if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空")
+            toast(R.string.error_email_empty)
             return
         }
         if (TextUtils.isEmpty(address)) {
-            toast("地址不能为空")
+            toast(R.string.error_address_empty)
             return
         }
 

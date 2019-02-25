@@ -39,15 +39,15 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         val compane = etCompane.text.toString()
 
         if (TextUtils.isEmpty(mobile)) {
-            toast("手机号不能为空")
+            toast(R.string.error_phone_empty)
             return
         }
         if (TextUtils.isEmpty(pass)) {
-            toast("密码不能为空")
+            toast(R.string.error_password_empty)
             return
         }
         if (TextUtils.isEmpty(compane)) {
-            toast("公司名称不能为空")
+            toast(R.string.error_company_empty)
             return
         }
         HttpNetUtils.getInstance().getManager()?.register(
@@ -58,7 +58,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
-                    toast("注册成功")
+                    toast(R.string.register_ok)
                 }
             })
     }

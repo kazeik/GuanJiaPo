@@ -39,16 +39,16 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
 
     private var level: Int = 2
     override fun initData() {
-        tvTitle.text = "添加员工"
-        tvTitleRight.text = "保存"
+        tvTitle.setText(R.string.addmember)
+        tvTitleRight.setText(R.string.save)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
         mSegmentedGroup.setOnCheckedChangeListener(this)
 
-        val change = intent.getBooleanExtra("change",false)
-        val itemData:StaffModel?  = intent.getSerializableExtra("item") as? StaffModel
-        if(change){
+        val change = intent.getBooleanExtra("change", false)
+        val itemData: StaffModel? = intent.getSerializableExtra("item") as? StaffModel
+        if (change) {
             etAccount.setText(itemData?.userName)
             etPhone.setText(itemData?.mobile)
             etPhone.isEnabled = false
@@ -61,15 +61,15 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         val pass = etPass.text.toString()
 
         if (TextUtils.isEmpty(name)) {
-            toast("名字不能为空")
+            toast(R.string.error_name_empty)
             return
         }
         if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空")
+            toast(R.string.error_email_empty)
             return
         }
         if (TextUtils.isEmpty(pass)) {
-            toast("密码不能为空")
+            toast(R.string.error_password_empty)
             return
         }
 
