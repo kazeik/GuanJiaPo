@@ -8,15 +8,14 @@ import com.hope.guanjiapo.adapter.WaybillAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
-import com.hope.guanjiapo.model.StaffModel
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
@@ -52,6 +51,7 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
 
         val adapter = WaybillAdapter<WaybillModel>()
         rcvData.layoutManager = LinearLayoutManager(this)
+        rcvData.addItemDecoration(RecycleViewDivider(this,LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
         adapter.itemListener = this
 

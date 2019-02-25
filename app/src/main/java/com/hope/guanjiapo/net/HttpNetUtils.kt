@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.utils.ApiInter
 import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,6 +27,8 @@ class HttpNetUtils:Interceptor  {
             val httpurl = request.url().newBuilder()
             .addQueryParameter("clientCategory","3")
             .addQueryParameter("clientVersion","1.0")
+            .addQueryParameter("id","${loginModel?.id}")
+            .addQueryParameter("sessionId","${loginModel?.sessionid}")
                 .build()
         val requestFactory = request.newBuilder().url(httpurl).build()
         return chain.proceed(requestFactory)

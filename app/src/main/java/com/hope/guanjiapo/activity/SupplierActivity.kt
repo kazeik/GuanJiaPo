@@ -1,23 +1,15 @@
 package com.hope.guanjiapo.activity
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.WaybillAdapter
 import com.hope.guanjiapo.base.BaseActivity
-import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.WaybillModel
-import com.hope.guanjiapo.net.HttpNetUtils
-import com.hope.guanjiapo.net.NetworkScheduler
-import com.hope.guanjiapo.net.ProgressSubscriber
-import com.hope.guanjiapo.utils.ApiUtils
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
-import org.jetbrains.anko.toast
 
 class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun onItemEvent(pos: Int) {
