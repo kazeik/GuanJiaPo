@@ -53,4 +53,5 @@ object ApiUtils {
      * 编辑信息
      */
     const val editCompanyInfo: String = "set/editCompanyInfo"
+    const val wlreg: String = "user/wlreg"
 }

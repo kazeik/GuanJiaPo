@@ -4,6 +4,12 @@ import android.text.TextUtils
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
+import com.hope.guanjiapo.base.BaseModel
+import com.hope.guanjiapo.net.HttpNetUtils
+import com.hope.guanjiapo.net.NetworkScheduler
+import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.MD5Utils
 import kotlinx.android.synthetic.main.activity_change_pass.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -48,5 +54,20 @@ class ChangePassActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
+        val old = MD5Utils.MD5Encode(oldPass, "utf-8")
+        val new = MD5Utils.MD5Encode(newPass, "utf-8")
+        HttpNetUtils.getInstance().getManager()?.wlreg(
+            hashMapOf(
+                "id" to ApiUtils.loginModel?.id!!,
+                "mobile" to ApiUtils.loginModel?.mobile!!,
+                "sessionId" to ApiUtils.loginModel?.sessionid!!,
+                "oldUserPwd" to old,
+                "password" to new
+            )
+        )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+            override fun onSuccess(data: BaseModel<String>?) {
+                toast(data?.msg!!)
+            }
+        })
     }
 }

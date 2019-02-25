@@ -64,4 +64,8 @@ interface ApiInter {
 
     @GET(ApiUtils.getCompanyInfo)
     fun getCompanyInfo(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<VehicleModel>>
+
+    @POST(ApiUtils.wlreg)
+    @FormUrlEncoded
+    fun wlreg(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }
