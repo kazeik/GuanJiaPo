@@ -28,7 +28,8 @@ class StaffAdapter<A> : BaseAdapter<A>() {
         val tvAddress = holder.getViewById<TextView>(R.id.tvAddress)
 
         val entity = dataList?.get(position) as StaffModel
-        tvType.text = when (entity.userLevel) {
+        tvType.text = when (entity.userType) {
+            0->"老板"
             1 -> "店长"
             2 -> "员工"
             10 -> "VIP 客户"

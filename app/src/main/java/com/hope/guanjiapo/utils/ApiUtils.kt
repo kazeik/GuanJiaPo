@@ -1,6 +1,8 @@
 package com.hope.guanjiapo.utils
 
 import com.hope.guanjiapo.model.LoginModel
+import com.hope.guanjiapo.model.StaffModel
+import com.hope.guanjiapo.model.VehicleModel
 
 
 /**
@@ -12,6 +14,9 @@ import com.hope.guanjiapo.model.LoginModel
 object ApiUtils {
 
     var loginModel: LoginModel? = null
+
+    var vehicleModel: VehicleModel? = null
+    var allStaffModel: List<StaffModel>? = null
 
     const val baseUrl: String = "http://wl56.mmd520.cn/api/"
 
@@ -39,13 +44,13 @@ object ApiUtils {
     /**
      * 查询当前用户下的运单记录
      */
-    const val wlget:String ="order/wlget"
+    const val wlget: String = "order/wlget"
     /**
      * 获取车次
      */
-    const val getCompanyInfo:String = "set/getCompanyInfo"
+    const val getCompanyInfo: String = "set/getCompanyInfo"
     /**
      * 编辑信息
      */
-    const val editCompanyInfo:String ="set/editCompanyInfo"
+    const val editCompanyInfo: String = "set/editCompanyInfo"
 }

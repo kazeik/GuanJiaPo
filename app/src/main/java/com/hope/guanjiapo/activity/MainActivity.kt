@@ -7,10 +7,19 @@ import android.widget.RadioGroup
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.FtPagerAdapter
 import com.hope.guanjiapo.base.BaseActivity
+import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.fragment.DataFragment
 import com.hope.guanjiapo.fragment.HomeFragment
 import com.hope.guanjiapo.fragment.PerformanceFragment
 import com.hope.guanjiapo.fragment.SettingFragment
+import com.hope.guanjiapo.model.StaffModel
+import com.hope.guanjiapo.model.VehicleModel
+import com.hope.guanjiapo.net.HttpNetUtils
+import com.hope.guanjiapo.net.NetworkScheduler
+import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -29,6 +38,27 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
         viewpager.offscreenPageLimit = 4
         viewpager.setOnPageChangeListener(this)
         gr_bottom.setOnCheckedChangeListener(this)
+
+        HttpNetUtils.getInstance().getManager()?.wladdOrDel(
+            hashMapOf(
+                "id" to loginModel?.id!!, "isAdd" to -1, "mobile" to loginModel?.mobile!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
+                override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
+                    allStaffModel = data?.data
+                }
+            })
+        HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
+            hashMapOf(
+                "id" to loginModel?.id!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
+                override fun onSuccess(data: BaseModel<VehicleModel>?) {
+                    vehicleModel = data?.data
+                }
+            })
     }
 
 

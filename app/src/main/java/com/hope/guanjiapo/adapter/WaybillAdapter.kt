@@ -9,6 +9,7 @@ import com.hope.guanjiapo.base.BaseAdapter
 import com.hope.guanjiapo.base.BaseViewHolder
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.WaybillModel
+import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.utils.TimeUtil
 
 
@@ -51,10 +52,18 @@ class WaybillAdapter<A> : BaseAdapter<A>() {
             6 -> "已开票"
             else -> ""
         }
+        val lele = allStaffModel?.filter { it.mobile == entity?.operatorMobile }
+        var namelelv = ""
+        if (lele?.isNotEmpty()!!) {
+            namelelv = lele.get(0).userName
+            if (lele.get(0).userType == 0)
+                namelelv = "老板"
+        }
 
-
-        tvItem1.text = "单号:${entity?.id} ?  时间:${TimeUtil.getDayByType(entity?.updateDate!!, TimeUtil.DATE_YMD_HMS)}"
-        tvItem2.text = "${entity.carname} $orderstatus 件数:${entity.productcount} $paytype  ${entity.costFee}"
-        tvItem3.text = "代收款:?  发货人:${entity.sendername}=> ${entity.senderaddress} ${entity.receivername}"
+        tvItem1.text =
+            "单号:${entity?.id} $namelelv 时间:${TimeUtil.getDayByType(entity?.updateDate!!, TimeUtil.DATE_YMD_HMS)}"
+        tvItem2.text = "${entity.carname} $orderstatus 件数:${entity.productcount} $paytype  ${entity.shipfee}"
+        tvItem3.text =
+            "代收款:${entity.agentmoney}  发货人:${entity.sendername}=> ${entity.senderaddress} ${entity.receivername}"
     }
 }

@@ -14,6 +14,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_staff.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -77,6 +78,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
+        adapter.setDataEntityList(allStaffModel!!)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
