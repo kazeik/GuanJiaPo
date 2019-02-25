@@ -21,6 +21,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.VehicleActivity">
+        </activity>
         <activity android:name=".activity.WaybillActivity">
         </activity>
         <activity android:name=".activity.AddStaffActivity">
@@ -47,6 +49,7 @@
         <activity android:name=".activity.AddDestinationActivity"/>
         <activity android:name=".activity.ShipmentsActivity"/>
         <activity android:name=".activity.WaybillControlActivity"/>
+        <activity android:name=".activity.SupplierActivity"/>
     </application>
 
 </manifest>

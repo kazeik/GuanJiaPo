@@ -40,4 +40,12 @@ object ApiUtils {
      * 查询当前用户下的运单记录
      */
     const val wlget:String ="order/wlget"
+    /**
+     * 获取车次
+     */
+    const val getCompanyInfo:String = "set/getCompanyInfo"
+    /**
+     * 编辑信息
+     */
+    const val editCompanyInfo:String ="set/editCompanyInfo"
 }

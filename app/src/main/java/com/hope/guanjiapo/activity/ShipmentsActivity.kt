@@ -62,7 +62,7 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         adapter.itemListener = this
 
         HttpNetUtils.getInstance().getManager()?.getcompanyPointList(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)
+            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {

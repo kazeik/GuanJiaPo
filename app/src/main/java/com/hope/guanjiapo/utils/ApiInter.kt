@@ -57,4 +57,11 @@ interface ApiInter {
     @POST(ApiUtils.wlget)
     @FormUrlEncoded
     fun wlget(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<WaybillModel>>>
+
+    @POST(ApiUtils.editCompanyInfo)
+    @FormUrlEncoded
+    fun editCompanyInfo(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @GET(ApiUtils.getCompanyInfo)
+    fun getCompanyInfo(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<VehicleModel>>
 }

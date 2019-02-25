@@ -5,10 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
-import com.hope.guanjiapo.activity.ConsigneeActivity
-import com.hope.guanjiapo.activity.ConsignerActivity
-import com.hope.guanjiapo.activity.DestinationActivity
-import com.hope.guanjiapo.activity.ShipmentsActivity
+import com.hope.guanjiapo.activity.*
 import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
@@ -29,6 +26,8 @@ class DataFragment : BaseFragment(), OnItemEventListener {
             1 -> startActivity<ConsignerActivity>()
             2 -> startActivity<DestinationActivity>()
             3 -> startActivity<ShipmentsActivity>()
+            4 -> startActivity<SupplierActivity>()
+            5 -> startActivity<VehicleActivity>()
         }
     }
 
@@ -42,7 +41,7 @@ class DataFragment : BaseFragment(), OnItemEventListener {
 
         val itemArr = resources.getStringArray(R.array.basedata)
         val allItem = arrayListOf<AdapterItemModel>()
-        val iconArr = arrayOf<Int>(
+        val iconArr = arrayOf(
             R.drawable.icon5,
             R.drawable.icon6,
             R.drawable.icon7,
