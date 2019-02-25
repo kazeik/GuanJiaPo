@@ -21,6 +21,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.view.JFDialog
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
@@ -116,6 +117,8 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             item.imgs = R.mipmap.ic_launcher
             allItem.add(item)
         }
+
+        allItem.get(0).rightItem = vehicleModel?.companyname
 
         rcvData.layoutManager = LinearLayoutManager(activity)
         rcvData.adapter = adapter
