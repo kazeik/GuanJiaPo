@@ -17,6 +17,7 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
 class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
@@ -29,7 +30,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
-                0 -> startActivity<AddDestinationActivity>("change" to true, "id" to allitem!![pos].id)
+                0 -> startActivity<AddDestinationActivity>("change" to true, "data" to allitem[pos])
                 1 -> delete()
             }
         }
@@ -48,7 +49,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         return R.layout.activity_search_recycler
     }
 
-    private var allitem: List<DestinationModel>? = null
+    private val allitem: ArrayList<DestinationModel> by lazy { arrayListOf<DestinationModel>() }
     override fun initData() {
         tvTitle.setText(R.string.mddlist)
         tvTitleRight.setText(R.string.create)
@@ -66,7 +67,8 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {
-                    allitem = data?.data!!
+                    allitem.clear()
+                    allitem.addAll(data?.data!!)
                     adapter.setDataEntityList(data.data!!)
                 }
             })
@@ -83,6 +85,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
+                toast(data?.msg!!)
             }
         })
     }

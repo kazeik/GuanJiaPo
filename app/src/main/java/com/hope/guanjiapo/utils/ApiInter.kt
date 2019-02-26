@@ -72,4 +72,8 @@ interface ApiInter {
     @POST(ApiUtils.wllogout)
     @FormUrlEncoded
     fun wllogout(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @POST(ApiUtils.editcompanyPoint)
+    @FormUrlEncoded
+    fun editcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }

@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class DestinationModel(
     @SerializedName("bossId")
@@ -13,4 +14,4 @@ data class DestinationModel(
     val receivepoint: String,
     @SerializedName("type")
     val type: Int
-)
+):Serializable

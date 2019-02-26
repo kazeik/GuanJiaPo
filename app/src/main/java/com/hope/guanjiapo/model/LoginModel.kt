@@ -8,7 +8,7 @@ data class LoginModel(
     @SerializedName("bossMobile")
     val bossMobile: String,
     @SerializedName("buyYear")
-    val buyYear: Int,
+    val buyYear: String,
     @SerializedName("createDate")
     val createDate: Long,
     @SerializedName("id")
@@ -22,7 +22,7 @@ data class LoginModel(
     @SerializedName("payTime")
     val payTime: Long,
     @SerializedName("sort")
-    val sort: Int,
+    val sort: String,
     @SerializedName("status")
     val status: Boolean,
     @SerializedName("updateDate")
@@ -36,5 +36,5 @@ data class LoginModel(
     @SerializedName("userType")
     val userType: Int,
     @SerializedName("sessionid")
-    val sessionid: Long
+    val sessionid: String
 )
