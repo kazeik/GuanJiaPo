@@ -55,4 +55,5 @@ object ApiUtils {
     const val editCompanyInfo: String = "set/editCompanyInfo"
     const val wlreg: String = "user/wlreg"
     const val wllogout: String = "user/wllogout"
+    const val connectordelete: String = "connector/delete"
 }

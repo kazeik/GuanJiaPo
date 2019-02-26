@@ -1,15 +1,18 @@
 package com.hope.guanjiapo.activity
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
+import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import kotlinx.android.synthetic.main.activity_add_consignee.*
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -26,13 +29,24 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_add_consignee
     }
 
-    private var type: Int = 0
+    private var type: Boolean = false
+    private var consigneeModel: ConsigneeModel?= null
+    @SuppressLint("SetTextI18n")
     override fun initData() {
-        tvTitle.setText(R.string.contacts)
+
         ivBackup.setOnClickListener(this)
         btnAdd.setOnClickListener(this)
 
-        type = intent.getIntExtra("type", 0)
+        type = intent.getBooleanExtra("type", false)
+        consigneeModel = intent.getSerializableExtra("data") as? ConsigneeModel
+        tvTitle.setText(if(type) R.string.changecontacts else R.string.contacts)
+        if(type){
+            tvId.text = "id：${consigneeModel?.id}"
+            etName.setText(consigneeModel?.name)
+            etPhone.setText(consigneeModel?.mobile)
+            etPhone.isEnabled = false
+            etAdd.setText(consigneeModel?.addr)
+        }
     }
 
     private fun addcontent() {

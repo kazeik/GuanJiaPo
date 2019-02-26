@@ -1,11 +1,13 @@
 package com.hope.guanjiapo.activity
 
+import android.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.ConsigneeAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
+import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -15,13 +17,46 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
-class ConsignerActivity : BaseActivity(), View.OnClickListener {
+class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
+    override fun onItemEvent(pos: Int) {
+        showListDialog(pos)
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> startActivity<AddConsigneeActivity>("type" to 1)
+            R.id.tvTitleRight -> startActivity<AddConsigneeActivity>()
         }
+    }
+
+    private fun showListDialog(pos: Int) {
+        val items = resources.getStringArray(R.array.alertmenu)
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setItems(items) { _, which ->
+            when (which) {
+                0 -> startActivity<AddConsigneeActivity>("type" to true, "data" to allitem[pos])
+                1 -> delete(allitem[pos])
+            }
+        }
+        listDialog.show()
+    }
+
+    private fun delete(model: ConsigneeModel) {
+        HttpNetUtils.getInstance().getManager()?.connectordelete(
+            hashMapOf(
+                "bossid" to loginModel?.bossId!!,
+                "id" to loginModel?.id!!,
+                "customerid" to model.id,
+                "mobile" to loginModel?.mobile!!
+            )
+        )
+            ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    toast(data?.msg!!)
+                }
+            })
     }
 
     private val adapter: ConsigneeAdapter<ConsigneeModel> by lazy { ConsigneeAdapter<ConsigneeModel>() }
@@ -29,6 +64,7 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_search_recycler
     }
 
+    private val allitem: ArrayList<ConsigneeModel> by lazy { arrayListOf<ConsigneeModel>() }
     override fun initData() {
         tvTitle.setText(R.string.fhrlist)
         tvTitleRight.setText(R.string.create)
@@ -39,13 +75,16 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener {
         rcvDataList.layoutManager = LinearLayoutManager(this)
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
+        adapter.itemListener = this
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<ConsigneeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<ConsigneeModel>>?) {
-                    adapter.setDataEntityList(data?.data!!)
+                    allitem.clear()
+                    allitem.addAll(data?.data!!)
+                    adapter.setDataEntityList(data.data!!)
                 }
             })
     }

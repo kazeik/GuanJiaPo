@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ConsigneeModel(
     @SerializedName("addr")
@@ -8,7 +9,7 @@ data class ConsigneeModel(
     @SerializedName("bossId")
     val bossId: String,
     @SerializedName("id")
-    val id: Int,
+    val id: String,
     @SerializedName("mobile")
     val mobile: String,
     @SerializedName("name")
@@ -25,4 +26,4 @@ data class ConsigneeModel(
     val status: Int,
     @SerializedName("type")
     val type: Int
-)
+):Serializable

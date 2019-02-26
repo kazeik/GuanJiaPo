@@ -1,11 +1,13 @@
 package com.hope.guanjiapo.activity
 
+import android.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.ConsigneeAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
+import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -16,7 +18,23 @@ import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 
-class ConsigneeActivity : BaseActivity(), View.OnClickListener {
+class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
+    override fun onItemEvent(pos: Int) {
+        showListDialog(pos)
+    }
+
+    private fun showListDialog(pos: Int) {
+        val items = resources.getStringArray(R.array.alertmenu)
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setItems(items) { _, which ->
+            when (which) {
+                0 -> startActivity<AddConsigneeActivity>("type" to true, "data" to allitem[pos])
+                1 -> delete(allitem[pos])
+            }
+        }
+        listDialog.show()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
@@ -24,11 +42,16 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    private fun delete(model: ConsigneeModel) {
+
+    }
+
     private val adapter: ConsigneeAdapter<ConsigneeModel> by lazy { ConsigneeAdapter<ConsigneeModel>() }
     override fun getLayoutView(): Int {
         return R.layout.activity_search_recycler
     }
 
+    private val allitem: ArrayList<ConsigneeModel> by lazy { arrayListOf<ConsigneeModel>() }
     override fun initData() {
         tvTitle.setText(R.string.shrlist)
         tvTitleRight.setText(R.string.create)
@@ -39,13 +62,16 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener {
         rcvDataList.layoutManager = LinearLayoutManager(this)
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
+        adapter.itemListener=this
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<ConsigneeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<ConsigneeModel>>?) {
-                    adapter.setDataEntityList(data?.data!!)
+                    allitem.clear()
+                    allitem.addAll(data?.data!!)
+                    adapter.setDataEntityList(data.data!!)
                 }
             })
     }

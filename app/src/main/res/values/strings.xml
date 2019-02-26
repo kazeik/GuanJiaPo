@@ -28,6 +28,7 @@
     <string name="install">添加</string>
     <string name="editcompanyname">编辑公司名称</string>
     <string name="contacts">添加联系人</string>
+    <string name="changecontacts">修改联系人</string>
     <string name="changeadd">修改地区</string>
     <string name="addaddress">添加地区</string>
     <string name="perference">清单设置</string>
