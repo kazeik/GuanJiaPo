@@ -41,7 +41,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> {}
-            R.id.tvFwhy->{}
+            R.id.tvFwhy->startActivity<PremiumActivity>()
         }
     }
 

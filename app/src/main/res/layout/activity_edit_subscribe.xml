@@ -498,13 +498,21 @@
 
                 <EditText
                         android:textSize="@dimen/sp_14"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/dp_120"
                         android:id="@+id/etHwsl"
                         android:hint="请输入数据"
                         android:singleLine="true"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:layout_gravity="center_vertical"
                         android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:text="件"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -524,13 +532,21 @@
 
                 <EditText
                         android:textSize="@dimen/sp_14"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/dp_120"
                         android:id="@+id/etZl"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入重量"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:text="公斤"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -550,13 +566,21 @@
 
                 <EditText
                         android:textSize="@dimen/sp_14"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/dp_120"
                         android:id="@+id/etTj"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入体积"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:text="方"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
