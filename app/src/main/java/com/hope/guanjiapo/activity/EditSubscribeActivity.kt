@@ -13,23 +13,26 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.view.RecycleViewDivider
+import kotlinx.android.synthetic.main.activity_edit_subscribe.*
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 
-class EditSubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
+class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutView(): Int {
         return R.layout.activity_edit_subscribe
     }
 
-    private val adapter: SubscribeAdapter<SubscribeModel> by lazy { SubscribeAdapter<SubscribeModel>() }
-    private val allitem :ArrayList<SubscribeModel> by lazy { arrayListOf<SubscribeModel>() }
+    private var subscribeModel:SubscribeModel?= null
     override fun initData() {
+        subscribeModel = intent.getSerializableExtra("data") as SubscribeModel
+
         tvTitle.setText(R.string.subscribe)
         tvTitleRight.setText(R.string.tozs)
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+        tvFwhy.setOnClickListener(this)
 
     }
 
@@ -38,11 +41,9 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventL
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> {}
+            R.id.tvFwhy->{}
         }
     }
 
-    override fun onItemEvent(pos: Int) {
-        startActivity<EditSubscribeActivity>("data" to allitem[pos])
-    }
 
 }

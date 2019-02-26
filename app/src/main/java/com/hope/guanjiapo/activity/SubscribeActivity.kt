@@ -22,6 +22,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         return R.layout.activity_subscribe
     }
 
+    private val allitem: ArrayList<SubscribeModel> by lazy { arrayListOf<SubscribeModel>() }
     private val adapter: SubscribeAdapter<SubscribeModel> by lazy { SubscribeAdapter<SubscribeModel>() }
     override fun initData() {
         tvTitle.setText(R.string.subscribe)
@@ -49,7 +50,9 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<SubscribeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<SubscribeModel>>?) {
-                    adapter.setDataEntityList(data?.data!!)
+                    allitem.clear()
+                    allitem.addAll(data?.data!!)
+                    adapter.setDataEntityList(allitem)
                 }
             })
     }
@@ -62,6 +65,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     }
 
     override fun onItemEvent(pos: Int) {
+        startActivity<EditSubscribeActivity>("data" to allitem[pos])
     }
 
 }

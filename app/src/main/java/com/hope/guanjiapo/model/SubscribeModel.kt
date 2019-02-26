@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SubscribeModel(
     @SerializedName("agentmoney")
@@ -39,4 +40,4 @@ data class SubscribeModel(
     val shipfeestate: Int,
     @SerializedName("status")
     val status: Int
-)
+):Serializable

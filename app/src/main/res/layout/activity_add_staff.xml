@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
     <include layout="@layout/view_title"/>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
             android:orientation="horizontal">
-        <TextView android:layout_width="@dimen/dp_80"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center_vertical"
-                  android:text="名字"
-                  android:layout_margin="@dimen/dp_10"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="名字"
+                android:layout_margin="@dimen/dp_10"/>
+
         <EditText
                 android:id="@+id/etAccount"
                 android:hint="员工名字"
@@ -25,17 +30,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
 
             android:orientation="horizontal">
-        <TextView android:layout_width="@dimen/dp_80"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center_vertical"
-                  android:text="登录帐号"
-                  android:layout_margin="@dimen/dp_10"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="登录帐号"
+                android:layout_margin="@dimen/dp_10"/>
+
         <EditText
                 android:id="@+id/etPhone"
                 android:hint="登录手机号"
@@ -46,16 +55,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
             android:orientation="horizontal">
-        <TextView android:layout_width="@dimen/dp_80"
-                  android:layout_height="wrap_content"
-                  android:text="新登录密码"
-                  android:layout_gravity="center_vertical"
-                  android:layout_margin="@dimen/dp_10"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="wrap_content"
+                android:text="新登录密码"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/dp_10"/>
+
         <EditText
                 android:id="@+id/etPass"
                 android:hint="登录密码"
@@ -72,11 +85,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
             android:orientation="horizontal">
-        <TextView android:layout_width="@dimen/dp_80"
-                  android:layout_height="wrap_content"
-                  android:text="权限类型"
-                  android:layout_gravity="center_vertical"
-                  android:layout_margin="@dimen/dp_10"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="wrap_content"
+                android:text="权限类型"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/dp_10"/>
+
         <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/mSegmentedGroup"
                 android:layout_width="match_parent"
@@ -106,6 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="员工"/>
+
             <RadioButton
                     android:id="@+id/radioButtonThree"
                     style="@style/RadioButton"
