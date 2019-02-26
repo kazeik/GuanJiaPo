@@ -21,6 +21,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.SubscribeActivity">
+        </activity>
         <activity android:name=".activity.PayActivity">
         </activity>
         <activity android:name=".activity.VehicleActivity">
@@ -55,6 +57,8 @@
         <activity android:name=".activity.PreferenceActivity"/>
         <activity android:name=".activity.WaybillPreferenceActivity"/>
         <activity android:name=".activity.CollectPreferenceActivity"/>
+        <activity android:name=".activity.NewlyActivity"/>
+        <activity android:name=".activity.EditSubscribeActivity"/>
     </application>
 
 </manifest>

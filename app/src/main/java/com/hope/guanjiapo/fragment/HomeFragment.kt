@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
+import com.hope.guanjiapo.activity.SubscribeActivity
 import com.hope.guanjiapo.activity.WaybillActivity
 import com.hope.guanjiapo.activity.WaybillControlActivity
 import com.hope.guanjiapo.adapter.DataAdapter
@@ -24,6 +25,7 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         when (pos) {
             1 -> startActivity<WaybillActivity>()
             2 -> startActivity<WaybillControlActivity>()
+            3 -> startActivity<SubscribeActivity>()
         }
     }
 

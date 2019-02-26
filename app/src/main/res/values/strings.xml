@@ -14,11 +14,15 @@
     <string name="tab_four">设置</string>
     <string name="create">新建</string>
     <string name="shrlist">收货人列表</string>
+    <string name="subscribe">预约运单</string>
+    <string name="newly">新开运单</string>
     <string name="fhrlist">发货人列表</string>
     <string name="fhdlist">发货点列表</string>
     <string name="mddlist">目的地列表</string>
     <string name="requestper">请同意权限</string>
     <string name="gys">供应商</string>
+    <string name="search">搜索</string>
+    <string name="tozs">转正式</string>
     <string name="carnum">车次</string>
     <string name="more">更多</string>
     <string name="histroy">运单记录</string>

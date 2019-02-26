@@ -76,7 +76,12 @@ interface ApiInter {
     @POST(ApiUtils.editcompanyPoint)
     @FormUrlEncoded
     fun editcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
     @POST(ApiUtils.connectordelete)
     @FormUrlEncoded
     fun connectordelete(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @POST(ApiUtils.wxsearch)
+    @FormUrlEncoded
+    fun wxsearch(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<SubscribeModel>>>
 }
