@@ -50,6 +50,13 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 startActivity(intent)
             }
             5 -> startActivity<PayActivity>()
+            6 -> //startActivity<ShareActivity>()
+            {
+                val textIntent = Intent(Intent.ACTION_SEND)
+                textIntent.type = "text/plain"
+                textIntent.putExtra(Intent.EXTRA_TEXT, "http://itunes.apple.com/cn/app/id1089078143?mt=8")
+                startActivity(Intent.createChooser(textIntent, "分享到"))
+            }
             7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
                 getString(R.string.sure)
             ).setDialogSureListener {
