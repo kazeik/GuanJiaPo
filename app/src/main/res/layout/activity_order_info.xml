@@ -616,13 +616,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:checked="true"
                             android:text="现付"/>
 
                     <RadioButton
                             android:id="@+id/rbYj"
                             style="@style/RadioButton"
                             android:layout_width="0dp"
-                            android:checked="true"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="月结"/>

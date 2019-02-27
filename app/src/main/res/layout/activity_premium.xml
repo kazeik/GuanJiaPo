@@ -67,7 +67,7 @@
         <EditText
                 android:textSize="@dimen/sp_14"
                 android:layout_width="@dimen/dp_120"
-                android:id="@+id/etFhr"
+                android:id="@+id/etHdfs"
                 android:layout_gravity="center_vertical"
                 android:hint="请输入回单份数"
                 android:singleLine="true"
