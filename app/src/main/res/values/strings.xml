@@ -139,6 +139,15 @@
         <item>缠绕膜</item>
         <item>其它包装</item>
     </string-array>
+    <string-array name="orderstatus">
+        <item>待装车</item>
+        <item>运输中</item>
+        <item>已到站</item>
+        <item>已提货</item>
+        <item>已收款</item>
+        <item>已打款</item>
+        <item>已开票</item>
+    </string-array>
 
     <string name="prompt_email">请输入手机号</string>
     <string name="prompt_password">请输入密码</string>

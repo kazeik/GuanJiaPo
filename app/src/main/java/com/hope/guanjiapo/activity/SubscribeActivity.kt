@@ -1,5 +1,6 @@
 package com.hope.guanjiapo.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
@@ -24,6 +25,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
 
     private val allitem: ArrayList<SubscribeModel> by lazy { arrayListOf<SubscribeModel>() }
     private val adapter: SubscribeAdapter<SubscribeModel> by lazy { SubscribeAdapter<SubscribeModel>() }
+
     override fun initData() {
         tvTitle.setText(R.string.subscribe)
         tvTitleRight.setText(R.string.search)
@@ -67,5 +69,4 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     override fun onItemEvent(pos: Int) {
         startActivity<EditSubscribeActivity>("data" to allitem[pos])
     }
-
 }

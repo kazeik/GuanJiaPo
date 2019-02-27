@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
@@ -8,6 +9,7 @@ import com.hope.guanjiapo.adapter.DestinationAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.DestinationModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -17,11 +19,19 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
-class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
-    override fun onItemEvent(pos: Int) {
+class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,OnItemLongEventListener {
+    override fun onItemLongEvent(pos: Int) {
         showListDialog(pos)
+    }
+
+    override fun onItemEvent(pos: Int) {
+        val intt = Intent()
+        intt.putExtra("data", allitem?.get(pos))
+        setResult(195, intt)
+        finish()
     }
 
     private fun showListDialog(pos: Int) {
@@ -83,6 +93,7 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
+                toast(data?.msg!!)
             }
         })
     }

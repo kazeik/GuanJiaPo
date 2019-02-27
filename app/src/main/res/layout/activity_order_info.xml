@@ -644,32 +644,45 @@
                     android:textSize="@dimen/sp_15"
                     android:layout_height="wrap_content"/>
 
-            <LinearLayout
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivFhd"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_mdd"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="发货点"
-                        android:textSize="@dimen/sp_14"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
-                        android:layout_gravity="center_vertical"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
                         android:id="@+id/tvFhd"
-                        android:text="请选择发货点"
-                        android:drawableRight="@drawable/arrow_right"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:padding="@dimen/dp_5"
-                        android:layout_width="match_parent"
+                        android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
                         android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
 
+                <EditText
+                        android:textSize="@dimen/sp_14"
+                        android:layout_width="match_parent"
+                        android:id="@+id/etFhd"
+                        android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivFhd"
+                        android:layout_toRightOf="@id/tvFhd"
+                        android:hint="请输入发货点"
+                        android:layout_gravity="center_vertical"
+                        android:autoLink="phone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
