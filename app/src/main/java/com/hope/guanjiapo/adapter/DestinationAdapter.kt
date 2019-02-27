@@ -6,6 +6,7 @@ import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseAdapter
 import com.hope.guanjiapo.base.BaseViewHolder
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.model.DestinationModel
 
@@ -18,6 +19,7 @@ import com.hope.guanjiapo.model.DestinationModel
  */
 class DestinationAdapter<A> : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
+    internal var itemLongListener: OnItemLongEventListener? = null
     override fun getLayoutView(): Int {
         return R.layout.adadpter_consignee
     }
@@ -35,9 +37,14 @@ class DestinationAdapter<A> : BaseAdapter<A>() {
         tvAddress.text = entity.receivepoint
 
         consigneeitem.setOnLongClickListener {
+            if (null != itemLongListener)
+                itemLongListener?.onItemLongEvent(position)
+            return@setOnLongClickListener true
+        }
+
+        consigneeitem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
-            return@setOnLongClickListener true
         }
     }
 }

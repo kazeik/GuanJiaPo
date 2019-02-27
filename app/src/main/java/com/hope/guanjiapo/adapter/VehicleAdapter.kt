@@ -6,6 +6,7 @@ import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseAdapter
 import com.hope.guanjiapo.base.BaseViewHolder
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 
 
 /**
@@ -16,6 +17,7 @@ import com.hope.guanjiapo.iter.OnItemEventListener
  */
 class VehicleAdapter<A> : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
+    internal var itemLongListener: OnItemLongEventListener? = null
     override fun getLayoutView(): Int {
         return R.layout.adapter_string
     }
@@ -31,6 +33,12 @@ class VehicleAdapter<A> : BaseAdapter<A>() {
         llitem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
+        }
+
+        llitem.setOnLongClickListener {
+            if (null != itemLongListener)
+                itemLongListener?.onItemLongEvent(position)
+            return@setOnLongClickListener true
         }
     }
 }

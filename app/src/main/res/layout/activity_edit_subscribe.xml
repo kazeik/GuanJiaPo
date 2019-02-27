@@ -19,7 +19,7 @@
 
 
             <Button
-                    android:id="@+id/btnRegister"
+                    android:id="@+id/btnDelete"
                     android:layout_width="match_parent"
                     android:background="@color/red"
                     android:textColor="@color/white"

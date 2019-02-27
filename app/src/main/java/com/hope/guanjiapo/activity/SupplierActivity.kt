@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
@@ -10,6 +11,7 @@ import com.hope.guanjiapo.adapter.VehicleAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
@@ -19,10 +21,17 @@ import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
 
-class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
-    override fun onItemEvent(pos: Int) {
+class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
+    override fun onItemLongEvent(pos: Int) {
         val itemlist = vehicleModel?.servicenamelist?.split(",")
         showInputDialog(itemlist?.get(pos)!!)
+    }
+
+    override fun onItemEvent(pos: Int) {
+        val intt = Intent()
+        intt.putExtra("data", allitem.get(pos))
+        setResult(197, intt)
+        finish()
     }
 
     override fun onClick(v: View?) {
@@ -63,13 +72,16 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
                         val itemlist = "${vehicleModel?.servicenamelist},$car".split(",")
-                        adapter.setDataEntityList(itemlist)
+                        allitem.clear()
+                        allitem.addAll(itemlist)
+                        adapter.setDataEntityList(allitem)
                     }
                 })
         }.show()
     }
 
     private val adapter: VehicleAdapter<String> by lazy { VehicleAdapter<String>() }
+    private val allitem: ArrayList<String> by lazy { arrayListOf<String>() }
     override fun getLayoutView(): Int {
         return R.layout.activity_waybill
     }
@@ -84,8 +96,11 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.adapter = adapter
         adapter.itemListener = this
+        adapter.itemLongListener = this
 
-        adapter.setDataEntityList(vehicleModel?.servicenamelist?.split(",")!!)
+        allitem.clear()
+        allitem.addAll(vehicleModel?.servicenamelist?.split(",")!!)
+        adapter.setDataEntityList(allitem)
 
     }
 }

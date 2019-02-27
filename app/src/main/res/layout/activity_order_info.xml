@@ -75,16 +75,26 @@
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivMdd"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_mdd"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="目的地"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvMdd"
+                        android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
                         android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
@@ -94,25 +104,37 @@
                         android:layout_width="match_parent"
                         android:id="@+id/etMdd"
                         android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivMdd"
+                        android:layout_toRightOf="@id/tvMdd"
                         android:hint="请输入目的地"
                         android:layout_gravity="center_vertical"
                         android:autoLink="phone"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
 
-            <LinearLayout
+            </RelativeLayout>
+
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivShr"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_chooice"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
 
                 <TextView
                         android:text="收货人"
                         android:textSize="@dimen/sp_14"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvShr"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
@@ -121,12 +143,15 @@
                         android:layout_width="match_parent"
                         android:id="@+id/etShr"
                         android:hint="请输入收货人"
+                        android:layout_toLeftOf="@id/ivShr"
+                        android:layout_toRightOf="@id/tvShr"
                         android:layout_gravity="center_vertical"
                         android:autoLink="phone"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </RelativeLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -257,6 +282,7 @@
                         android:layout_gravity="center_vertical"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="件"
                         android:drawablePadding="@dimen/dp_10"
@@ -291,6 +317,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="公斤"
                         android:drawablePadding="@dimen/dp_10"
@@ -325,6 +352,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="方"
                         android:drawablePadding="@dimen/dp_10"
@@ -367,6 +395,7 @@
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -391,6 +420,7 @@
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -440,6 +470,7 @@
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -464,6 +495,7 @@
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -488,15 +520,25 @@
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
-            <LinearLayout
+
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivGys"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_chooice"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="供应商"
                         android:textSize="@dimen/sp_14"
+                        android:id="@+id/tvGys"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
@@ -506,12 +548,15 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etGys"
+                        android:layout_toLeftOf="@id/ivGys"
+                        android:layout_toRightOf="@id/tvGys"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入供应商"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </RelativeLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -536,6 +581,7 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -590,6 +636,7 @@
                             android:text="提付"/>
                 </info.hoang8f.android.segmented.SegmentedGroup>
             </LinearLayout>
+
             <TextView
                     android:text="发货信息"
                     android:layout_margin="@dimen/dp_10"
@@ -622,16 +669,27 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
-            <LinearLayout
+
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivLxr"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_chooice"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
                 <TextView
                         android:text="发货人"
+                        android:id="@+id/tvFhr"
                         android:textSize="@dimen/sp_14"
                         android:layout_margin="@dimen/dp_10"
+                        android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
@@ -640,12 +698,17 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etFhr"
+                        android:layout_toRightOf="@id/tvFhr"
+                        android:layout_toLeftOf="@id/ivLxr"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入发货人"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
-            </LinearLayout>
+
+
+            </RelativeLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

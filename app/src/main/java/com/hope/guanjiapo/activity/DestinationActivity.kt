@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
@@ -8,6 +9,7 @@ import com.hope.guanjiapo.adapter.DestinationAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.DestinationModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -20,9 +22,16 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
-class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
-    override fun onItemEvent(pos: Int) {
+class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventListener, OnItemLongEventListener {
+    override fun onItemLongEvent(pos: Int) {
         showListDialog(pos)
+    }
+
+    override fun onItemEvent(pos: Int) {
+        val intt = Intent()
+        intt.putExtra("data", allitem.get(pos))
+        setResult(199, intt)
+        finish()
     }
 
     private fun showListDialog(pos: Int) {
@@ -61,6 +70,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
         adapter.itemListener = this
+        adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getcompanyPointList(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)

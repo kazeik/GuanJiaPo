@@ -131,6 +131,15 @@
         <item>汇总打印</item>
     </string-array>
 
+    <string-array name="bzdw">
+        <item>纸箱</item>
+        <item>木箱</item>
+        <item>编织袋</item>
+        <item>托盘</item>
+        <item>缠绕膜</item>
+        <item>其它包装</item>
+    </string-array>
+
     <string name="prompt_email">请输入手机号</string>
     <string name="prompt_password">请输入密码</string>
     <string name="prompt_verfiycode">请输入验证码</string>

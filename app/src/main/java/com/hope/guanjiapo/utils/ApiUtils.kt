@@ -57,4 +57,6 @@ object ApiUtils {
     const val wllogout: String = "user/wllogout"
     const val connectordelete: String = "connector/delete"
     const val wxsearch: String = "orderwxpre/wxsearch"
+    const val wxdelete: String = "orderwxpre/wxdelete"
+    const val wladd: String = "order/wladd"
 }
