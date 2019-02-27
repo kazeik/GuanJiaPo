@@ -8,6 +8,7 @@ import com.hope.guanjiapo.MainApplication
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.utils.TimeUtil
 import com.hope.guanjiapo.view.LoadingView
+import com.umeng.analytics.MobclickAgent
 
 /**
  * @author hope.chen, QQ:77132995, email:kazeik@163.com
@@ -55,7 +56,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-//        MobclickAgent.onResume(this)
+        MobclickAgent.onResume(this)
         check()
     }
 
@@ -70,7 +71,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-//        MobclickAgent.onPause(this)
+        MobclickAgent.onPause(this)
     }
 
     fun showDialog(msg: String? = "加载中", cancel: Boolean = false) {

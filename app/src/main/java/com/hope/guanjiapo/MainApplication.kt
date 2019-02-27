@@ -3,6 +3,7 @@ package com.hope.guanjiapo
 import android.app.Activity
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
+import com.umeng.commonsdk.UMConfigure
 import java.util.*
 
 
@@ -19,7 +20,7 @@ class MainApplication : MultiDexApplication() {
         MultiDex.install(this)
         activityList = LinkedList()
 
-//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
     }
 
 

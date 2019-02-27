@@ -62,5 +62,8 @@ dependencies {
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     //控制条
     implementation 'info.hoang8f:android-segmented:1.0.6'
+    //友盟
+    implementation 'com.umeng.sdk:common:1.5.3'
+    implementation 'com.umeng.sdk:analytics:7.5.3'
 
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.umeng.analytics.MobclickAgent
 
 abstract class BaseFragment : Fragment() {
     protected var activity: BaseActivity? = null
@@ -27,12 +28,12 @@ abstract class BaseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        MobclickAgent.onResume(activity)
+        MobclickAgent.onResume(activity)
     }
 
     override fun onPause() {
         super.onPause()
-//        MobclickAgent.onPause(activity)
+        MobclickAgent.onPause(activity)
     }
 
     abstract fun initView(): Int

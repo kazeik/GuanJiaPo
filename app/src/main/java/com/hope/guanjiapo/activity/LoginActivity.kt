@@ -20,6 +20,7 @@ import com.hope.guanjiapo.utils.MD5Utils
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.view.JFDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.umeng.commonsdk.UMConfigure
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -65,6 +66,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        UMConfigure.init(applicationContext, "5c76492cf1f556c43d000967", "xfAndroid", UMConfigure.DEVICE_TYPE_PHONE, "")
+        UMConfigure.setLogEnabled(false)
         tvCallPhone.setOnClickListener(this)
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)

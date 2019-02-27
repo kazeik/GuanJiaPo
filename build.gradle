@@ -21,7 +21,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 
