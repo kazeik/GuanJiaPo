@@ -60,6 +60,7 @@
         <activity android:name=".activity.NewlyActivity"/>
         <activity android:name=".activity.EditSubscribeActivity"/>
         <activity android:name=".activity.PremiumActivity"/>
+        <activity android:name=".activity.OrderInfoActivity"/>
     </application>
 
 </manifest>

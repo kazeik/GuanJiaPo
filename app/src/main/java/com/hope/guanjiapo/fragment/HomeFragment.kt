@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.hope.guanjiapo.R
+import com.hope.guanjiapo.activity.OrderInfoActivity
 import com.hope.guanjiapo.activity.SubscribeActivity
 import com.hope.guanjiapo.activity.WaybillActivity
 import com.hope.guanjiapo.activity.WaybillControlActivity
@@ -23,6 +24,7 @@ import org.jetbrains.anko.support.v4.startActivity
 class HomeFragment : BaseFragment(), OnItemEventListener {
     override fun onItemEvent(pos: Int) {
         when (pos) {
+            0->startActivity<OrderInfoActivity>()
             1 -> startActivity<WaybillActivity>()
             2 -> startActivity<WaybillControlActivity>()
             3 -> startActivity<SubscribeActivity>()
