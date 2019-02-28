@@ -57,6 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         MobclickAgent.onResume(this)
+        MobclickAgent.onPageStart(javaClass.name)
         check()
     }
 
@@ -72,6 +73,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         MobclickAgent.onPause(this)
+        MobclickAgent.onPageEnd(javaClass.name)
     }
 
     fun showDialog(msg: String? = "加载中", cancel: Boolean = false) {
