@@ -3,6 +3,7 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -12,11 +13,13 @@ import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.iter.OnItemLongEventListener
+import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
+import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -71,9 +74,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
-                        val itemlist = "${vehicleModel?.servicenamelist},$car".split(",")
-                        allitem.clear()
-                        allitem.addAll(itemlist)
+                        allitem.add(car)
                         adapter.setDataEntityList(allitem)
                     }
                 })
@@ -97,10 +98,21 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         rcvData.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
+        rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
 
-        allitem.clear()
-        allitem.addAll(vehicleModel?.servicenamelist?.split(",")!!)
-        adapter.setDataEntityList(allitem)
 
+        HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
+            hashMapOf(
+                "id" to ApiUtils.loginModel?.id!!,
+                "sessionId" to ApiUtils.loginModel?.sessionid!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
+                override fun onSuccess(data: BaseModel<VehicleModel>?) {
+                    allitem.clear()
+                    allitem.addAll(data?.data?.servicenamelist?.split(",")!!.filterNot { TextUtils.isEmpty(it) })
+                    adapter.setDataEntityList(allitem)
+                }
+            })
     }
 }
