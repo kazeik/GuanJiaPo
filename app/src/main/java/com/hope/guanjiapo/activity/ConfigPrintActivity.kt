@@ -6,6 +6,7 @@ import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.iter.OnItemEventListener
+import kotlinx.android.synthetic.main.activity_config_print.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 
@@ -34,6 +35,8 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
     override fun initData() {
         tvTitle.setText(R.string.set_pring)
         ivBackup.setOnClickListener(this)
+        btnCheck.setOnClickListener(this)
+        btnSetType.setOnClickListener(this)
     }
 
 }

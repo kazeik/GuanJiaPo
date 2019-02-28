@@ -43,6 +43,31 @@
     <string name="perference">清单设置</string>
     <string name="share">分享</string>
 
+    <string-array name="print">
+        <item>58mm</item>
+        <item>80mm</item>
+        <item>110mm</item>
+        <item>针式210mm</item>
+        <item>AirPrint210mm</item>
+    </string-array>
+
+    <string-array name="printtype">
+        <item>热敏小票</item>
+        <item>详细小票</item>
+        <item>广隆物流</item>
+        <item>申通快递</item>
+        <item>圆通快递</item>
+        <item>自定义快递</item>
+    </string-array>
+    <string-array name="printtypes">
+        <item>75*100一式多份便签</item>
+        <item>75*50表格便签</item>
+        <item>75*100一式一份便签</item>
+    </string-array>
+    <string-array name="alert">
+        <item>是</item>
+        <item>否</item>
+    </string-array>
 
     <string-array name="homedata">
         <item>新开运单</item>
