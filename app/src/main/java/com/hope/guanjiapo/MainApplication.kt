@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import com.umeng.commonsdk.UMConfigure
+import com.uuzuche.lib_zxing.activity.ZXingLibrary
 import java.util.*
 
 
@@ -19,7 +20,7 @@ class MainApplication : MultiDexApplication() {
         super.onCreate()
         MultiDex.install(this)
         activityList = LinkedList()
-
+        ZXingLibrary.initDisplayOpinion(this)
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
     }
 

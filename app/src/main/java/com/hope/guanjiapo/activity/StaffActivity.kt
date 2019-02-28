@@ -9,6 +9,7 @@ import com.hope.guanjiapo.adapter.StaffAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.StaffModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -20,7 +21,11 @@ import kotlinx.android.synthetic.main.activity_staff.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 
-class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
+class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener, OnItemLongEventListener {
+    override fun onItemLongEvent(pos: Int) {
+        showListDialog(pos)
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
@@ -30,7 +35,10 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener 
     }
 
     override fun onItemEvent(pos: Int) {
-        showListDialog(pos)
+        val intt = Intent()
+        intt.putExtra("data", itemData.get(pos))
+        setResult(194, intt)
+        finish()
     }
 
     private fun showListDialog(pos: Int) {

@@ -36,7 +36,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var tzfh: Int = 0
 
     private var fhrModel:ConsigneeModel?= null //发货人
-    private var shrModel:ConsigneeModel?= null //发货人
+    private var shrModel:ConsigneeModel?= null //货人
 
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)

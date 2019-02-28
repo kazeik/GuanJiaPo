@@ -66,4 +66,10 @@ dependencies {
     implementation 'com.umeng.sdk:common:1.5.3'
     implementation 'com.umeng.sdk:analytics:7.5.3'
 
+    //二维码
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+
+    //时间选择器
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+
 }

@@ -92,4 +92,8 @@ interface ApiInter {
     @POST(ApiUtils.wxsearch)
     @FormUrlEncoded
     fun wxsearch(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<SubscribeModel>>>
+
+    @POST(ApiUtils.wlsearch)
+    @FormUrlEncoded
+    fun wlsearch(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<WaybillModel>>>
 }

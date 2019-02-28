@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include layout="@layout/view_title"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="开始日期"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvKsrq"
+                        android:text="请选择开始日期"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="结束日期"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvJsrq"
+                        android:text="请选择结束日期"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="车次"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvCc"
+                        android:text="请选择车次"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="业务员"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvYwy"
+                        android:text="请选择业务员"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivMdd"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_mdd"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="目的地"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvMdd"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+
+                <EditText
+                        android:textSize="@dimen/sp_14"
+                        android:layout_width="match_parent"
+                        android:id="@+id/etMdd"
+                        android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivMdd"
+                        android:layout_toRightOf="@id/tvMdd"
+                        android:hint="请输入目的地"
+                        android:layout_gravity="center_vertical"
+                        android:autoLink="phone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivShdh"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_chooice"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="收货电话"
+                        android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvShdh"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"/>
+
+                <EditText
+                        android:textSize="@dimen/sp_14"
+                        android:layout_width="match_parent"
+                        android:id="@+id/etShdh"
+                        android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivShdh"
+                        android:layout_toRightOf="@id/tvShdh"
+                        android:hint="请输入收货电话"
+                        android:layout_gravity="center_vertical"
+                        android:autoLink="phone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="发货点"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvFhd"
+                        android:text="请选择发货点"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivFhdh"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_chooice"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="发货电话"
+                        android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvFhdh"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"/>
+
+                <EditText
+                        android:textSize="@dimen/sp_14"
+                        android:layout_width="match_parent"
+                        android:id="@+id/etFhdh"
+                        android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivFhdh"
+                        android:layout_toRightOf="@id/tvFhdh"
+                        android:hint="请输入发货电话"
+                        android:layout_gravity="center_vertical"
+                        android:autoLink="phone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivDh"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_scran"
+                        android:padding="@dimen/dp_10"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="单号"
+                        android:layout_width="@dimen/dp_70"
+                        android:id="@+id/tvDh"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"/>
+
+                <EditText
+                        android:textSize="@dimen/sp_14"
+                        android:layout_width="match_parent"
+                        android:id="@+id/etDh"
+                        android:inputType="phone"
+                        android:layout_toLeftOf="@id/ivDh"
+                        android:layout_toRightOf="@id/tvDh"
+                        android:hint="请输入单号"
+                        android:layout_gravity="center_vertical"
+                        android:autoLink="phone"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="运单状态"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvYdzt"
+                        android:text="请选择运单状态"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="代收款"
+                        android:layout_margin="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <CheckBox
+                        android:id="@+id/cbDsk"
+                        android:padding="@dimen/dp_5"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="right"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <Button
+                    android:id="@+id/btnSearch"
+                    android:layout_width="match_parent"
+                    android:background="@color/actionbar_color"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginTop="16dp"
+                    android:text="搜索"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
