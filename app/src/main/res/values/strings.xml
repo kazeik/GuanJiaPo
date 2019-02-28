@@ -29,6 +29,8 @@
     <string name="carnum">车次</string>
     <string name="more">更多</string>
     <string name="histroy">运单记录</string>
+    <string name="set_pring_type">设置打印模板</string>
+    <string name="set_pring">配置打印机</string>
     <string name="save">保存</string>
     <string name="addmember">添加员工</string>
     <string name="membermanager">员工管理</string>

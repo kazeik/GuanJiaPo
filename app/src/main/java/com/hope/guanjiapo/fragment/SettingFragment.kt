@@ -41,6 +41,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
         when (pos) {
             0 -> showInputDialog()
             1 -> startActivity<StaffActivity>()
+            2 -> startActivity<ConfigPrintActivity>()
             3 -> startActivity<PreferenceActivity>()
             4 -> {
                 val intent = Intent()

@@ -123,18 +123,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
         listDialog.show()
     }
 
-    private fun showYwyListDialog() {
-        val items = ApiUtils.vehicleModel?.reccarnolist?.split(",")?.toTypedArray()
-        val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择业务员")
-        listDialog.setItems(items) { dialog, which ->
-            dialog.dismiss()
-            ccStr = which
-            tvCc.text = items?.get(which)
-        }
-        listDialog.show()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (null == data) return
