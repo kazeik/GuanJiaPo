@@ -23,8 +23,7 @@ import org.jetbrains.anko.toast
 
 class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun onItemEvent(pos: Int) {
-        val itemlist = allcar?.split(",")
-        showInputDialog(itemlist?.get(pos)!!)
+        showInputDialog(allcar.get(pos))
     }
 
     override fun onClick(v: View?) {
@@ -48,31 +47,32 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             if (TextUtils.isEmpty(car)) {
                 return@setPositiveButton
             }
-            val datalist = allcar?.split(",")
-            if (datalist?.contains(car)!!) {
+            if (allcar.contains(car)) {
                 toast("列表中已有$car")
                 return@setPositiveButton
             }
-
+            var tempAllString = ""
+            allcar.forEach {
+                tempAllString += "$it,"
+            }
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
                     "id" to loginModel?.id!!,
                     "mobile" to loginModel?.mobile!!,
-                    "recCarNoList" to allcar!!,
+                    "recCarNoList" to tempAllString.substring(0, tempAllString.length - 1),
                     "sessionId" to loginModel?.sessionid!!
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
-                        allcar = "$allcar,$car"
-                        val itemlist = allcar?.split(",")
-                        adapter.setDataEntityList(itemlist!!)
+                        allcar.add(car)
+                        adapter.setDataEntityList(allcar)
                     }
                 })
         }.show()
     }
 
-    private var allcar: String? = null
+    private val allcar: ArrayList<String> by lazy { ArrayList<String>() }
     private val adapter: VehicleAdapter<String> by lazy { VehicleAdapter<String>() }
     override fun getLayoutView(): Int {
         return R.layout.activity_waybill
@@ -103,9 +103,9 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                         toast(data?.msg!!)
                         return
                     }
-                    allcar = data.data?.reccarnolist
-                    val itemlist = allcar?.split(",")
-                    adapter.setDataEntityList(itemlist!!)
+                    val itemlist = data.data?.reccarnolist?.split(",")?.filterNot { TextUtils.isEmpty(it) }
+                    allcar.addAll(itemlist!!)
+                    adapter.setDataEntityList(allcar)
                 }
             })
     }
