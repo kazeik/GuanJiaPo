@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- disabled -->
+    <item android:drawable="@drawable/ic_cb_close" android:state_enabled="false" />
+    <!-- checked -->
+    <item android:drawable="@drawable/ic_cb_open" android:state_checked="true" />
+    <!-- unchecked -->
+    <item android:drawable="@drawable/ic_cb_close" android:state_checked="false" />
+
+    <!-- default -->
+    <item android:drawable="@drawable/ic_cb_close" />
+
+</selector>
