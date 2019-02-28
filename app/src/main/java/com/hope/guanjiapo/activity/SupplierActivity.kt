@@ -3,7 +3,6 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -26,8 +25,7 @@ import org.jetbrains.anko.toast
 
 class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
-        val itemlist = vehicleModel?.servicenamelist?.split(",")
-        showInputDialog(itemlist?.get(pos)!!)
+        showInputDialog(allitem[pos])
     }
 
     override fun onItemEvent(pos: Int) {
@@ -74,6 +72,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
+                        allitem.remove(msg)
                         allitem.add(car)
                         adapter.setDataEntityList(allitem)
                     }
