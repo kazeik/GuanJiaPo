@@ -3,6 +3,8 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.DestinationAdapter
@@ -58,7 +60,7 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         return R.layout.activity_search_recycler
     }
 
-    private var allitem: List<DestinationModel>? = null
+    private val allitem: ArrayList<DestinationModel> by lazy{ arrayListOf<DestinationModel>()}
     override fun initData() {
         tvTitle.setText(R.string.fhdlist)
         tvTitleRight.setText(R.string.create)
@@ -71,12 +73,27 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         rcvDataList.adapter = adapter
         adapter.itemListener = this
 
+        etSearch.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allitem.filter { it.receivepoint.contains(msg)  }
+                adapter.setDataEntityList(templist)
+            }
+        })
+
         HttpNetUtils.getInstance().getManager()?.getcompanyPointList(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {
-                    allitem = data?.data!!
+                    allitem.clear()
+                    allitem.addAll(data?.data!!)
                     adapter.setDataEntityList(data.data!!)
                 }
             })

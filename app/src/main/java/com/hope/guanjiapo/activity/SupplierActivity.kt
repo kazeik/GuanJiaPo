@@ -3,7 +3,9 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
@@ -19,6 +21,7 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.view.RecycleViewDivider
+import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -92,6 +95,20 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+
+        etSearch.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allitem.filter { it.contains(msg) }
+                adapter.setDataEntityList(templist)
+            }
+        })
 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.adapter = adapter

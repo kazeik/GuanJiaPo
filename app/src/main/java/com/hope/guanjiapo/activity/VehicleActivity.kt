@@ -2,7 +2,9 @@ package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
@@ -16,6 +18,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
+import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -41,7 +44,7 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         inputDialog.setTitle("请输入车次").setView(editText)
         inputDialog.setPositiveButton(
             R.string.sure
-        ) { dialog, which ->
+        ) { dialog, _ ->
             dialog.dismiss()
             val car = editText.text.toString()
             if (TextUtils.isEmpty(car)) {
@@ -90,6 +93,19 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.adapter = adapter
         adapter.itemListener = this
 
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allcar.filter { it.contains(msg) }
+                adapter.setDataEntityList(templist)
+            }
+        })
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
             hashMapOf(

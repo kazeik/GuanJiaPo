@@ -3,7 +3,12 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.ConsigneeAdapter
 import com.hope.guanjiapo.base.BaseActivity
@@ -20,7 +25,9 @@ import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 
-class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListener ,OnItemLongEventListener{
+class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListener, OnItemLongEventListener {
+
+
     override fun onItemLongEvent(pos: Int) {
         showListDialog(pos)
     }
@@ -67,12 +74,25 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+        etSearch.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
+                adapter.setDataEntityList(templist)
+            }
+        })
 
         rcvDataList.layoutManager = LinearLayoutManager(this)
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
-        adapter.itemListener=this
-        adapter.itemLongListener= this
+        adapter.itemListener = this
+        adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)

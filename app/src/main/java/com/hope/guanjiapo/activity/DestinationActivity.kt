@@ -3,6 +3,8 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.DestinationAdapter
@@ -65,6 +67,20 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allitem.filter { it.receivepoint.contains(msg) }
+                adapter.setDataEntityList(templist)
+            }
+        })
 
         rcvDataList.layoutManager = LinearLayoutManager(this)
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))

@@ -3,6 +3,8 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.ConsigneeAdapter
@@ -86,6 +88,20 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         rcvDataList.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
+
+        etSearch.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val msg = etSearch.text.toString()
+                val templist = allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
+                adapter.setDataEntityList(templist)
+            }
+        })
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)

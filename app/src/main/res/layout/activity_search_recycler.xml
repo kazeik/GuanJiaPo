@@ -4,11 +4,16 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
+
     <include layout="@layout/view_title"/>
+
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:id="@+id/etSearch"
             android:textSize="@dimen/sp_14"
             android:imeOptions="actionSearch"
             android:layout_margin="@dimen/dp_10"/>
