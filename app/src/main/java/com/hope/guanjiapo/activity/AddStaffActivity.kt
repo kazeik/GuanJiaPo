@@ -38,6 +38,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
     }
 
     private var level: Int = 2
+    private var change: Boolean = false
     override fun initData() {
         tvTitle.setText(R.string.addmember)
         tvTitleRight.setText(R.string.save)
@@ -46,7 +47,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         tvTitleRight.setOnClickListener(this)
         mSegmentedGroup.setOnCheckedChangeListener(this)
 
-        val change = intent.getBooleanExtra("change", false)
+        change = intent.getBooleanExtra("change", false)
         val itemData: StaffModel? = intent.getSerializableExtra("item") as? StaffModel
         if (change) {
             etAccount.setText(itemData?.userName)
@@ -76,7 +77,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         val passmd5 = MD5Utils.MD5Encode(pass, "utf-8")
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(
             hashMapOf(
-                "isAdd" to 1,
+                "isAdd" to if (change) 2 else 1,
                 "memberMobile" to phone,
                 "memberName" to name,
                 "id" to loginModel?.id!!,

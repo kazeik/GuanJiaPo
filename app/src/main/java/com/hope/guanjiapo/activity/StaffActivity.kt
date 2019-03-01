@@ -88,6 +88,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
         adapter.itemListener = this
+        adapter.itemLongListener = this
         itemData.addAll(allStaffModel!!)
         adapter.setDataEntityList(itemData)
     }
