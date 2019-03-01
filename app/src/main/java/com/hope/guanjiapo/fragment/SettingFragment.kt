@@ -98,7 +98,10 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
 
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
-                    "companyname" to name, "mobile" to loginModel?.mobile!!
+                    "companyname" to name,
+                    "mobile" to loginModel?.mobile!!,
+                    "id" to loginModel?.id!!,
+                    "sessionId" to loginModel?.sessionid!!
                 )
             )?.compose(NetworkScheduler.compose())
                 ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity!!) {
