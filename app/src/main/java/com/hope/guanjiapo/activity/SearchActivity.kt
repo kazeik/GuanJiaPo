@@ -9,7 +9,6 @@ import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.model.DestinationModel
 import com.hope.guanjiapo.model.StaffModel
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.TimeUtil
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
@@ -31,7 +30,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
 
     private var startTime: String? = ""
     private var endTime: String? = ""
-    private var ccStr: Int? = 0
+    private var ccStr: String? = ""
     private var dsk: Int? = 0
     private var orderstatus: Int? = 0
     private var shrModel: ConsigneeModel? = null //货人
@@ -59,7 +58,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivDh -> startActivityForResult<CaptureActivity>(REQUEST_CODE)
             R.id.tvKsrq -> showTime(true)
             R.id.tvJsrq -> showTime(false)
-            R.id.tvCc -> showCcListDialog()
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
             R.id.tvYwy -> startActivityForResult<StaffActivity>(194)
             R.id.tvYdzt -> showOrderStatusDialog()
             R.id.tvFhd -> startActivityForResult<ShipmentsActivity>(195)
@@ -68,12 +67,12 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivFhdh -> startActivityForResult<ConsignerActivity>(197)
             R.id.btnSearch -> {
                 val intt = Intent()
-                intt.putExtra("orderid",etDh.text.toString())
-                intt.putExtra("receiverphone",etShdh.text.toString())
-                intt.putExtra("recno",ccStr)
-                intt.putExtra("recpoint",etMdd.text.toString())
-                intt.putExtra("senderphone",etFhdh.text.toString())
-                intt.putExtra("startDate",startTime)
+                intt.putExtra("orderid", etDh.text.toString())
+                intt.putExtra("receiverphone", etShdh.text.toString())
+                intt.putExtra("recno", ccStr)
+                intt.putExtra("recpoint", etMdd.text.toString())
+                intt.putExtra("senderphone", etFhdh.text.toString())
+                intt.putExtra("startDate", startTime)
                 setResult(119, intt)
                 finish()
             }
@@ -111,18 +110,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
         listDialog.show()
     }
 
-    private fun showCcListDialog() {
-        val items = ApiUtils.vehicleModel?.reccarnolist?.split(",")?.toTypedArray()
-        val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择车次")
-        listDialog.setItems(items) { dialog, which ->
-            dialog.dismiss()
-            ccStr = which
-            tvCc.text = items?.get(which)
-        }
-        listDialog.show()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (null == data) return
@@ -151,6 +138,10 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             194 -> {
                 val staffModel = data.getSerializableExtra("data") as StaffModel
                 tvYwy.text = staffModel.userName
+            }
+            201 -> {
+                ccStr = data.getStringExtra("data")
+                tvCc.text = ccStr
             }
         }
     }

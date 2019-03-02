@@ -13,7 +13,6 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
-import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
@@ -27,7 +26,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
     private var fhdStr: Int? = 0
-    private var ccStr: Int? = 0
+    private var ccStr: String? = ""
     private var bzdwStr: Int? = 0
     private var recway: Int = 0
     private var shipfeepaytype: Int = 0
@@ -73,17 +72,6 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun showCcListDialog() {
-        val items = vehicleModel?.reccarnolist?.split(",")?.toTypedArray()
-        val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择车次")
-        listDialog.setItems(items) { dialog, which ->
-            ccStr = which
-            tvCc.text = items?.get(which)
-        }
-        listDialog.show()
-    }
-
     private fun showBzdwListDialog() {
         val items = resources.getStringArray(R.array.bzdw)
         val listDialog = AlertDialog.Builder(this)
@@ -101,7 +89,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> createOrder()
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
-            R.id.tvCc -> showCcListDialog()
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
@@ -207,6 +195,11 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel
                 etFhd.setText(destinationModel.receivepoint)
+            }
+
+            201 -> {
+                ccStr = data.getStringExtra("data")
+                tvCc.text = ccStr
             }
         }
     }

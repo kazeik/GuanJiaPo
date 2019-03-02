@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
@@ -10,6 +11,7 @@ import com.hope.guanjiapo.adapter.VehicleAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
@@ -21,9 +23,16 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
 
 
-class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
-    override fun onItemEvent(pos: Int) {
+class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
+    override fun onItemLongEvent(pos: Int) {
         showInputDialog(allcar.get(pos))
+    }
+
+    override fun onItemEvent(pos: Int) {
+        val intt = Intent()
+        intt.putExtra("data", allcar[pos])
+        setResult(201, intt)
+        finish()
     }
 
     override fun onClick(v: View?) {
@@ -92,6 +101,7 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
         adapter.itemListener = this
+        adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
             hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!)
