@@ -12,7 +12,7 @@ import com.hope.guanjiapo.model.SubscribeModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
-import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -47,8 +47,9 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             hashMapOf(
                 "onlyDriver" to 0,
                 "keyword" to "",
-                "id" to ApiUtils.loginModel?.id!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!
+                "id" to loginModel?.id!!,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<SubscribeModel>>>(this) {
@@ -63,7 +64,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> startActivityForResult<OrderSearchActivity>(99)
+            R.id.tvTitleRight -> startActivityForResult<OrderSearchActivity>(119)
         }
     }
 
@@ -75,7 +76,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         super.onActivityResult(requestCode, resultCode, data)
         if (null == data) return
         when (requestCode) {
-            99 -> {
+            119 -> {
             }
         }
     }

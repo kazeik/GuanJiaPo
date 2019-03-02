@@ -309,7 +309,7 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etDh"
-                        android:inputType="phone"
+                        android:inputType="textEmailAddress"
                         android:layout_toLeftOf="@id/ivDh"
                         android:layout_toRightOf="@id/tvDh"
                         android:hint="请输入单号"
