@@ -3,9 +3,7 @@ package com.hope.guanjiapo.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import com.hope.guanjiapo.R
@@ -19,9 +17,8 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
-import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
-import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -51,32 +48,35 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
             editText.setText(msg)
         val inputDialog = AlertDialog.Builder(this)
         inputDialog.setTitle("请输入供应商名字").setView(editText)
+        inputDialog.setNegativeButton(R.string.cancel, null)
         inputDialog.setPositiveButton(
             R.string.sure
-        ) { dialog, which ->
+        ) { dialog, _ ->
             dialog.dismiss()
             val car = editText.text.toString()
             if (TextUtils.isEmpty(car)) {
                 return@setPositiveButton
             }
-            val datalist = vehicleModel?.servicenamelist?.split(",")
-            if (datalist?.contains(car)!!) {
+            if (allitem.contains(car)) {
                 toast("列表中已有$car")
                 return@setPositiveButton
             }
-
+            allitem.add(car)
+            var tempAll = ""
+            tempAll.forEach {
+                tempAll += "$it,"
+            }
+            tempAll = tempAll.substring(0, tempAll.length - 1)
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
-                    "id" to ApiUtils.loginModel?.id!!,
-                    "mobile" to ApiUtils.loginModel?.mobile!!,
-                    "servicenamelist" to vehicleModel?.servicenamelist!!,
-                    "sessionId" to ApiUtils.loginModel?.sessionid!!
+                    "id" to loginModel?.id!!,
+                    "mobile" to loginModel?.mobile!!,
+                    "servicenamelist" to tempAll,
+                    "sessionId" to loginModel?.sessionid!!
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
-                        allitem.remove(msg)
-                        allitem.add(car)
                         adapter.setDataEntityList(allitem)
                     }
                 })

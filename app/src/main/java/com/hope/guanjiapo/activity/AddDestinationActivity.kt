@@ -36,11 +36,13 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
         btnAdd.setOnClickListener(this)
 
         type = intent.getBooleanExtra("change", false)
-        destinationModel = intent.getSerializableExtra("data") as DestinationModel
-        tvId.text = "id:${destinationModel?.id}"
-        tvTitle.text = if (type) getString(R.string.changeadd) else getString(R.string.addaddress)
         if (type) {
+            tvTitle.setText(R.string.changeadd)
+            destinationModel = intent.getSerializableExtra("data") as DestinationModel
+            tvId.text = "id:${destinationModel?.id}"
             etName.setText(destinationModel?.receivepoint)
+        } else {
+            tvTitle.setText(R.string.addaddress)
         }
     }
 
@@ -59,7 +61,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
                 "sessionId" to loginModel?.sessionid!!,
                 "param" to JSONObject(
                     hashMapOf(
-                        "receivepoint" to "England",
+                        "receivepoint" to name,
                         "type" to 0
                     )
                 )
@@ -86,7 +88,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
                 "sessionId" to loginModel?.sessionid!!,
                 "param" to JSONObject(
                     hashMapOf(
-                        "receivepoint" to "china",
+                        "receivepoint" to name,
                         "type" to 0,
                         "id" to destinationModel?.id
                     )

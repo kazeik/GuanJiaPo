@@ -77,7 +77,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.receivepoint.contains(msg) }
+                val templist = allitem.filter { it.receivepoint.contains(msg)  || it.operatorMobile.contains(msg)}
                 adapter.setDataEntityList(templist)
             }
         })
