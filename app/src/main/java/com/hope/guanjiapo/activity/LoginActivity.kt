@@ -67,8 +67,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-        UMConfigure.init(applicationContext, "5c76492cf1f556c43d000967", "gjp", UMConfigure.DEVICE_TYPE_PHONE, "")
-        UMConfigure.setLogEnabled(false)
+        UMConfigure.init(this, "5c76492cf1f556c43d000967", "gjp", UMConfigure.DEVICE_TYPE_PHONE, "")
+        UMConfigure.setLogEnabled(true)
         tvCallPhone.setOnClickListener(this)
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
