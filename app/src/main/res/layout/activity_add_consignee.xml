@@ -74,7 +74,7 @@
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:textColor="@color/white"
-            android:background="@color/green"
+            android:background="@color/actionbar_color"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
             android:layout_marginTop="16dp"

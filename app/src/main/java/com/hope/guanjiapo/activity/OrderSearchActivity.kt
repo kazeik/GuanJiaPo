@@ -19,14 +19,11 @@ import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
 
-class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        dsk = if (isChecked) 1 else 0
-    }
+class OrderSearchActivity : BaseActivity(), View.OnClickListener {
 
     private val REQUEST_CODE = 10001
     override fun getLayoutView(): Int {
-        return R.layout.activity_search
+        return R.layout.activity_order_search
     }
 
     private var startTime: String? = ""
@@ -40,16 +37,9 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
         tvTitle.setText(R.string.search)
         ivBackup.setOnClickListener(this)
         tvKsrq.setOnClickListener(this)
-        tvJsrq.setOnClickListener(this)
-        tvCc.setOnClickListener(this)
-        tvYwy.setOnClickListener(this)
-        ivMdd.setOnClickListener(this)
         ivShdh.setOnClickListener(this)
-        tvFhd.setOnClickListener(this)
         ivFhdh.setOnClickListener(this)
         ivDh.setOnClickListener(this)
-        tvYdzt.setOnClickListener(this)
-        cbDsk.setOnCheckedChangeListener(this)
         btnSearch.setOnClickListener(this)
     }
 
@@ -58,22 +48,17 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivBackup -> finish()
             R.id.ivDh -> startActivityForResult<CaptureActivity>(REQUEST_CODE)
             R.id.tvKsrq -> showTime(true)
-            R.id.tvJsrq -> showTime(false)
-            R.id.tvCc -> showCcListDialog()
-            R.id.tvYwy -> startActivityForResult<StaffActivity>(194)
             R.id.tvYdzt -> showOrderStatusDialog()
-            R.id.tvFhd -> startActivityForResult<ShipmentsActivity>(195)
-            R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShdh -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivFhdh -> startActivityForResult<ConsignerActivity>(197)
             R.id.btnSearch -> {
                 val intt = Intent()
-                intt.putExtra("orderid",etDh.text.toString())
-                intt.putExtra("receiverphone",etShdh.text.toString())
-                intt.putExtra("recno",ccStr)
-                intt.putExtra("recpoint",etMdd.text.toString())
-                intt.putExtra("senderphone",etFhdh.text.toString())
-                intt.putExtra("startDate",startTime)
+                intt.putExtra("orderid", etDh.text.toString())
+                intt.putExtra("receiverphone", etShdh.text.toString())
+                intt.putExtra("recno", ccStr)
+                intt.putExtra("recpoint", etMdd.text.toString())
+                intt.putExtra("senderphone", etFhdh.text.toString())
+                intt.putExtra("startDate", startTime)
                 setResult(119, intt)
                 finish()
             }
@@ -96,7 +81,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                 }
             }
             .build();
-        dialogYearMonthDay.show(supportFragmentManager, "YEAR_MONTH_DAY");
+        dialogYearMonthDay.show(getSupportFragmentManager(), "YEAR_MONTH_DAY");
     }
 
     private fun showOrderStatusDialog() {
@@ -111,17 +96,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
         listDialog.show()
     }
 
-    private fun showCcListDialog() {
-        val items = ApiUtils.vehicleModel?.reccarnolist?.split(",")?.toTypedArray()
-        val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择车次")
-        listDialog.setItems(items) { dialog, which ->
-            dialog.dismiss()
-            ccStr = which
-            tvCc.text = items?.get(which)
-        }
-        listDialog.show()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

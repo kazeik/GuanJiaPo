@@ -17,6 +17,7 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListener {
     override fun getLayoutView(): Int {
@@ -62,11 +63,20 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> startActivity<AddConsigneeActivity>()
+            R.id.tvTitleRight -> startActivityForResult<OrderSearchActivity>(99)
         }
     }
 
     override fun onItemEvent(pos: Int) {
         startActivity<EditSubscribeActivity>("data" to allitem[pos])
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (null == data) return
+        when (requestCode) {
+            99 -> {
+            }
+        }
     }
 }

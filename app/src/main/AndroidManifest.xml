@@ -69,6 +69,7 @@
         <activity android:name=".activity.PremiumActivity"/>
         <activity android:name=".activity.OrderInfoActivity"/>
         <activity android:name=".activity.ConfigPrintSetActivity"/>
+        <activity android:name=".activity.OrderSearchActivity"/>
 
         <meta-data
                 android:name="UMENG_APPKEY"
