@@ -37,6 +37,7 @@
                 android:layout_gravity="center_vertical"
                 android:hint="请输入返款"
                 android:singleLine="true"
+                android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:layout_height="wrap_content"/>
 
@@ -72,6 +73,7 @@
                 android:hint="请输入回单份数"
                 android:singleLine="true"
                 android:maxLines="1"
+                android:inputType="numberDecimal"
                 android:layout_height="wrap_content"/>
 
         <TextView

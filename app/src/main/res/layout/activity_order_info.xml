@@ -71,6 +71,7 @@
                         android:layout_gravity="center_vertical"
                         android:hint="请输入快递单号"
                         android:singleLine="true"
+                        android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -276,7 +277,7 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="@dimen/dp_120"
                         android:id="@+id/etHwsl"
-                        android:hint="请输入数据"
+                        android:hint="请输入数量"
                         android:singleLine="true"
                         android:inputType="numberDecimal"
                         android:layout_gravity="center_vertical"
@@ -393,6 +394,7 @@
                         android:layout_gravity="center_vertical"
                         android:singleLine="true"
                         android:maxLines="1"
+                        android:inputType="numberDecimal"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -416,6 +418,7 @@
                         android:layout_gravity="center_vertical"
                         android:hint="请输入派送费"
                         android:textSize="@dimen/sp_14"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
@@ -441,6 +444,7 @@
                         android:id="@+id/etBf"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入保费"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
@@ -465,6 +469,7 @@
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/etZzh"
+                        android:inputType="numberDecimal"
                         android:hint="请输入中转费"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -490,6 +495,7 @@
                         android:layout_width="match_parent"
                         android:id="@+id/etDsk"
                         android:hint="请输入代收款"
+                        android:inputType="numberDecimal"
                         android:layout_gravity="center_vertical"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -517,6 +523,7 @@
                         android:layout_gravity="center_vertical"
                         android:hint="请输入成本"
                         android:singleLine="true"
+                        android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
             </LinearLayout>

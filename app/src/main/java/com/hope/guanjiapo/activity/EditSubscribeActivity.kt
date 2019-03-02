@@ -40,7 +40,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private var shipfeepaytype: Int = 0
     private var recway: Int = 0
 
-    private var payType:Int = 0
+    private var payType: Int = 0
 
     override fun initData() {
         subscribeModel = intent.getSerializableExtra("data") as SubscribeModel
@@ -128,7 +128,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
             R.id.tvYdzt -> showOrderStatusDialog()
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.tvCc -> showCcListDialog()
-            R.id.ivFhd->startActivityForResult<ShipmentsActivity>(195)
+            R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
         }
     }
 
@@ -224,9 +224,9 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         if (null == data) return
         when (requestCode) {
             200 -> {
-                fkStr = intent.getStringExtra("fk")
-                hdfsStr = intent.getStringExtra("hdfs")
-                tzfh = intent.getIntExtra("tzfh", 0)
+                fkStr = data.getStringExtra("fk")
+                hdfsStr = data.getStringExtra("hdfs")
+                tzfh = data.getIntExtra("tzfh", 0)
             }
             199 -> {
                 val item = data.getSerializableExtra("data") as DestinationModel
@@ -244,7 +244,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 etFhdh.setText(fhrModel?.mobile)
                 etFhdz.setText(fhrModel?.addr)
             }
-            195->{
+            195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel
                 etFhd.setText(destinationModel.receivepoint)
             }

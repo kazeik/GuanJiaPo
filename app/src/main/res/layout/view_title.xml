@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:singleLine="true"
+        android:padding="@dimen/dp_5"
         android:visibility="invisible"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14" />

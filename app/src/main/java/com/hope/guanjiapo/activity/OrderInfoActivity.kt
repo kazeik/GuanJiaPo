@@ -27,7 +27,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
     private var fhdStr: Int? = 0
-    private var ccStr: Int? =0
+    private var ccStr: Int? = 0
     private var bzdwStr: Int? = 0
     private var recway: Int = 0
     private var shipfeepaytype: Int = 0
@@ -35,8 +35,10 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var hdfsStr: String = ""
     private var tzfh: Int = 0
 
-    private var fhrModel:ConsigneeModel?= null //发货人
-    private var shrModel:ConsigneeModel?= null //货人
+    private var fhrModel: ConsigneeModel? = null //发货人
+    private var shrModel: ConsigneeModel? = null //货人
+
+    private var change: Boolean? = false
 
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
@@ -53,6 +55,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         ivGys.setOnClickListener(this)
         ivLxr.setOnClickListener(this)
         ivFhd.setOnClickListener(this)
+
+        change = intent.getBooleanExtra("change", false)
 
         mPayTypeGroup.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
             when (i) {
@@ -99,7 +103,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
             R.id.tvCc -> showCcListDialog()
             R.id.tvBzdw -> showBzdwListDialog()
-            R.id.ivFhd ->startActivityForResult<ShipmentsActivity>(195)
+            R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivGys -> startActivityForResult<SupplierActivity>(197)
@@ -180,9 +184,9 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         if (null == data) return
         when (requestCode) {
             200 -> {
-                fkStr = intent.getStringExtra("fk")
-                hdfsStr = intent.getStringExtra("hdfs")
-                tzfh = intent.getIntExtra("tzfh", 0)
+                fkStr = data.getStringExtra("fk")
+                hdfsStr = data.getStringExtra("hdfs")
+                tzfh = data.getIntExtra("tzfh", 0)
             }
             199 -> {
                 val item = data.getSerializableExtra("data") as DestinationModel
@@ -200,7 +204,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 fhrModel = data.getSerializableExtra("data") as ConsigneeModel
                 etFhr.setText(fhrModel?.name)
             }
-            195->{
+            195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel
                 etFhd.setText(destinationModel.receivepoint)
             }

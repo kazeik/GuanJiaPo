@@ -96,20 +96,6 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
 
-        etSearch.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.contains(msg) }
-                adapter.setDataEntityList(templist)
-            }
-        })
-
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.adapter = adapter
         adapter.itemListener = this

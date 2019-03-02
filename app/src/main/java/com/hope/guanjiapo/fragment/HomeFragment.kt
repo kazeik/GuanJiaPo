@@ -24,7 +24,7 @@ import org.jetbrains.anko.support.v4.startActivity
 class HomeFragment : BaseFragment(), OnItemEventListener {
     override fun onItemEvent(pos: Int) {
         when (pos) {
-            0->startActivity<OrderInfoActivity>()
+            0 -> startActivity<OrderInfoActivity>()
             1 -> startActivity<WaybillActivity>()
             2 -> startActivity<WaybillControlActivity>()
             3 -> startActivity<SubscribeActivity>()
