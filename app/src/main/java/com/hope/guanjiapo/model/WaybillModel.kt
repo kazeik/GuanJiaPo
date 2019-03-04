@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class WaybillModel(
     @SerializedName("agentmoney")
@@ -81,4 +82,4 @@ data class WaybillModel(
     val updatorMobile: String,
     @SerializedName("waitnotify")
     val waitnotify: String
-)
+) : Serializable

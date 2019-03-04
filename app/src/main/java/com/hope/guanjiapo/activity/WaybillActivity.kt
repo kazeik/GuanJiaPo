@@ -18,6 +18,7 @@ import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
@@ -27,6 +28,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     }
 
     override fun onItemEvent(pos: Int) {
+        startActivity<PrintOrderInfoActivity>("data" to allItem[pos])
     }
 
     override fun onClick(v: View?) {
