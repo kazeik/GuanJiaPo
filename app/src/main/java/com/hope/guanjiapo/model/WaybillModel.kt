@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class WaybillModel(
     @SerializedName("agentmoney")
-    val agentmoney: Int,
+    val agentmoney: String,
     @SerializedName("baseshipfee")
-    val baseshipfee: Int,
+    val baseshipfee: String,
     @SerializedName("bossId")
     val bossId: String,
     @SerializedName("bossMobile")
@@ -16,31 +16,31 @@ data class WaybillModel(
     @SerializedName("comment")
     val comment: String,
     @SerializedName("copycount")
-    val copycount: Int,
+    val copycount: String,
     @SerializedName("costFee")
-    val costFee: Int,
+    val costFee: String,
     @SerializedName("createDate")
     val createDate: Long,
     @SerializedName("dispatchfee")
-    val dispatchfee: Int,
+    val dispatchfee: String,
     @SerializedName("id")
-    val id: Int,
+    val id: String,
     @SerializedName("insurancefee")
-    val insurancefee: Int,
+    val insurancefee: String,
     @SerializedName("oderstate")
-    val oderstate: Int,
+    var oderstate: Int,
     @SerializedName("operatorMobile")
     val operatorMobile: String,
     @SerializedName("productcount")
-    val productcount: Int,
+    val productcount: String,
     @SerializedName("productdescript")
     val productdescript: String,
     @SerializedName("productno")
     val productno: String,
     @SerializedName("productsize")
-    val productsize: Int,
+    val productsize: String,
     @SerializedName("productweight")
-    val productweight: Int,
+    val productweight: String,
     @SerializedName("receivepoint")
     val receivepoint: String,
     @SerializedName("receiveraddress")
@@ -50,11 +50,11 @@ data class WaybillModel(
     @SerializedName("receiverphone")
     val receiverphone: String,
     @SerializedName("recno")
-    val recno: Int,
+    val recno: String,
     @SerializedName("recway")
-    val recway: Int,
+    val recway: String,
     @SerializedName("returnmoney")
-    val returnmoney: Int,
+    val returnmoney: String,
     @SerializedName("senderaddress")
     val senderaddress: String,
     @SerializedName("sendername")
@@ -64,21 +64,21 @@ data class WaybillModel(
     @SerializedName("serviceName")
     val serviceName: String,
     @SerializedName("shipfee")
-    val shipfee: Int,
+    val shipfee: String,
     @SerializedName("shipfeepaytype")
     val shipfeepaytype: Int,
     @SerializedName("shipfeesendpay")
-    val shipfeesendpay: Int,
+    val shipfeesendpay: String,
     @SerializedName("shipfeestate")
-    val shipfeestate: Int,
+    val shipfeestate: String,
     @SerializedName("sort")
-    val sort: Int,
+    val sort: String,
     @SerializedName("status")
-    val status: Int,
+    val status: String,
     @SerializedName("updateDate")
     val updateDate: Long,
     @SerializedName("updatorMobile")
     val updatorMobile: String,
     @SerializedName("waitnotify")
-    val waitnotify: Int
+    val waitnotify: String
 )

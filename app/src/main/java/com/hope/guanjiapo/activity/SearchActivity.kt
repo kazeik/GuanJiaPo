@@ -72,7 +72,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                 intt.putExtra("recno", ccStr)
                 intt.putExtra("recpoint", etMdd.text.toString())
                 intt.putExtra("senderphone", etFhdh.text.toString())
-                intt.putExtra("startDate", startTime)
+                intt.putExtra("endDate", endTime)
                 setResult(119, intt)
                 finish()
             }

@@ -60,4 +60,6 @@ object ApiUtils {
     const val wxdelete: String = "orderwxpre/wxdelete"
     const val wladd: String = "order/wladd"
     const val wlsearch: String = "order/wlsearch"
+
+    const val wlEditStates: String = "order/wlEditStates"
 }

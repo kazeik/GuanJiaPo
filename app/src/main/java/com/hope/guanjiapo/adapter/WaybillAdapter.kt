@@ -8,6 +8,7 @@ import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseAdapter
 import com.hope.guanjiapo.base.BaseViewHolder
 import com.hope.guanjiapo.iter.OnItemEventListener
+import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.utils.TimeUtil
@@ -21,6 +22,7 @@ import com.hope.guanjiapo.utils.TimeUtil
  */
 class WaybillAdapter<A> : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
+    internal var itemLongListener: OnItemLongEventListener? = null
     override fun getLayoutView(): Int {
         return R.layout.adapter_waybill
     }
@@ -32,6 +34,17 @@ class WaybillAdapter<A> : BaseAdapter<A>() {
         val tvItem2 = holder.getViewById<TextView>(R.id.tvItem2)
         val tvItem3 = holder.getViewById<TextView>(R.id.tvItem3)
         val llitem = holder.getViewById<LinearLayout>(R.id.llItem)
+
+        llitem.setOnClickListener {
+            if (null != itemListener)
+                itemListener?.onItemEvent(position)
+        }
+
+        llitem.setOnLongClickListener {
+            if (null != itemLongListener)
+                itemLongListener?.onItemLongEvent(position)
+            return@setOnLongClickListener true
+        }
 
         val entity = dataList?.get(position) as? WaybillModel
 
@@ -64,6 +77,6 @@ class WaybillAdapter<A> : BaseAdapter<A>() {
             "单号:${entity?.id} $namelelv 时间:${TimeUtil.getDayByType(entity?.updateDate!!, TimeUtil.DATE_YMD_HMS)}"
         tvItem2.text = "${entity.carname} $orderstatus 件数:${entity.productcount} $paytype  ${entity.shipfee}"
         tvItem3.text =
-            "代收款:${entity.agentmoney}  发货人:${entity.sendername}=> ${entity.senderaddress} ${entity.receivername}"
+            "代收款:${entity.agentmoney}  发货人:${entity.sendername}=> ${entity.receivepoint} ${entity.receivername}"
     }
 }

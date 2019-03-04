@@ -96,4 +96,8 @@ interface ApiInter {
     @POST(ApiUtils.wlsearch)
     @FormUrlEncoded
     fun wlsearch(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<WaybillModel>>>
+
+    @POST(ApiUtils.wlEditStates)
+    @FormUrlEncoded
+    fun wlEditStates(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }
