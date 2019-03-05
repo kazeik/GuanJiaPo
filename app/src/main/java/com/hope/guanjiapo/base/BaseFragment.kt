@@ -26,18 +26,6 @@ abstract class BaseFragment : Fragment() {
         bindData()
     }
 
-    override fun onResume() {
-        super.onResume()
-        MobclickAgent.onResume(activity)
-        MobclickAgent.onPageStart(javaClass.name)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        MobclickAgent.onPause(activity)
-        MobclickAgent.onPageEnd(javaClass.name)
-    }
-
     abstract fun initView(): Int
 
     abstract fun bindData()

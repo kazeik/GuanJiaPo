@@ -37,6 +37,13 @@
                 android:text="设置打印模板"/>
     </LinearLayout>
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/dp_5"
+            android:text="打印机列表"
+            android:id="@+id/tvDeviceList"
+            android:layout_height="wrap_content"/>
+
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rcvDevice"
