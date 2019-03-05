@@ -115,9 +115,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivGys -> startActivityForResult<SupplierActivity>(197)
             R.id.ivLxr -> startActivityForResult<ConsignerActivity>(196)
-
-            R.id.btnPrintXp -> {
-            }
+            R.id.btnPrintXp -> startActivityForResult<ConfigPrintActivity>(194)
             R.id.btnPrintBq -> {
             }
             R.id.btnDelete -> {

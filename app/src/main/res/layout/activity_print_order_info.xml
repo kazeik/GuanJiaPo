@@ -36,7 +36,7 @@
                 <Button
                         android:layout_width="@dimen/dp_0"
                         android:id="@+id/btnPrintBq"
-                        android:text="打印标签"
+                        android:text="打印便签"
                         android:layout_weight="1"
                         android:layout_margin="@dimen/dp_5"
                         android:background="@color/actionbar_color"
