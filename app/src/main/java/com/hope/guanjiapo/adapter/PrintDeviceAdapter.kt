@@ -1,5 +1,6 @@
 package com.hope.guanjiapo.adapter
 
+import android.annotation.SuppressLint
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -22,6 +23,7 @@ class PrintDeviceAdapter<B> : BaseAdapter<B>() {
         return R.layout.adapter_substring
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
         val rlItem = holder.getViewById<RelativeLayout>(R.id.rlItem)
@@ -34,10 +36,12 @@ class PrintDeviceAdapter<B> : BaseAdapter<B>() {
             0 -> "未连接"
             1 -> "正在连接"
             2 -> "已连接"
+            3 -> "已断开"
+            4 -> "正在断开"
             else -> ""
         }
         rlItem.setOnClickListener {
-            if (null == itemEventListener)
+            if (null != itemEventListener)
                 itemEventListener?.onItemEvent(position)
         }
     }

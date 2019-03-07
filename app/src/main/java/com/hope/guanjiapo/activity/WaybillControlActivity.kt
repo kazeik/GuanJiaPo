@@ -69,7 +69,7 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
     }
 
     private val allItem: ArrayList<WaybillModel> by lazy { ArrayList<WaybillModel>() }
-    private val adapter by lazy { WaybillAdapter<WaybillModel>() }
+    private val adapter by lazy { WaybillAdapter<WaybillModel>(this) }
     override fun initData() {
         tvTitle.setText(R.string.histroy)
         tvTitleRight.setText(R.string.more)

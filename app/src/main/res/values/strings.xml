@@ -102,9 +102,20 @@
         <item>按日查看</item>
     </string-array>
 
+    <string-array name="recwaytype">
+        <item>自提</item>
+        <item>派送</item>
+    </string-array>
+
     <string-array name="alertmenu">
         <item>修改</item>
         <item>删除</item>
+    </string-array>
+
+    <string-array name="paytype">
+        <item>现付</item>
+        <item>月结</item>
+        <item>提付</item>
     </string-array>
 
     <string-array name="perferencedata">

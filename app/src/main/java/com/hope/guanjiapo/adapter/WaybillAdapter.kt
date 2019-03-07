@@ -1,7 +1,9 @@
 package com.hope.guanjiapo.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R
@@ -20,9 +22,14 @@ import com.hope.guanjiapo.utils.TimeUtil
  *         2019 02 25 09:43
  * 类说明:
  */
-class WaybillAdapter<A> : BaseAdapter<A>() {
+class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
     internal var itemLongListener: OnItemLongEventListener? = null
+
+    internal val itemsStatus: HashMap<Int, Boolean> by lazy { HashMap<Int, Boolean>() }
+
+    private val paytype: Array<String> by lazy { context.resources.getStringArray(R.array.paytype) }
+    private val orderstatus: Array<String> by lazy { context.resources.getStringArray(R.array.orderstatus) }
     override fun getLayoutView(): Int {
         return R.layout.adapter_waybill
     }
@@ -46,25 +53,13 @@ class WaybillAdapter<A> : BaseAdapter<A>() {
             return@setOnLongClickListener true
         }
 
+        cbCheck.setOnCheckedChangeListener { buttonView, isChecked ->
+            itemsStatus[position] = isChecked
+        }
+
+
         val entity = dataList?.get(position) as? WaybillModel
 
-        val paytype = when (entity?.shipfeepaytype) {
-            0 -> "现付"
-            1 -> "月结"
-            2 -> "提付"
-            else -> ""
-        }
-
-        val orderstatus = when (entity?.oderstate) {
-            0 -> "待装车"
-            1 -> "运输中"
-            2 -> "已到站"
-            3 -> "已提货"
-            4 -> "已收款"
-            5 -> "已打款"
-            6 -> "已开票"
-            else -> ""
-        }
         val lele = allStaffModel?.filter { it.mobile == entity?.operatorMobile }
         var namelelv = ""
         if (lele?.isNotEmpty()!!) {
@@ -75,8 +70,9 @@ class WaybillAdapter<A> : BaseAdapter<A>() {
 
         tvItem1.text =
             "单号:${entity?.id} $namelelv 时间:${TimeUtil.getDayByType(entity?.updateDate!!, TimeUtil.DATE_YMD_HMS)}"
-        tvItem2.text = "${entity.carname} $orderstatus 件数:${entity.productcount} $paytype  ${entity.shipfee}"
+        tvItem2.text =
+            "${entity.carname} ${orderstatus[entity.oderstate]} 件数:${entity.productcount} ${paytype[entity.shipfeepaytype]}  ${entity.shipfee}"
         tvItem3.text =
-            "代收款:${entity.agentmoney}  发货人:${entity.sendername}=> ${entity.receivepoint} ${entity.receivername}"
+            "代收款:${entity.agentmoney}  发货人:${entity.sendername} ${entity.senderaddress} => ${entity.receivepoint} ${entity.receivername}"
     }
 }

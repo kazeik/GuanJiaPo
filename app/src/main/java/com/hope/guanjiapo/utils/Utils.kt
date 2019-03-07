@@ -39,6 +39,22 @@ object Utils {
         }
     }
 
+    fun toChinese(str: String): String {
+        val s1: Array<String> = arrayOf("零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖")
+        val s2: Array<String> = arrayOf("拾", "佰", "仟", "萬", "拾", "佰", "仟", "亿", "拾", "佰", "仟")
+        var result: String = ""
+        val n: Int = str.length
+        for (i in 0 until n) {
+            val num: Int = str.get(i) - '0'
+            if (i != n - 1 && num != 0) {
+                result += s1[num] + s2[n - 2 - i]
+            } else {
+                result += s1[num]
+            }
+        }
+        return result
+    }
+
 
     /**
      * 检测程序是否安装

@@ -7,6 +7,43 @@
         android:layout_height="match_parent">
 
     <include layout="@layout/view_title"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/btnPrintBq"
+                android:layout_width="@dimen/dp_0"
+                android:background="@color/actionbar_color"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:text="打印便签"/>
+
+        <Button
+                android:id="@+id/btnPrintXp"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:background="@color/actionbar_color"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_marginTop="16dp"
+                android:text="打印小票"/>
+        <Button
+                android:id="@+id/btnAllPrint"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:background="@color/actionbar_color"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_marginTop="16dp"
+                android:text="汇总打印"/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rcvData"
             android:layout_width="match_parent"

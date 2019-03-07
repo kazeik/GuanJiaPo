@@ -33,7 +33,7 @@ data class WaybillModel(
     @SerializedName("operatorMobile")
     val operatorMobile: String,
     @SerializedName("productcount")
-    val productcount: String,
+    val productcount: Double,
     @SerializedName("productdescript")
     val productdescript: String,
     @SerializedName("productno")
@@ -53,7 +53,7 @@ data class WaybillModel(
     @SerializedName("recno")
     val recno: String,
     @SerializedName("recway")
-    val recway: String,
+    val recway: Int,
     @SerializedName("returnmoney")
     val returnmoney: String,
     @SerializedName("senderaddress")
