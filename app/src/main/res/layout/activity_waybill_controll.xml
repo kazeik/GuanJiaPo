@@ -12,29 +12,20 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Button
-                android:id="@+id/btnPrintBq"
-                android:layout_width="@dimen/dp_0"
-                android:background="@color/actionbar_color"
-                android:textColor="@color/white"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
-                android:layout_weight="1"
-                android:layout_marginTop="16dp"
-                android:text="打印便签"/>
 
         <Button
-                android:id="@+id/btnPrintXp"
+                android:id="@+id/btnChangeStatus"
                 android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
                 android:background="@color/actionbar_color"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
+                android:layout_weight="1"
                 android:layout_marginTop="16dp"
-                android:text="打印小票"/>
+                android:text="修改状态"/>
+
         <Button
-                android:id="@+id/btnAllPrint"
+                android:id="@+id/btnAllow"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
                 android:background="@color/actionbar_color"
@@ -42,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
                 android:layout_marginTop="16dp"
-                android:text="汇总打印"/>
+                android:text="收款结帐"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

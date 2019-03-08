@@ -42,6 +42,7 @@
     <string name="addaddress">添加地区</string>
     <string name="perference">清单设置</string>
     <string name="share">分享</string>
+    <string name="changeorderstatus">请选择运单状态</string>
 
     <string-array name="print">
         <item>58mm</item>

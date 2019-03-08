@@ -1,8 +1,5 @@
 package com.hope.guanjiapo.activity
 
-import android.app.AlertDialog
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.gprinter.command.EscCommand
@@ -30,7 +26,6 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.service.PrinterServiceConnection
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.line
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.PreferencesUtils
@@ -45,10 +40,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
 
-class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
-    override fun onItemLongEvent(pos: Int) {
-//        showListDialog(pos)
-    }
+class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
 
     override fun onItemEvent(pos: Int) {
         startActivity<PrintOrderInfoActivity>("data" to allItem[pos])
@@ -58,7 +50,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
-            R.id.btnPrintBq -> sendLabelWithResponse()
+            R.id.btnPrintBq -> checkPrintStatus() //sendLabelWithResponse()
             R.id.btnPrintXp -> {
                 val temp = getChooice()
                 if (temp.isNullOrEmpty()) {
@@ -67,13 +59,16 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 }
                 printXp(getChooice()[0])
             }
-            R.id.btnAllPrint -> sendReceipt()
+            R.id.btnAllPrint -> {
+            }//sendReceipt()
         }
     }
 
-//    private fun checkPrintStatus(){
-//        val status = conn?.mGpService?.getPrinterConnectStatus(0)
-//    }
+    private fun checkPrintStatus() {
+        val status = conn?.mGpService?.getPrinterConnectStatus(0)
+        logs("tag", "$status")
+    }
+
     /**
      * 获取已选中的项
      * @return ArrayList<Int>
@@ -96,10 +91,11 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
 
     private val paytype: Array<String> by lazy { resources.getStringArray(R.array.paytype) }
     private val recwaytype: Array<String> by lazy { resources.getStringArray(R.array.recwaytype) }
+
     private fun connection() {
+        logs("tag", "connection")
         conn = PrinterServiceConnection()
-        val intent = Intent(this, GpPrintService::class.java)
-        bindService(intent, conn, Context.BIND_AUTO_CREATE) // bindService
+        bindService(Intent(this, GpPrintService::class.java), conn, Context.BIND_AUTO_CREATE) // bindService
     }
 
     private val allItem: ArrayList<WaybillModel> by lazy { ArrayList<WaybillModel>() }
@@ -114,6 +110,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+
         btnPrintBq.setOnClickListener(this)
         btnPrintXp.setOnClickListener(this)
         btnAllPrint.setOnClickListener(this)
@@ -124,7 +121,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.adapter = adapter
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         adapter.itemListener = this
-        adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
@@ -152,18 +148,21 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         checkGPprinter()
     }
 
-    private fun printTestPageClicked() {
-        try {
-            val rel = conn?.mGpService?.printeTestPage(mPrinterIndex)!! //
-            logs("ServiceConnection", "rel $rel")
-            val r = GpCom.ERROR_CODE.values()[rel]
-            if (r != GpCom.ERROR_CODE.SUCCESS) {
-                toast(GpCom.getErrorText(r))
-            }
-        } catch (e1: RemoteException) {
-            e1.printStackTrace()
-        }
-    }
+//    /**
+//     * 打印测试页
+//     */
+//    private fun printTestPageClicked() {
+//        try {
+//            val rel = conn?.mGpService?.printeTestPage(mPrinterIndex)!! //
+//            logs("ServiceConnection", "rel $rel")
+//            val r = GpCom.ERROR_CODE.values()[rel]
+//            if (r != GpCom.ERROR_CODE.SUCCESS) {
+//                toast(GpCom.getErrorText(r))
+//            }
+//        } catch (e1: RemoteException) {
+//            e1.printStackTrace()
+//        }
+//    }
 
     private fun initDevice() {
         connection()
@@ -196,15 +195,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             val action = intent.action
             logs("TAG", action)
             // GpCom.ACTION_DEVICE_REAL_STATUS 为广播的IntentFilter
-            if (action == ACTION_STATE_CHANGED) {
-                val blueState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
-//                when (blueState) {
-//                    BluetoothAdapter.STATE_TURNING_ON -> BluetoothObserver.getInstance().stateChanged(BluetoothObserver.STATE_TURNING_OFF)
-//                    BluetoothAdapter.STATE_ON -> BluetoothObserver.getInstance().stateChanged(BluetoothObserver.STATE_TURNING_OFF);
-//                    BluetoothAdapter.STATE_TURNING_OFF -> BluetoothObserver.getInstance().stateChanged(BluetoothObserver.STATE_TURNING_OFF);
-//                    BluetoothAdapter.STATE_OFF -> BluetoothObserver.getInstance().stateChanged(BluetoothObserver.STATE_OFF);
-//                }
-            } else if (action == GpCom.ACTION_DEVICE_REAL_STATUS) {
+            if (action == GpCom.ACTION_DEVICE_REAL_STATUS) {
                 // 业务逻辑的请求码，对应哪里查询做什么操作
                 val requestCode = intent.getIntExtra(GpCom.EXTRA_PRINTER_REQUEST_CODE, -1)
                 // 判断请求码，是则进行业务操作
@@ -233,24 +224,24 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     }
 
                     toast("打印机：$mPrinterIndex 状态：$str")
-                } else if (requestCode == REQUEST_PRINT_LABEL) {
+                } else if (requestCode == REQUEST_PRINT_LABEL) { //标签
                     val status = intent.getIntExtra(GpCom.EXTRA_PRINTER_REAL_STATUS, 16)
                     if (status == GpCom.STATE_NO_ERR) {
                         sendLabel()
                     } else {
                         toast("query printer status error")
                     }
-                } else if (requestCode == REQUEST_PRINT_RECEIPT) {
+                } else if (requestCode == REQUEST_PRINT_RECEIPT) { // 票据
                     val status = intent.getIntExtra(GpCom.EXTRA_PRINTER_REAL_STATUS, 16)
                     if (status == GpCom.STATE_NO_ERR) {
-                        sendReceipt()
+//                        sendReceipt()
                     } else {
                         toast("query printer status error")
                     }
                 }
             } else if (action == GpCom.ACTION_RECEIPT_RESPONSE) {
                 if (--mTotalCopies > 0) {
-                    sendReceiptWithResponse()
+//                    sendReceiptWithResponse()
                 }
             } else if (action == GpCom.ACTION_LABEL_RESPONSE) {
                 val data = intent.getByteArrayExtra(GpCom.EXTRA_PRINTER_LABEL_RESPONSE)
@@ -326,190 +317,203 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
 
     }
 
-    private fun sendReceipt() {
-        val esc = EscCommand()
-        esc.addInitializePrinter()
-        esc.addPrintAndFeedLines(3.toByte())
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印居中
-        esc.addSelectPrintModes(
-            EscCommand.FONT.FONTA,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.ON,
-            EscCommand.ENABLE.ON,
-            EscCommand.ENABLE.OFF
-        )// 设置为倍高倍宽
-        esc.addText("Sample\n") // 打印文字
-        esc.addPrintAndLineFeed()
+    /**
+     * 打印票据
+     */
+//    private fun sendReceipt() {
+//        val esc = EscCommand()
+//        esc.addInitializePrinter()
+//        esc.addPrintAndFeedLines(3.toByte())
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印居中
+//        esc.addSelectPrintModes(
+//            EscCommand.FONT.FONTA,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.ON,
+//            EscCommand.ENABLE.ON,
+//            EscCommand.ENABLE.OFF
+//        )// 设置为倍高倍宽
+//        esc.addText("Sample\n") // 打印文字
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印文字 */
+//        esc.addSelectPrintModes(
+//            EscCommand.FONT.FONTA,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF
+//        )// 取消倍高倍宽
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.LEFT)// 设置打印左对齐
+//        esc.addText("Print text\n") // 打印文字
+//        esc.addText("Welcome to use SMARNET printer!\n") // 打印文字
+//
+//        /* 打印繁体中文 需要打印机支持繁体字库 */
+//        val message = "佳博智匯票據打印機\n"
+//        // esc.addText(message,"BIG5");
+//        esc.addText(message, "GB2312")
+//        esc.addPrintAndLineFeed()
+//
+//        /* 绝对位置 具体详细信息请查看GP58编程手册 */
+//        esc.addText("智汇")
+//        esc.addSetHorAndVerMotionUnits(7.toByte(), 0.toByte())
+//        esc.addSetAbsolutePrintPosition(6.toShort())
+//        esc.addText("网络")
+//        esc.addSetAbsolutePrintPosition(10.toShort())
+//        esc.addText("设备")
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印图片 */
+//        esc.addText("Print bitmap!\n") // 打印文字
+//        val b = BitmapFactory.decodeResource(resources, R.drawable.gprinter)
+//        esc.addRastBitImage(b, 384, 0) // 打印图片
+//
+//        /* 打印一维条码 */
+//        esc.addText("Print code128\n") // 打印文字
+//        esc.addSelectPrintingPositionForHRICharacters(EscCommand.HRI_POSITION.BELOW)//
+//        // 设置条码可识别字符位置在条码下方
+//        esc.addSetBarcodeHeight(60.toByte()) // 设置条码高度为60点
+//        esc.addSetBarcodeWidth(1.toByte()) // 设置条码单元宽度为1
+//        esc.addCODE128(esc.genCodeB("SMARNET")) // 打印Code128码
+//        esc.addPrintAndLineFeed()
+//
+//        /*
+//		 * QRCode命令打印 此命令只在支持QRCode命令打印的机型才能使用。 在不支持二维码指令打印的机型上，则需要发送二维条码图片
+//		 */
+//        esc.addText("Print QRcode\n") // 打印文字
+//        esc.addSelectErrorCorrectionLevelForQRCode(0x31.toByte()) // 设置纠错等级
+//        esc.addSelectSizeOfModuleForQRCode(3.toByte())// 设置qrcode模块大小
+//        esc.addStoreQRCodeData("www.smarnet.cc")// 设置qrcode内容
+//        esc.addPrintQRCode()// 打印QRCode
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印文字 */
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印左对齐
+//        esc.addText("Completed!\r\n") // 打印结束
+//        // 开钱箱
+//        esc.addGeneratePlus(LabelCommand.FOOT.F5, 255.toByte(), 255.toByte())
+//        esc.addPrintAndFeedLines(8.toByte())
+//
+//        val datas = esc.command // 发送数据
+//        val bytes = GpUtils.ByteTo_byte(datas)
+//        val sss = Base64.encodeToString(bytes, Base64.DEFAULT)
+//        val rs: Int
+//        try {
+//            rs = conn?.mGpService?.sendEscCommand(mPrinterIndex, sss)!!
+//            val r = GpCom.ERROR_CODE.values()[rs]
+//            if (r != GpCom.ERROR_CODE.SUCCESS) {
+//                Toast.makeText(applicationContext, GpCom.getErrorText(r), Toast.LENGTH_SHORT).show()
+//            }
+//        } catch (e: RemoteException) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace()
+//        }
+//
+//    }
 
-        /* 打印文字 */
-        esc.addSelectPrintModes(
-            EscCommand.FONT.FONTA,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF
-        )// 取消倍高倍宽
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.LEFT)// 设置打印左对齐
-        esc.addText("Print text\n") // 打印文字
-        esc.addText("Welcome to use SMARNET printer!\n") // 打印文字
+//    private fun sendReceiptWithResponse() {
+//        val esc = EscCommand()
+//        esc.addInitializePrinter()
+//        esc.addPrintAndFeedLines(3.toByte())
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印居中
+//        esc.addSelectPrintModes(
+//            EscCommand.FONT.FONTA,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.ON,
+//            EscCommand.ENABLE.ON,
+//            EscCommand.ENABLE.OFF
+//        )// 设置为倍高倍宽
+//        esc.addText("Sample\n") // 打印文字
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印文字 */
+//        esc.addSelectPrintModes(
+//            EscCommand.FONT.FONTA,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF,
+//            EscCommand.ENABLE.OFF
+//        )// 取消倍高倍宽
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.LEFT)// 设置打印左对齐
+//        esc.addText("Print text\n") // 打印文字
+//        esc.addText("Welcome to use SMARNET printer!\n") // 打印文字
+//
+//        /* 打印繁体中文 需要打印机支持繁体字库 */
+//        val message = "佳博智匯票據打印機\n"
+//        // esc.addText(message,"BIG5");
+//        esc.addText(message, "GB2312")
+//        esc.addPrintAndLineFeed()
+//
+//        /* 绝对位置 具体详细信息请查看GP58编程手册 */
+//        esc.addText("智汇")
+//        esc.addSetHorAndVerMotionUnits(7.toByte(), 0.toByte())
+//        esc.addSetAbsolutePrintPosition(6.toShort())
+//        esc.addText("网络")
+//        esc.addSetAbsolutePrintPosition(10.toShort())
+//        esc.addText("设备")
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印图片 */
+//        // esc.addText("Print bitmap!\n"); // 打印文字
+//        // Bitmap b = BitmapFactory.decodeResource(getResources(),
+//        // R.drawable.gprinter);
+//        // esc.addRastBitImage(b, 384, 0); // 打印图片
+//
+//        /* 打印一维条码 */
+//        esc.addText("Print code128\n") // 打印文字
+//        esc.addSelectPrintingPositionForHRICharacters(EscCommand.HRI_POSITION.BELOW)//
+//        // 设置条码可识别字符位置在条码下方
+//        esc.addSetBarcodeHeight(60.toByte()) // 设置条码高度为60点
+//        esc.addSetBarcodeWidth(1.toByte()) // 设置条码单元宽度为1
+//        esc.addCODE128(esc.genCodeB("SMARNET")) // 打印Code128码
+//        esc.addPrintAndLineFeed()
+//
+//        /*
+//		 * QRCode命令打印 此命令只在支持QRCode命令打印的机型才能使用。 在不支持二维码指令打印的机型上，则需要发送二维条码图片
+//		 */
+//        esc.addText("Print QRcode\n") // 打印文字
+//        esc.addSelectErrorCorrectionLevelForQRCode(0x31.toByte()) // 设置纠错等级
+//        esc.addSelectSizeOfModuleForQRCode(3.toByte())// 设置qrcode模块大小
+//        esc.addStoreQRCodeData("www.smarnet.cc")// 设置qrcode内容
+//        esc.addPrintQRCode()// 打印QRCode
+//        esc.addPrintAndLineFeed()
+//
+//        /* 打印文字 */
+//        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印左对齐
+//        esc.addText("Completed!\r\n") // 打印结束
+//        // 开钱箱
+//        esc.addGeneratePlus(LabelCommand.FOOT.F5, 255.toByte(), 255.toByte())
+//        esc.addPrintAndFeedLines(8.toByte())
+//
+//        // 加入查询打印机状态，打印完成后，此时会接收到GpCom.ACTION_DEVICE_STATUS广播
+//        esc.addQueryPrinterStatus()
+//
+//        val datas = esc.command // 发送数据
+//        val bytes = GpUtils.ByteTo_byte(datas)
+//        val sss = Base64.encodeToString(bytes, Base64.DEFAULT)
+//        val rs: Int
+//        try {
+//            rs = conn?.mGpService?.sendEscCommand(mPrinterIndex, sss)!!
+//            val r = GpCom.ERROR_CODE.values()[rs]
+//            if (r != GpCom.ERROR_CODE.SUCCESS) {
+//                Toast.makeText(applicationContext, GpCom.getErrorText(r), Toast.LENGTH_SHORT).show()
+//            }
+//        } catch (e: RemoteException) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace()
+//        }
+//
+//    }
 
-        /* 打印繁体中文 需要打印机支持繁体字库 */
-        val message = "佳博智匯票據打印機\n"
-        // esc.addText(message,"BIG5");
-        esc.addText(message, "GB2312")
-        esc.addPrintAndLineFeed()
-
-        /* 绝对位置 具体详细信息请查看GP58编程手册 */
-        esc.addText("智汇")
-        esc.addSetHorAndVerMotionUnits(7.toByte(), 0.toByte())
-        esc.addSetAbsolutePrintPosition(6.toShort())
-        esc.addText("网络")
-        esc.addSetAbsolutePrintPosition(10.toShort())
-        esc.addText("设备")
-        esc.addPrintAndLineFeed()
-
-        /* 打印图片 */
-        esc.addText("Print bitmap!\n") // 打印文字
-        val b = BitmapFactory.decodeResource(resources, R.drawable.gprinter)
-        esc.addRastBitImage(b, 384, 0) // 打印图片
-
-        /* 打印一维条码 */
-        esc.addText("Print code128\n") // 打印文字
-        esc.addSelectPrintingPositionForHRICharacters(EscCommand.HRI_POSITION.BELOW)//
-        // 设置条码可识别字符位置在条码下方
-        esc.addSetBarcodeHeight(60.toByte()) // 设置条码高度为60点
-        esc.addSetBarcodeWidth(1.toByte()) // 设置条码单元宽度为1
-        esc.addCODE128(esc.genCodeB("SMARNET")) // 打印Code128码
-        esc.addPrintAndLineFeed()
-
-        /*
-		 * QRCode命令打印 此命令只在支持QRCode命令打印的机型才能使用。 在不支持二维码指令打印的机型上，则需要发送二维条码图片
-		 */
-        esc.addText("Print QRcode\n") // 打印文字
-        esc.addSelectErrorCorrectionLevelForQRCode(0x31.toByte()) // 设置纠错等级
-        esc.addSelectSizeOfModuleForQRCode(3.toByte())// 设置qrcode模块大小
-        esc.addStoreQRCodeData("www.smarnet.cc")// 设置qrcode内容
-        esc.addPrintQRCode()// 打印QRCode
-        esc.addPrintAndLineFeed()
-
-        /* 打印文字 */
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印左对齐
-        esc.addText("Completed!\r\n") // 打印结束
-        // 开钱箱
-        esc.addGeneratePlus(LabelCommand.FOOT.F5, 255.toByte(), 255.toByte())
-        esc.addPrintAndFeedLines(8.toByte())
-
-        val datas = esc.command // 发送数据
-        val bytes = GpUtils.ByteTo_byte(datas)
-        val sss = Base64.encodeToString(bytes, Base64.DEFAULT)
-        val rs: Int
-        try {
-            rs = conn?.mGpService?.sendEscCommand(mPrinterIndex, sss)!!
-            val r = GpCom.ERROR_CODE.values()[rs]
-            if (r != GpCom.ERROR_CODE.SUCCESS) {
-                Toast.makeText(applicationContext, GpCom.getErrorText(r), Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: RemoteException) {
-            // TODO Auto-generated catch block
-            e.printStackTrace()
-        }
-
-    }
-
-    private fun sendReceiptWithResponse() {
-        val esc = EscCommand()
-        esc.addInitializePrinter()
-        esc.addPrintAndFeedLines(3.toByte())
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印居中
-        esc.addSelectPrintModes(
-            EscCommand.FONT.FONTA,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.ON,
-            EscCommand.ENABLE.ON,
-            EscCommand.ENABLE.OFF
-        )// 设置为倍高倍宽
-        esc.addText("Sample\n") // 打印文字
-        esc.addPrintAndLineFeed()
-
-        /* 打印文字 */
-        esc.addSelectPrintModes(
-            EscCommand.FONT.FONTA,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF,
-            EscCommand.ENABLE.OFF
-        )// 取消倍高倍宽
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.LEFT)// 设置打印左对齐
-        esc.addText("Print text\n") // 打印文字
-        esc.addText("Welcome to use SMARNET printer!\n") // 打印文字
-
-        /* 打印繁体中文 需要打印机支持繁体字库 */
-        val message = "佳博智匯票據打印機\n"
-        // esc.addText(message,"BIG5");
-        esc.addText(message, "GB2312")
-        esc.addPrintAndLineFeed()
-
-        /* 绝对位置 具体详细信息请查看GP58编程手册 */
-        esc.addText("智汇")
-        esc.addSetHorAndVerMotionUnits(7.toByte(), 0.toByte())
-        esc.addSetAbsolutePrintPosition(6.toShort())
-        esc.addText("网络")
-        esc.addSetAbsolutePrintPosition(10.toShort())
-        esc.addText("设备")
-        esc.addPrintAndLineFeed()
-
-        /* 打印图片 */
-        // esc.addText("Print bitmap!\n"); // 打印文字
-        // Bitmap b = BitmapFactory.decodeResource(getResources(),
-        // R.drawable.gprinter);
-        // esc.addRastBitImage(b, 384, 0); // 打印图片
-
-        /* 打印一维条码 */
-        esc.addText("Print code128\n") // 打印文字
-        esc.addSelectPrintingPositionForHRICharacters(EscCommand.HRI_POSITION.BELOW)//
-        // 设置条码可识别字符位置在条码下方
-        esc.addSetBarcodeHeight(60.toByte()) // 设置条码高度为60点
-        esc.addSetBarcodeWidth(1.toByte()) // 设置条码单元宽度为1
-        esc.addCODE128(esc.genCodeB("SMARNET")) // 打印Code128码
-        esc.addPrintAndLineFeed()
-
-        /*
-		 * QRCode命令打印 此命令只在支持QRCode命令打印的机型才能使用。 在不支持二维码指令打印的机型上，则需要发送二维条码图片
-		 */
-        esc.addText("Print QRcode\n") // 打印文字
-        esc.addSelectErrorCorrectionLevelForQRCode(0x31.toByte()) // 设置纠错等级
-        esc.addSelectSizeOfModuleForQRCode(3.toByte())// 设置qrcode模块大小
-        esc.addStoreQRCodeData("www.smarnet.cc")// 设置qrcode内容
-        esc.addPrintQRCode()// 打印QRCode
-        esc.addPrintAndLineFeed()
-
-        /* 打印文字 */
-        esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印左对齐
-        esc.addText("Completed!\r\n") // 打印结束
-        // 开钱箱
-        esc.addGeneratePlus(LabelCommand.FOOT.F5, 255.toByte(), 255.toByte())
-        esc.addPrintAndFeedLines(8.toByte())
-
-        // 加入查询打印机状态，打印完成后，此时会接收到GpCom.ACTION_DEVICE_STATUS广播
-        esc.addQueryPrinterStatus()
-
-        val datas = esc.command // 发送数据
-        val bytes = GpUtils.ByteTo_byte(datas)
-        val sss = Base64.encodeToString(bytes, Base64.DEFAULT)
-        val rs: Int
-        try {
-            rs = conn?.mGpService?.sendEscCommand(mPrinterIndex, sss)!!
-            val r = GpCom.ERROR_CODE.values()[rs]
-            if (r != GpCom.ERROR_CODE.SUCCESS) {
-                Toast.makeText(applicationContext, GpCom.getErrorText(r), Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: RemoteException) {
-            // TODO Auto-generated catch block
-            e.printStackTrace()
-        }
-
-    }
-
+    /**
+     * 测试 发送标签打印
+     *
+     * 文字
+     * 图片 []      二维码 *****
+     *     []            *****
+     * 一维码
+     *  ||||||||||
+     * 一维码文字
+     */
     private fun sendLabel() {
         val tsc = LabelCommand()
         tsc.addSize(60, 60) // 设置标签尺寸，按照实际尺寸设置
@@ -562,6 +566,26 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     }
 
     /**
+     * 发货点：            单号：   业务：18888888888（业务员的电话，中字号）
+     * ------------------
+     * 收货方：（大字号）                    电话：
+     * 收货地址：
+     * 发货方：                    电话：
+     * 数量： （大字号）            ***************
+     * 货物名称：                  ***************
+     * 代收款：  中转：             ***************
+     * 运费：      现付            ***************
+     * 备注：
+     * 开单时间：
+     * --------------------
+     * 谢谢惠顾
+     * 打印程序：
+     */
+    private fun printBq(pos: Int) {
+
+    }
+
+    /**
      * @param pos
      *          打印小票
      *          现付 自提
@@ -592,7 +616,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         val esc = EscCommand()
         esc.addInitializePrinter()
 //        esc.addPrintAndFeedLines(3.toByte())
-        esc.addSetHorAndVerMotionUnits(0,0)
+        esc.addSetHorAndVerMotionUnits(0, 0)
         esc.addSelectDefualtLineSpacing()
         esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER)// 设置打印居中
         esc.addSelectPrintModes(

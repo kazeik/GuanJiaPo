@@ -9,57 +9,31 @@ import com.hope.guanjiapo.adapter.WaybillAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
-import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
-import kotlinx.android.synthetic.main.fragment_data.*
+import kotlinx.android.synthetic.main.activity_waybill_controll.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import java.util.*
 
-class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
-    override fun onItemLongEvent(pos: Int) {
-        showListDialog(pos)
-    }
+class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
+//    override fun onItemLongEvent(pos: Int) {
+//        showListDialog(pos)
+//    }
 
     override fun onItemEvent(pos: Int) {
 
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
-        }
-    }
-
-    private var orderstatus: Int? = 0
-    private fun showListDialog(pos: Int) {
-        val items = resources.getStringArray(R.array.waybillcontrol)
-        val listDialog = AlertDialog.Builder(this)
-        listDialog.setItems(items) { dialog, which ->
-            dialog.dismiss()
-            when (which) {
-                0 -> showOrderStatusDialog(pos)
-                1 -> {
-                }
-            }
-        }
-        listDialog.show()
-    }
-
-    override fun getLayoutView(): Int {
-        return R.layout.activity_waybill
-    }
-
     private fun showOrderStatusDialog(pos: Int) {
         val items = resources.getStringArray(R.array.orderstatus)
         val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择运单状态")
+        listDialog.setTitle(R.string.changeorderstatus)
         listDialog.setItems(items) { dialog, which ->
             dialog.dismiss()
             orderstatus = which
@@ -68,7 +42,47 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         listDialog.show()
     }
 
-    private val allItem: ArrayList<WaybillModel> by lazy { ArrayList<WaybillModel>() }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ivBackup -> finish()
+            R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
+            R.id.btnAllow -> {
+            }
+            R.id.btnChangeStatus -> {
+                val temp = getChooice()
+                if (temp.isNullOrEmpty()) {
+                    toast("请选择您要修改的数据")
+                    return
+                }
+                temp.forEach {
+                    showOrderStatusDialog(it)
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取已选中的项
+     * @return ArrayList<Int>
+     */
+    private fun getChooice(): ArrayList<Int> {
+        val arrayInt: ArrayList<Int> = arrayListOf()
+        for (entry in adapter.itemsStatus.entries) {
+            if (entry.value)
+                arrayInt.add(entry.key)
+        }
+        return arrayInt
+    }
+
+    private var orderstatus: Int? = 0
+
+    override fun getLayoutView(): Int {
+        return R.layout.activity_waybill_controll
+    }
+
+
+    private val allItem: LinkedList<WaybillModel> by lazy { LinkedList<WaybillModel>() }
     private val adapter by lazy { WaybillAdapter<WaybillModel>(this) }
     override fun initData() {
         tvTitle.setText(R.string.histroy)
@@ -76,12 +90,13 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+        btnChangeStatus.setOnClickListener(this)
+        btnAllow.setOnClickListener(this)
 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
         adapter.itemListener = this
-        adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
