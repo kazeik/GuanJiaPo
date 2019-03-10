@@ -96,8 +96,8 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 
     private fun connectOrDisconnetDevice(index: Int) {
         try {
-            conn?.mGpService?.closePort(0)
-            val flag = conn?.mGpService?.openPort(0, PortParameters.BLUETOOTH, allDevice[index].address, 0)
+//            conn?.mGpService?.closePort(index)
+            val flag = conn?.mGpService?.openPort(index, PortParameters.BLUETOOTH, allDevice[index].address, 0)
             val r = GpCom.ERROR_CODE.values()[flag!!]
             logs("tag", "连接状态$flag & $r")
             if (r != GpCom.ERROR_CODE.SUCCESS) {
