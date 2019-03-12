@@ -674,7 +674,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "运费:${item.agentmoney}  ${paytype[item.shipfeepaytype]}"
+            "运费:${item.baseshipfee}  ${paytype[item.shipfeepaytype]}"
         )
 
         tsc.addText(
