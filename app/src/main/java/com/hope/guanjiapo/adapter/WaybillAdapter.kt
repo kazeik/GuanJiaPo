@@ -3,7 +3,6 @@ package com.hope.guanjiapo.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R
@@ -42,6 +41,8 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
         val tvItem3 = holder.getViewById<TextView>(R.id.tvItem3)
         val llitem = holder.getViewById<LinearLayout>(R.id.llItem)
 
+        cbCheck.setOnCheckedChangeListener(null)
+
         llitem.setOnClickListener {
             if (null != itemListener)
                 itemListener?.onItemEvent(position)
@@ -54,8 +55,10 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
         }
 
         cbCheck.setOnCheckedChangeListener { buttonView, isChecked ->
-            itemsStatus[position] = isChecked
+            if (isChecked) itemsStatus.put(position, true) else itemsStatus.remove(position)
         }
+
+        cbCheck.isChecked = itemsStatus.isNotEmpty() && itemsStatus.containsKey(position)
 
 
         val entity = dataList?.get(position) as? WaybillModel
