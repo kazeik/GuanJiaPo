@@ -61,7 +61,17 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 printXp(getChooice()[0])
             }
             R.id.btnAllPrint -> {
-            }//sendReceipt()
+                val choice = getChooice()
+                if (choice.isEmpty() || choice.size == 0) {
+                    toast("请选择你需要汇总打印的数据")
+                    return
+                }
+                val tempArr = arrayListOf<WaybillModel>()
+                choice.forEach {
+                    tempArr.add(allItem[it])
+                }
+                startActivity<CollectActivity>("data" to tempArr)
+            }
         }
     }
 

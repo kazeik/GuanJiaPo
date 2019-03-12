@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <include layout="@layout/view_line_vertical"/>
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvNum"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/view_line_vertical"/>
+
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvIndex"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/view_line_vertical"/>
+
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvJs"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/view_line_vertical"/>
+
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvTj"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/view_line_vertical"/>
+
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvYsyf"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/view_line_vertical"/>
+
+    <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_weight="1"
+            android:id="@+id/tvBz"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_5"
+            android:layout_height="wrap_content"/>
+    <include layout="@layout/view_line_vertical"/>
+</LinearLayout>

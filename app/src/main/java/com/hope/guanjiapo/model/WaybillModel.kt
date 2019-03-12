@@ -7,7 +7,7 @@ data class WaybillModel(
     @SerializedName("agentmoney")
     val agentmoney: String,
     @SerializedName("baseshipfee")
-    val baseshipfee: String,
+    val baseshipfee: Double,
     @SerializedName("bossId")
     val bossId: String,
     @SerializedName("bossMobile")
