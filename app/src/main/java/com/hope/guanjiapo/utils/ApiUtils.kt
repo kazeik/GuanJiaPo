@@ -1,6 +1,5 @@
 package com.hope.guanjiapo.utils
 
-import com.gprinter.aidl.GpService
 import com.hope.guanjiapo.model.LoginModel
 import com.hope.guanjiapo.model.StaffModel
 import com.hope.guanjiapo.model.VehicleModel
@@ -14,6 +13,7 @@ import com.hope.guanjiapo.model.VehicleModel
  */
 object ApiUtils {
     var loginModel: LoginModel? = null
+    var connectionStatus: Boolean = false
     val line = "----------------------------------------\n"
 
     var vehicleModel: VehicleModel? = null

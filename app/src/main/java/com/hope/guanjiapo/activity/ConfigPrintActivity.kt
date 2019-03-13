@@ -2,13 +2,13 @@ package com.hope.guanjiapo.activity
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
-import android.os.IBinder
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
-import com.gprinter.aidl.GpService
 import com.gprinter.command.GpCom
 import com.gprinter.io.GpDevice
 import com.gprinter.io.PortParameters
@@ -27,7 +27,8 @@ import org.jetbrains.anko.startActivity
 
 class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun onItemEvent(pos: Int) {
-        connectOrDisconnetDevice(pos)
+        choiceIndex = pos
+        connectOrDisconnetDevice()
     }
 
     override fun onClick(v: View?) {
@@ -48,6 +49,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
         return R.layout.activity_config_print
     }
 
+    private var choiceIndex: Int? = 0
     private var conn: PrinterServiceConnection? = null
     private val allDevice: ArrayList<PrintDeviceModel> by lazy { ArrayList<PrintDeviceModel>() }
     private var mBluetoothAdapter: BluetoothAdapter? = null
@@ -94,20 +96,18 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
         registerReceiver(PrinterStatusBroadcastReceiver, filter)
     }
 
-    private fun connectOrDisconnetDevice(index: Int) {
+    private fun connectOrDisconnetDevice() {
         try {
 //            conn?.mGpService?.closePort(index)
-            val flag = conn?.mGpService?.openPort(index, PortParameters.BLUETOOTH, allDevice[index].address, 0)
+            val flag =
+                conn?.mGpService?.openPort(choiceIndex!!, PortParameters.BLUETOOTH, allDevice[choiceIndex!!].address, 0)
             val r = GpCom.ERROR_CODE.values()[flag!!]
             logs("tag", "连接状态$flag & $r")
             if (r != GpCom.ERROR_CODE.SUCCESS) {
                 if (r == GpCom.ERROR_CODE.DEVICE_ALREADY_OPEN) {
-                    allDevice[index].status = 3
+                    allDevice[choiceIndex!!].status = 3
                     adapter.setDataEntityList(allDevice)
                 }
-            } else {
-                allDevice[index].status = 2
-                adapter.setDataEntityList(allDevice)
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -119,17 +119,11 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
             if (GpCom.ACTION_CONNECT_STATUS == intent.action) {
                 val type = intent.getIntExtra(GpPrintService.CONNECT_STATUS, 0)
                 val id = intent.getIntExtra(GpPrintService.PRINTER_ID, 0)
-                Log.d("tag", "connect status $type")
+                logs("tag", "当前的连接状态 $type")
 //                action.connect.status
                 if (type == GpDevice.STATE_CONNECTING) {
-//                    setProgressBarIndeterminateVisibility(true)
-//                    SetLinkButtonEnable(ListViewAdapter.DISABLE)
-//                    mPortParam[id].setPortOpenState(false)
-//                    val map: MutableMap<String, Any>
-//                    map = mList.get(id)
-//                    map[ListViewAdapter.STATUS] = getString(R.string.connecting)
-//                    mList.set(id, map)
-//                    mListViewAdapter.notifyDataSetChanged()
+//                    allDevice[choiceIndex!!].status = 2
+//                    adapter.setDataEntityList(allDevice)
 //
                 } else if (type == GpDevice.STATE_NONE) {
 //                    setProgressBarIndeterminateVisibility(false)
@@ -149,6 +143,8 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 //                    map[ListViewAdapter.STATUS] = getString(R.string.cut)
 //                    mList.set(id, map)
 //                    mListViewAdapter.notifyDataSetChanged()
+                    allDevice[choiceIndex!!].status = 2
+                    adapter.setDataEntityList(allDevice)
                 } else if (type == GpDevice.STATE_INVALID_PRINTER) {
 //                    setProgressBarIndeterminateVisibility(false)
 //                    SetLinkButtonEnable(ListViewAdapter.ENABLE)

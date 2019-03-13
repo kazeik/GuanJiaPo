@@ -1,7 +1,6 @@
 package com.hope.guanjiapo.adapter
 
 import android.annotation.SuppressLint
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R

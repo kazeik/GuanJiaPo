@@ -21,6 +21,7 @@ import com.hope.guanjiapo.adapter.CollectAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.service.PrinterServiceConnection
+import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
@@ -29,6 +30,7 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_collect.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
 
@@ -106,7 +108,12 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         listDialog.setItems(items) { dialog, which ->
             when (which) {
                 0 -> startActivity<ConfigPrintActivity>()
-                1 -> sendReceipt()
+                1 -> {
+                    if (connectionStatus)
+                        sendReceipt()
+                    else
+                        startActivityForResult<ConfigPrintActivity>(120)
+                }
             }
         }
         listDialog.show()
@@ -125,6 +132,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     val status = intent.getIntExtra(GpCom.EXTRA_PRINTER_REAL_STATUS, 16)
                     var str: String
                     if (status == GpCom.STATE_NO_ERR) {
+                        connectionStatus = true
                         str = "打印机正常"
                     } else {
                         str = "打印机 "
@@ -145,7 +153,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                         }
                     }
 
-                    toast("打印机：$mPrinterIndex 状态：$str")
+                    toast(str)
                 } else if (requestCode == REQUEST_PRINT_LABEL) { //标签
                     val status = intent.getIntExtra(GpCom.EXTRA_PRINTER_REAL_STATUS, 16)
                     if (status == GpCom.STATE_NO_ERR) {
@@ -348,5 +356,22 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
             e.printStackTrace()
         }
         toast("已发送打印")
+    }
+
+    private fun checkGPprinter() {
+        try {
+            conn?.mGpService?.queryPrinterStatus(0, 500, MAIN_QUERY_PRINTER_STATUS)
+        } catch (e1: RemoteException) {
+            e1.printStackTrace()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            120 -> {
+                checkGPprinter()
+            }
+        }
     }
 }
