@@ -18,7 +18,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.view.RecycleViewDivider
-import kotlinx.android.synthetic.main.fragment_data.*
+import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
 
@@ -96,6 +96,8 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
+
+        llview.visibility = if (intent.getBooleanExtra("a", false)) View.GONE else View.VISIBLE
 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))

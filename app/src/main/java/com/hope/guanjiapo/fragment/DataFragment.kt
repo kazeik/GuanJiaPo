@@ -26,8 +26,8 @@ class DataFragment : BaseFragment(), OnItemEventListener {
             1 -> startActivity<ConsignerActivity>()
             2 -> startActivity<DestinationActivity>()
             3 -> startActivity<ShipmentsActivity>()
-            4 -> startActivity<SupplierActivity>()
-            5 -> startActivity<VehicleActivity>()
+            4 -> startActivity<SupplierActivity>("a" to true)
+            5 -> startActivity<VehicleActivity>("a" to true)
         }
     }
 
