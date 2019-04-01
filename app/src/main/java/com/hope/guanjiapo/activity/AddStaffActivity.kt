@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.RadioGroup
@@ -13,6 +14,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.MD5Utils
+import com.hope.guanjiapo.utils.Utils.logs
 import kotlinx.android.synthetic.main.activity_add_staff.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
@@ -90,7 +92,12 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
                 override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
-                    setResult(99, Intent().putExtra("data", data?.data!!))
+                    logs("tag", "${data?.data}")
+                    val intt = Intent()
+                    val bund = Bundle()
+                    bund.putSerializable("data", data?.data!!)
+                    intt.putExtra("bund",bund)
+                    setResult(99, intt)
                     finish()
                 }
             })

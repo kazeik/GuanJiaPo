@@ -15,7 +15,6 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
-import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_staff.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -89,20 +88,27 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         rcvData.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
-        itemData.addAll(allStaffModel!!)
-        adapter.setDataEntityList(itemData)
+        getdata()
+    }
+
+    private fun getdata() {
+        HttpNetUtils.getInstance().getManager()?.wladdOrDel(
+            hashMapOf(
+                "id" to ApiUtils.loginModel?.id!!, "isAdd" to -1, "mobile" to ApiUtils.loginModel?.mobile!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
+                override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
+                    itemData.clear()
+                    itemData.addAll(data?.data!!)
+                    adapter.setDataEntityList(itemData)
+                }
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
-        when (resultCode) {
-            99 -> {
-                val tempData = intent.getSerializableExtra("data") as ArrayList<StaffModel>
-                itemData.clear()
-                itemData.addAll(tempData)
-                adapter.setDataEntityList(itemData)
-            }
-        }
+        getdata()
     }
 }
