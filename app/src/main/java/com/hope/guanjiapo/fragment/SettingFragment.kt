@@ -46,7 +46,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             4 -> {
                 val intent = Intent()
                 intent.action = "android.intent.action.VIEW"
-                intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
+                intent.data = Uri.parse("http://wl.hfuture.cn")
                 intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
                 startActivity(intent)
             }
@@ -55,7 +55,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             {
                 val textIntent = Intent(Intent.ACTION_SEND)
                 textIntent.type = "text/plain"
-                textIntent.putExtra(Intent.EXTRA_TEXT, "http://itunes.apple.com/cn/app/id1089078143?mt=8")
+                textIntent.putExtra(Intent.EXTRA_TEXT, "http://wl.hfuture.cn")
                 startActivity(Intent.createChooser(textIntent, "分享到"))
             }
             7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
@@ -88,6 +88,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
 
     private fun showInputDialog() {
         val editText = EditText(activity)
+        editText.setText(ApiUtils.vehicleModel?.companyname!!)
         val inputDialog = AlertDialog.Builder(activity)
         inputDialog.setTitle(R.string.editcompanyname).setView(editText)
         inputDialog.setNegativeButton(R.string.cancel) { _, _ -> }
