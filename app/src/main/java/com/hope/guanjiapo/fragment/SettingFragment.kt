@@ -46,7 +46,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             4 -> {
                 val intent = Intent()
                 intent.action = "android.intent.action.VIEW"
-                intent.data = Uri.parse("http://wl.hfuture.cn")
+                intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
                 intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
                 startActivity(intent)
             }
@@ -55,7 +55,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             {
                 val textIntent = Intent(Intent.ACTION_SEND)
                 textIntent.type = "text/plain"
-                textIntent.putExtra(Intent.EXTRA_TEXT, "http://wl.hfuture.cn")
+                textIntent.putExtra(Intent.EXTRA_TEXT, "手机就能开单管帐，您专属的物流管理工具《物流管家婆》 http://wl.hfuture.cn")
                 startActivity(Intent.createChooser(textIntent, "分享到"))
             }
             7 -> JFDialog.Builder(activity).setTitleText(getString(R.string.title)).setCancelText(getString(R.string.cancel)).setSureText(
