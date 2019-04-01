@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 Manifest.permission.READ_EXTERNAL_STORAGE
                 , Manifest.permission.WRITE_EXTERNAL_STORAGE
                 , Manifest.permission.READ_PHONE_STATE
-                ,Manifest.permission.CAMERA
+                , Manifest.permission.CAMERA
                 , Manifest.permission.CALL_PHONE
             )
                 .subscribe { permission ->
@@ -73,10 +73,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
 
-        if (BuildConfig.DEBUG) {
-            etPhone.setText("15988879319")
-            password.setText("1234")
-        }
+//        if (BuildConfig.DEBUG) {
+//            etPhone.setText("15988879319")
+//            password.setText("1234")
+//        }
+
+        val user = PreferencesUtils.getString(this, "user")
+        val pass = PreferencesUtils.getString(this, "pass")
+        etPhone.setText(user)
+        password.setText(pass)
+
         checkPermission()
     }
 
@@ -122,9 +128,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
-                    loginModel= data?.data
+                    loginModel = data?.data
                     startActivity<MainActivity>()
                 }
+
                 override fun reLogin() {
                     super.reLogin()
                     JFDialog.Builder(this@LoginActivity).setContentText(getString(R.string.relogin))
