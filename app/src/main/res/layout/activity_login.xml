@@ -74,14 +74,14 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/action_sign_in" />
 
-            <Button
+            <TextView
                     android:id="@+id/btnRegister"
-                    android:layout_width="match_parent"
-                    android:background="@color/actionbar_color"
-                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/actionbar_color"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="注册用户" />
+                    android:layout_marginTop="26dp"
+                    android:layout_gravity="right"
+                    android:text="帐号注册>>" />
 
         </LinearLayout>
     </LinearLayout>
@@ -100,12 +100,14 @@
                 android:textColor="@color/actionbar_color"
                 android:id="@+id/tvCallPhone"
                 android:layout_height="wrap_content"/>
+
         <TextView
                 android:layout_width="wrap_content"
                 android:text="客户QQ:37688599"
                 android:textColor="@color/actionbar_color"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/tvQQ"/>
     </LinearLayout>
 
 </RelativeLayout>

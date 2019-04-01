@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.text.TextUtils
 import android.view.View
-import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
@@ -40,6 +39,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 }.setContentText(getString(R.string.callphone)).create().show()
             R.id.btnLogin -> login()
             R.id.btnRegister -> startActivity<RegisterActivity>()
+            R.id.tvQQ -> {
+                try {
+                    startActivity(getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq"));
+                } catch (e: Exception) {
+                    toast("未检测到已安装了QQ")
+                }
+            }
         }
     }
 
@@ -72,6 +78,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         tvCallPhone.setOnClickListener(this)
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
+        tvQQ.setOnClickListener(this)
 
 //        if (BuildConfig.DEBUG) {
 //            etPhone.setText("15988879319")

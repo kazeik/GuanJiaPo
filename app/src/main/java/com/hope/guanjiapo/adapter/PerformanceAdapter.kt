@@ -32,12 +32,12 @@ class PerformanceAdapter<A> : BaseAdapter<A>() {
         val tvItem6 = holder.getViewById<TextView>(R.id.tvItem6)
 
         val entity = dataList?.get(position) as PerformanceListModel
-        tvTime.text= entity.date
+        tvTime.text = entity.date
         tvItem1.text = "总运费：${entity.saleorderrecord.shipfee}"
-        tvItem2.text = "中转费：${entity.saleorderrecord.shipfeesendpay }"
-        tvItem3.text = "代收款：${entity.saleorderrecord.agentmoney }"
-        tvItem4.text = "保费：${entity.saleorderrecord.insurancefee }"
-        tvItem5.text = "欠款：${entity.saleorderrecord.costFee}"
-        tvItem6.text = "利润：${entity.saleorderrecord.dispatchfee}"
+        tvItem2.text = "中转费：${entity.saleorderrecord.shipfeesendpay}"
+        tvItem3.text = "代收款：${entity.saleorderrecord.agentmoney}"
+        tvItem4.text = "保费：${entity.saleorderrecord.insurancefee}"
+        tvItem5.text = "欠款：${entity.saleorderrecord.dispatchfee}"
+        tvItem6.text = "利润：${entity.saleorderrecord.shipfee - entity.saleorderrecord.costFee}"
     }
 }
