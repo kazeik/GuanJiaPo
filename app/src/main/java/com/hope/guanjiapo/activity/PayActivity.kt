@@ -1,5 +1,7 @@
 package com.hope.guanjiapo.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
@@ -13,10 +15,8 @@ class PayActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.btnPay -> {
-            }
-            R.id.btnRePay -> {
-            }
+            R.id.btnPay,
+            R.id.btnRePay -> gtoto()
         }
     }
 
@@ -25,4 +25,11 @@ class PayActivity : BaseActivity(), View.OnClickListener {
         ivBackup.setOnClickListener(this)
     }
 
+    private fun gtoto() {
+        val intent = Intent()
+        intent.action = "android.intent.action.VIEW"
+        intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
+        intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
+        startActivity(intent)
+    }
 }
