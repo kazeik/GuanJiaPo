@@ -58,7 +58,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivDh -> startActivityForResult<CaptureActivity>(REQUEST_CODE)
             R.id.tvKsrq -> showTime(true)
             R.id.tvJsrq -> showTime(false)
-            R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201,"a" to true)
             R.id.tvYwy -> startActivityForResult<StaffActivity>(194)
             R.id.tvYdzt -> showOrderStatusDialog()
             R.id.tvFhd -> startActivityForResult<ShipmentsActivity>(195)

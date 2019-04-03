@@ -27,6 +27,7 @@ import org.jetbrains.anko.startActivity
 
 class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun onItemEvent(pos: Int) {
+        showDialog("正在连接")
         choiceIndex = pos
         connectOrDisconnetDevice()
     }
@@ -134,6 +135,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 //                    map[ListViewAdapter.STATUS] = getString(R.string.connect)
 //                    mList.set(id, map)
 //                    mListViewAdapter.notifyDataSetChanged()
+                    hideDialog()
                 } else if (type == GpDevice.STATE_VALID_PRINTER) {
 //                    setProgressBarIndeterminateVisibility(false)
 //                    SetLinkButtonEnable(ListViewAdapter.ENABLE)
@@ -145,6 +147,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 //                    mListViewAdapter.notifyDataSetChanged()
                     allDevice[choiceIndex!!].status = 2
                     adapter.setDataEntityList(allDevice)
+                    hideDialog()
                 } else if (type == GpDevice.STATE_INVALID_PRINTER) {
 //                    setProgressBarIndeterminateVisibility(false)
 //                    SetLinkButtonEnable(ListViewAdapter.ENABLE)
