@@ -3,6 +3,8 @@ package com.hope.guanjiapo.utils
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.*
 import io.reactivex.Observable
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.http.*
 
 /**
@@ -33,8 +35,8 @@ interface ApiInter {
     fun getConnector(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<ConsigneeModel>>>
 
     @POST(ApiUtils.addoreditex)
-    @FormUrlEncoded
-    fun addoreditex(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+//    @FormUrlEncoded
+    fun addoreditex( @Body map: String): Observable<BaseModel<String>>
 
 
     @GET(ApiUtils.getcompanyPointList)

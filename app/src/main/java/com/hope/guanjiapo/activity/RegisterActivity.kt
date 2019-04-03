@@ -9,9 +9,12 @@ import com.hope.guanjiapo.model.LoginModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.MD5Utils
+import com.hope.guanjiapo.view.JFDialog
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.view_title.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseActivity(), View.OnClickListener {
@@ -26,6 +29,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_register
     }
 
+    private var mobile: String? = ""
+    private var pass: String? = ""
     override fun initData() {
         tvTitle.text = "注册"
 
@@ -34,8 +39,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun register() {
-        val mobile = etAccount.text.toString()
-        val pass = etPass.text.toString()
+        mobile = etAccount.text.toString()
+        pass = etPass.text.toString()
         val compane = etCompane.text.toString()
 
         if (TextUtils.isEmpty(mobile)) {
@@ -52,13 +57,41 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
         }
         HttpNetUtils.getInstance().getManager()?.register(
             hashMapOf(
-                "companyName" to compane, "mobile" to mobile, "password" to MD5Utils.MD5Encode(pass, "utf-8")
+                "companyName" to compane, "mobile" to mobile!!, "password" to MD5Utils.MD5Encode(pass!!, "utf-8")
             )
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
                     toast(R.string.register_ok)
+                    relogin(0)
+                }
+            })
+    }
+
+    private fun relogin(isFore: Int) {
+        HttpNetUtils.getInstance().getManager()?.login(
+            hashMapOf(
+                "account" to mobile!!,
+                "ignore" to true,
+                "isForce" to isFore,
+                "mobile" to mobile!!,
+                "password" to MD5Utils.MD5Encode(pass!!, "utf-8")
+            )
+        )
+            ?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
+                override fun onSuccess(data: BaseModel<LoginModel>?) {
+                    ApiUtils.loginModel = data?.data
+                    startActivity<MainActivity>()
+                }
+
+                override fun reLogin() {
+                    super.reLogin()
+                    JFDialog.Builder(this@RegisterActivity).setContentText(getString(R.string.relogin))
+                        .setTitleText(getString(R.string.title))
+                        .setCancelText(getString(R.string.cancel)).setSureText(getString(R.string.sure))
+                        .setDialogSureListener { relogin(1) }.create().show()
                 }
             })
     }

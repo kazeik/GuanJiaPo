@@ -21,39 +21,29 @@ import java.util.concurrent.TimeUnit
  * 2017 04 27 11:28
  * 类说明:
  */
-class HttpNetUtils:Interceptor  {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-            val httpurl = request.url().newBuilder()
-            .addQueryParameter("clientCategory","3")
-            .addQueryParameter("clientVersion","1.0")
-            .addQueryParameter("id","${loginModel?.id}")
-            .addQueryParameter("sessionId","${loginModel?.sessionid}")
-                .build()
-        val requestFactory = request.newBuilder().url(httpurl).build()
-        return chain.proceed(requestFactory)
-    }
-
-
+class HttpNetUtils {
     private val okClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
-                .connectTimeout(time, TimeUnit.SECONDS)
-                .readTimeout(time, TimeUnit.SECONDS)
-                .writeTimeout(time, TimeUnit.SECONDS)
-                .addInterceptor(HttpLoggingInterceptor().setLevel(
-                        if (BuildConfig.LOG_DEBUG)
-                            HttpLoggingInterceptor.Level.BODY
-                        else HttpLoggingInterceptor.Level.NONE))
-                .build()
+            .connectTimeout(time, TimeUnit.SECONDS)
+            .readTimeout(time, TimeUnit.SECONDS)
+            .writeTimeout(time, TimeUnit.SECONDS)
+            .addInterceptor(
+                HttpLoggingInterceptor().setLevel(
+                    if (BuildConfig.LOG_DEBUG)
+                        HttpLoggingInterceptor.Level.BODY
+                    else HttpLoggingInterceptor.Level.NONE
+                )
+            )
+            .build()
     }
     private val time: Long = 15
     private val retrofit: Retrofit? by lazy {
         Retrofit.Builder()
-                .baseUrl(ApiUtils.baseUrl)
-                .client(okClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl(ApiUtils.baseUrl)
+            .client(okClient)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
 

@@ -94,7 +94,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
-            R.id.ivGys -> startActivityForResult<SupplierActivity>(197)
+            R.id.ivGys -> startActivityForResult<SupplierActivity>(197,"a" to true)
             R.id.ivLxr -> startActivityForResult<ConsignerActivity>(196)
         }
     }

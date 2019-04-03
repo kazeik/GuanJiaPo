@@ -679,12 +679,10 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etFhd"
-                        android:inputType="phone"
                         android:layout_toLeftOf="@id/ivFhd"
                         android:layout_toRightOf="@id/tvFhd"
                         android:hint="请输入发货点"
                         android:layout_gravity="center_vertical"
-                        android:autoLink="phone"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>

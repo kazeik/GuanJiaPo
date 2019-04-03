@@ -12,7 +12,6 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import kotlinx.android.synthetic.main.activity_add_consignee.*
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -30,7 +29,7 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private var type: Boolean = false
-    private var consigneeModel: ConsigneeModel?= null
+    private var consigneeModel: ConsigneeModel? = null
     @SuppressLint("SetTextI18n")
     override fun initData() {
 
@@ -39,8 +38,8 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
 
         type = intent.getBooleanExtra("type", false)
         consigneeModel = intent.getSerializableExtra("data") as? ConsigneeModel
-        tvTitle.setText(if(type) R.string.changecontacts else R.string.contacts)
-        if(type){
+        tvTitle.setText(if (type) R.string.changecontacts else R.string.contacts)
+        if (type) {
             tvId.text = "id：${consigneeModel?.id}"
             etName.setText(consigneeModel?.name)
             etPhone.setText(consigneeModel?.mobile)
@@ -67,21 +66,19 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
-        HttpNetUtils.getInstance().getManager()?.addoreditex(
+        val params = JSONObject(
             hashMapOf(
-                "isadd" to 1,
-                "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!,
-                "param" to JSONObject(
-                    hashMapOf(
-                        "operatorMobile" to phone,
-                        "mobile" to phone,
-                        "addr" to address,
-                        "type" to type,
-                        "name" to name
-                    )
-                )
+                "operatorMobile" to phone,
+                "mobile" to phone,
+                "addr" to address,
+                "type" to type,
+                "name" to name
             )
+        ).toString()
+        val data =
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&params=$params"
+        HttpNetUtils.getInstance().getManager()?.addoreditex(
+            data
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 toast(data?.msg!!)

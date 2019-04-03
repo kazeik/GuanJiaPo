@@ -63,16 +63,18 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
             }
             allitem.add(car)
             var tempAll = ""
-            tempAll.forEach {
+            allitem.forEach {
                 tempAll += "$it,"
             }
             tempAll = tempAll.substring(0, tempAll.length - 1)
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
-                    "id" to loginModel?.id!!,
+                    "clientCategory" to "4",
+                    "clientVersion" to "1.0",
+                    "id" to "${loginModel?.id}",
+                    "sessionId" to "${loginModel?.sessionid}",
                     "mobile" to loginModel?.mobile!!,
-                    "servicenamelist" to tempAll,
-                    "sessionId" to loginModel?.sessionid!!
+                    "servicenamelist" to tempAll
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
