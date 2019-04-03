@@ -64,7 +64,9 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
                 "isAdd" to 0,
                 "memberMobile" to item.mobile,
                 "id" to ApiUtils.loginModel?.id!!,
-                "mobile" to item.mobile,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to ApiUtils.loginModel?.mobile!!,
                 "sessionId" to ApiUtils.loginModel?.sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
@@ -94,7 +96,12 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
     private fun getdata() {
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(
             hashMapOf(
-                "id" to ApiUtils.loginModel?.id!!, "isAdd" to -1, "mobile" to ApiUtils.loginModel?.mobile!!
+                "id" to ApiUtils.loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to ApiUtils.loginModel?.mobile!!,
+                "sessionId" to ApiUtils.loginModel?.sessionid!!,
+                 "isAdd" to -1
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {

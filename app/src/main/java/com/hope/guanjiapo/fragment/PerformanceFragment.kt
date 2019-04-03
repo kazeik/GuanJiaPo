@@ -90,8 +90,10 @@ class PerformanceFragment : LazyFragment(), OnItemEventListener, View.OnClickLis
     private fun getDataByDay() {
         HttpNetUtils.getInstance().getManager()?.getdayrevenue(
             hashMapOf(
-                "id" to loginModel?.id!!,
                 "isBuy" to 0,
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!
             )

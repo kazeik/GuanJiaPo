@@ -81,9 +81,11 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
                     "id" to loginModel?.id!!,
+                    "clientCategory" to 4,
+                    "clientVersion" to 1.0,
                     "mobile" to loginModel?.mobile!!,
-                    "faHuoDiList" to tempAllString,
-                    "sessionId" to loginModel?.sessionid!!
+                    "sessionId" to loginModel?.sessionid!!,
+                    "faHuoDiList" to tempAllString
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
@@ -135,7 +137,11 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         })
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)
+            hashMapOf("id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!,"type" to 1)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
                 override fun onSuccess(data: BaseModel<VehicleModel>?) {
@@ -159,10 +165,12 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         tempAllString.substring(0, tempAllString.length - 1)
         HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
             hashMapOf(
-                "faHuoDiList" to tempAllString,
                 "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!,
-                "mobile" to loginModel?.mobile!!
+                "faHuoDiList" to tempAllString
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {

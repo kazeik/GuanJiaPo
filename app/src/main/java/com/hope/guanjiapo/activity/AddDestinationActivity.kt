@@ -60,7 +60,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=\"$params\""
         HttpNetUtils.getInstance().getManager()?.addcompanyPoint(
             data
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
@@ -81,6 +81,9 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.editcompanyPoint(
             hashMapOf(
                 "isadd" to 0,
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!,
                 "param" to JSONObject(

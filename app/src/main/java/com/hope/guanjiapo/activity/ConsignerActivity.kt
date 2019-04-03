@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,OnItemLongEventListener {
+class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
         showListDialog(pos)
     }
@@ -57,10 +57,13 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     private fun delete(model: ConsigneeModel) {
         HttpNetUtils.getInstance().getManager()?.connectordelete(
             hashMapOf(
-                "bossid" to loginModel?.bossId!!,
                 "id" to loginModel?.id!!,
-                "customerid" to model.id,
-                "mobile" to loginModel?.mobile!!
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!,
+                "bossid" to loginModel?.bossId!!,
+                "customerid" to model.id
             )
         )
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
@@ -89,7 +92,7 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         adapter.itemListener = this
         adapter.itemLongListener = this
 
-        etSearch.addTextChangedListener(object: TextWatcher {
+        etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -98,13 +101,20 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
+                val templist =
+                    allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
                 adapter.setDataEntityList(templist)
             }
         })
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 1)
+            hashMapOf(
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!, "type" to 1
+            )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<ConsigneeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<ConsigneeModel>>?) {

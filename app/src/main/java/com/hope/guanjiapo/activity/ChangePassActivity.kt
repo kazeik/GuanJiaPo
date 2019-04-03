@@ -59,6 +59,8 @@ class ChangePassActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.wlreg(
             hashMapOf(
                 "id" to ApiUtils.loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
                 "mobile" to ApiUtils.loginModel?.mobile!!,
                 "sessionId" to ApiUtils.loginModel?.sessionid!!,
                 "oldUserPwd" to old,

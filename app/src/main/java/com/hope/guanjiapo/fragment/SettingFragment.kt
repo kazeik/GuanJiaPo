@@ -71,9 +71,11 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
     private fun logout() {
         HttpNetUtils.getInstance().getManager()?.wllogout(
             hashMapOf(
-                "id" to ApiUtils.loginModel?.id!!,
-                "mobile" to ApiUtils.loginModel?.mobile!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity) {
@@ -100,8 +102,10 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
                     "companyname" to name,
-                    "mobile" to loginModel?.mobile!!,
                     "id" to loginModel?.id!!,
+                    "clientCategory" to 4,
+                    "clientVersion" to 1.0,
+                    "mobile" to loginModel?.mobile!!,
                     "sessionId" to loginModel?.sessionid!!
                 )
             )?.compose(NetworkScheduler.compose())

@@ -109,8 +109,11 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
             hashMapOf(
-                "id" to ApiUtils.loginModel?.id!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {

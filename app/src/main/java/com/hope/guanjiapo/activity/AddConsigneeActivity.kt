@@ -76,7 +76,7 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=${if (type) 1 else 0}&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=\"$params\""
         HttpNetUtils.getInstance().getManager()?.addoreditex(
             data
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {

@@ -103,8 +103,10 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                 "bossId" to loginModel?.bossId!!,
                 "index" to 0,
                 "pagesize" to 200,
-                "mobile" to loginModel?.mobile!!,
                 "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!
             )
         )
@@ -126,6 +128,8 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         HttpNetUtils.getInstance().getManager()?.wlEditStates(
             hashMapOf(
                 "idStrs" to allItem[pos].id, "newState" to orderstatus!!, "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!
             )
@@ -158,6 +162,8 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                         "senderphone" to senderphone,
                         "startDate" to endDate,
                         "id" to loginModel?.id!!,
+                        "clientCategory" to 4,
+                        "clientVersion" to 1.0,
                         "mobile" to loginModel?.mobile!!,
                         "sessionId" to loginModel?.sessionid!!
                     )

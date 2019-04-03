@@ -89,7 +89,11 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getcompanyPointList(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)
+            hashMapOf("id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!, "type" to 0)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {
@@ -106,8 +110,10 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
                 "bossid" to loginModel?.bossId!!,
                 "customerid" to 7,
                 "id" to loginModel?.id!!,
-                "sessionId" to loginModel?.sessionid!!,
-                "mobile" to loginModel?.mobile!!
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {

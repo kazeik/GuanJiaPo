@@ -79,6 +79,9 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         val passmd5 = MD5Utils.MD5Encode(pass, "utf-8")
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(
             hashMapOf(
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
                 "isAdd" to if (change) 2 else 1,
                 "memberMobile" to phone,
                 "memberName" to name,
@@ -92,7 +95,6 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
                 override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
-                    logs("tag", "${data?.data}")
                     val intt = Intent()
                     val bund = Bundle()
                     bund.putSerializable("data", data?.data!!)

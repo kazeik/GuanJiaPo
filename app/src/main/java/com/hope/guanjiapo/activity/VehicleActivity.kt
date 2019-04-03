@@ -70,9 +70,11 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
                 hashMapOf(
                     "id" to loginModel?.id!!,
+                    "clientCategory" to 4,
+                    "clientVersion" to 1.0,
                     "mobile" to loginModel?.mobile!!,
-                    "recCarNoList" to tempAllString,
-                    "sessionId" to loginModel?.sessionid!!
+                    "sessionId" to loginModel?.sessionid!!,
+                    "recCarNoList" to tempAllString
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
@@ -106,7 +108,11 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!)
+            hashMapOf("id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!)
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {

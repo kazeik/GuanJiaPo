@@ -140,8 +140,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 "bossId" to loginModel?.bossId!!,
                 "index" to 0,
                 "pagesize" to 200,
-                "mobile" to loginModel?.mobile!!,
                 "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
                 "sessionId" to loginModel?.sessionid!!
             )
         )
@@ -867,6 +869,8 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                         "senderphone" to senderphone,
                         "startDate" to endDate,
                         "id" to loginModel?.id!!,
+                        "clientCategory" to 4,
+                        "clientVersion" to 1.0,
                         "mobile" to loginModel?.mobile!!,
                         "sessionId" to loginModel?.sessionid!!
                     )

@@ -45,11 +45,13 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     private fun searchOrder() {
         HttpNetUtils.getInstance().getManager()?.wxsearch(
             hashMapOf(
-                "onlyDriver" to 0,
-                "keyword" to "",
                 "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to loginModel?.sessionid!!,
+                "onlyDriver" to 0,
+                "keyword" to ""
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<SubscribeModel>>>(this) {

@@ -95,7 +95,11 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getConnector(
-            hashMapOf("id" to loginModel?.id!!, "sessionId" to loginModel?.sessionid!!, "type" to 0)
+            hashMapOf("id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!, "type" to 0)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<ConsigneeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<ConsigneeModel>>?) {

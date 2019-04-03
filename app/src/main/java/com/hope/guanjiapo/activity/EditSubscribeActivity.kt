@@ -189,7 +189,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=$order"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=\"$order\""
 
         HttpNetUtils.getInstance().getManager()?.wladd(
            data
@@ -207,8 +207,11 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
             hashMapOf(
                 "isDel" to 1,
                 "orderid" to subscribeModel?.id!!,
-                "sessionId" to loginModel?.sessionid!!,
-                "mobile" to loginModel?.mobile!!
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to loginModel?.sessionid!!
             )
         )
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
