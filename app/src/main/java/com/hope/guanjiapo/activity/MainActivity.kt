@@ -1,6 +1,5 @@
 package com.hope.guanjiapo.activity
 
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
 import android.widget.RadioGroup
@@ -36,7 +35,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
         )
         viewpager.adapter = adapter
         viewpager.offscreenPageLimit = 4
-        viewpager.setOnPageChangeListener(this)
+        viewpager.addOnPageChangeListener(this)
         gr_bottom.setOnCheckedChangeListener(this)
 
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(

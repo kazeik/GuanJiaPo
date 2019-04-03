@@ -327,12 +327,10 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etMdd"
-                        android:inputType="phone"
                         android:layout_toLeftOf="@id/ivMdd"
                         android:layout_toRightOf="@id/tvMdd"
                         android:hint="请输入目的地"
                         android:layout_gravity="center_vertical"
-                        android:autoLink="phone"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>

@@ -120,8 +120,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> {
-            }
+            R.id.tvTitleRight -> createOrder()
             R.id.tvFwhy -> startActivity<PremiumActivity>()
             R.id.btnDelete -> delete()
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
@@ -196,7 +195,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
             MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )
         HttpNetUtils.getInstance().getManager()?.wladd(
-           requestBody
+            requestBody
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
