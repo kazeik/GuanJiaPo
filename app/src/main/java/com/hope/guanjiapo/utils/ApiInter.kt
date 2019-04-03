@@ -86,8 +86,7 @@ interface ApiInter {
     fun wxdelete(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 
     @POST(ApiUtils.wladd)
-    @FormUrlEncoded
-    fun wladd(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+    fun wladd(@Body map: String): Observable<BaseModel<String>>
 
     @POST(ApiUtils.wxsearch)
     @FormUrlEncoded
