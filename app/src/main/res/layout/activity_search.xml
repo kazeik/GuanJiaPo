@@ -306,12 +306,10 @@
                         android:textSize="@dimen/sp_14"
                         android:layout_width="match_parent"
                         android:id="@+id/etDh"
-                        android:inputType="phone"
                         android:layout_toLeftOf="@id/ivDh"
                         android:layout_toRightOf="@id/tvDh"
                         android:hint="请输入单号"
                         android:layout_gravity="center_vertical"
-                        android:autoLink="phone"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
