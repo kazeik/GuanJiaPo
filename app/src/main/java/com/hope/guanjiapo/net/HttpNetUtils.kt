@@ -25,13 +25,14 @@ class HttpNetUtils : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val httpurl = request.url().newBuilder()
-            .addQueryParameter("clientCategory","3")
-            .addQueryParameter("clientVersion","1.0")
-            .addQueryParameter("id","${loginModel?.id}")
-            .addQueryParameter("mobile","${loginModel?.mobile}")
-            .addQueryParameter("sessionId","${loginModel?.sessionid}")
+            .addQueryParameter("clientCategory", "3")
+            .addQueryParameter("clientVersion", "1.0")
+            .addQueryParameter("id", "${loginModel?.id}")
+            .addQueryParameter("mobile", "${loginModel?.mobile}")
+            .addQueryParameter("sessionId", "${loginModel?.sessionid}")
             .build()
-        val requestFactory = request.newBuilder().url(httpurl).build()
+        val requestFactory = request.newBuilder().addHeader("Content-Type", "text/json;charset=UTF-8")
+            .addHeader("Content-Type", "text/plain;charset=UTF-8").url(httpurl).build()
         return chain.proceed(requestFactory)
     }
 

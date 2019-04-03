@@ -13,6 +13,8 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import kotlinx.android.synthetic.main.activity_add_destination.*
 import kotlinx.android.synthetic.main.view_title.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
@@ -60,9 +62,12 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=\"$params\""
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+        val requestBody = RequestBody.create(
+            MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
+        )
         HttpNetUtils.getInstance().getManager()?.addcompanyPoint(
-            data
+            requestBody
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 toast(data?.msg!!)

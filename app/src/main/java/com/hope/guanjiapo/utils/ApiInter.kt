@@ -4,7 +4,6 @@ import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.http.*
 
 /**
@@ -35,7 +34,9 @@ interface ApiInter {
     fun getConnector(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<ConsigneeModel>>>
 
     @POST(ApiUtils.addoreditex)
-    fun addoreditex( @Body map: String): Observable<BaseModel<String>>
+//    , "text/json", "text/javascript", "text/html", "text/plain"
+//    @Header("Content-Type","application/json")
+    fun addoreditex(@Body map: RequestBody): Observable<BaseModel<String>>
 
 
     @GET(ApiUtils.getcompanyPointList)
@@ -43,7 +44,7 @@ interface ApiInter {
 
 
     @POST(ApiUtils.addcompanyPoint)
-    fun addcompanyPoint(@Body map: String): Observable<BaseModel<String>>
+    fun addcompanyPoint(@Body map: RequestBody): Observable<BaseModel<String>>
 
     @POST(ApiUtils.deletecompanyPoint)
     @FormUrlEncoded
@@ -86,7 +87,7 @@ interface ApiInter {
     fun wxdelete(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 
     @POST(ApiUtils.wladd)
-    fun wladd(@Body map: String): Observable<BaseModel<String>>
+    fun wladd(@Body map: RequestBody): Observable<BaseModel<String>>
 
     @POST(ApiUtils.wxsearch)
     @FormUrlEncoded
