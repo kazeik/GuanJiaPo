@@ -156,7 +156,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=\"$order\""
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=$order"
         val requestBody = RequestBody.create(
             MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )

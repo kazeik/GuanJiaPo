@@ -5,7 +5,6 @@ import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.utils.PreferencesUtils
-import kotlinx.android.synthetic.main.activity_config_print_set.*
 import kotlinx.android.synthetic.main.activity_footer.*
 import kotlinx.android.synthetic.main.view_title.*
 
