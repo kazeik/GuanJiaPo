@@ -24,6 +24,7 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_config_print.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun onItemEvent(pos: Int) {
@@ -148,6 +149,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
                     allDevice[choiceIndex!!].status = 2
                     adapter.setDataEntityList(allDevice)
                     hideDialog()
+                    toast("连接成功")
                 } else if (type == GpDevice.STATE_INVALID_PRINTER) {
 //                    setProgressBarIndeterminateVisibility(false)
 //                    SetLinkButtonEnable(ListViewAdapter.ENABLE)
