@@ -53,19 +53,16 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
             toast(R.string.error_name_empty)
             return
         }
-
-        HttpNetUtils.getInstance().getManager()?.addcompanyPoint(
+        val params = JSONObject(
             hashMapOf(
-                "isadd" to 1,
-                "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!,
-                "param" to JSONObject(
-                    hashMapOf(
-                        "receivepoint" to name,
-                        "type" to 0
-                    )
-                )
+                "receivepoint" to name,
+                "type" to 0
             )
+        ).toString()
+        val data =
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+        HttpNetUtils.getInstance().getManager()?.addcompanyPoint(
+            data
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 toast(data?.msg!!)

@@ -35,7 +35,6 @@ interface ApiInter {
     fun getConnector(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<ConsigneeModel>>>
 
     @POST(ApiUtils.addoreditex)
-//    @FormUrlEncoded
     fun addoreditex( @Body map: String): Observable<BaseModel<String>>
 
 
@@ -44,8 +43,7 @@ interface ApiInter {
 
 
     @POST(ApiUtils.addcompanyPoint)
-    @FormUrlEncoded
-    fun addcompanyPoint(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+    fun addcompanyPoint(@Body map: String): Observable<BaseModel<String>>
 
     @POST(ApiUtils.deletecompanyPoint)
     @FormUrlEncoded

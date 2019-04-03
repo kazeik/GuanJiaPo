@@ -28,7 +28,7 @@ class PayActivity : BaseActivity(), View.OnClickListener {
     private fun gtoto() {
         val intent = Intent()
         intent.action = "android.intent.action.VIEW"
-        intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
+        intent.data = Uri.parse("https://item.taobao.com/item.htm?id=555129970426")
         intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
         startActivity(intent)
     }
