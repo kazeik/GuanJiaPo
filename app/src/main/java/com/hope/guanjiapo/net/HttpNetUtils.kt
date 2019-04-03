@@ -7,6 +7,7 @@ import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.utils.ApiInter
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +30,7 @@ class HttpNetUtils : Interceptor {
             .addQueryParameter("clientVersion", "1.0")
             .addQueryParameter("id", "${loginModel?.id}")
             .addQueryParameter("mobile", "${loginModel?.mobile}")
-            .addQueryParameter("sessionId", "${loginModel?.sessionid}")
+            .addQueryParameter("sessionId", sessionid!!)
             .build()
         val requestFactory = request.newBuilder().addHeader("Content-Type", "text/json;charset=UTF-8")
             .addHeader("Content-Type", "text/plain;charset=UTF-8").url(httpurl).build()

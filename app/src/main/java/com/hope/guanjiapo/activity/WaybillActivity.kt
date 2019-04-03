@@ -26,6 +26,7 @@ import com.hope.guanjiapo.service.PrinterServiceConnection
 import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.line
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
 import com.hope.guanjiapo.utils.Utils
@@ -144,7 +145,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )
             ?.compose(NetworkScheduler.compose())
@@ -872,7 +873,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                         "clientCategory" to 4,
                         "clientVersion" to 1.0,
                         "mobile" to loginModel?.mobile!!,
-                        "sessionId" to loginModel?.sessionid!!
+                        "sessionId" to sessionid!!
                     )
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {

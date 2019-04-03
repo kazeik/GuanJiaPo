@@ -11,6 +11,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import kotlinx.android.synthetic.main.activity_add_consignee.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -79,7 +80,7 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=$stat&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=$stat&mobile=${loginModel?.mobile}&sessionId=$sessionid&param=$params"
         val requestBody = RequestBody.create(
             MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )

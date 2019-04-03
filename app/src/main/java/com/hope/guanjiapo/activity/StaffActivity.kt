@@ -15,6 +15,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_staff.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -67,7 +68,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to ApiUtils.loginModel?.mobile!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
@@ -100,7 +101,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to ApiUtils.loginModel?.mobile!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!,
+                "sessionId" to sessionid!!,
                  "isAdd" to -1
             )
         )?.compose(NetworkScheduler.compose())

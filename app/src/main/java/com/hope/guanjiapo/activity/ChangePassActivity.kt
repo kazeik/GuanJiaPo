@@ -9,6 +9,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.MD5Utils
 import kotlinx.android.synthetic.main.activity_change_pass.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -62,7 +63,7 @@ class ChangePassActivity : BaseActivity(), View.OnClickListener {
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to ApiUtils.loginModel?.mobile!!,
-                "sessionId" to ApiUtils.loginModel?.sessionid!!,
+                "sessionId" to sessionid!!,
                 "oldUserPwd" to old,
                 "password" to new
             )

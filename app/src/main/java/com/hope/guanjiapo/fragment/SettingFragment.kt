@@ -21,6 +21,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.view.JFDialog
 import com.hope.guanjiapo.view.RecycleViewDivider
@@ -75,7 +76,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity) {
@@ -106,7 +107,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                     "clientCategory" to 4,
                     "clientVersion" to 1.0,
                     "mobile" to loginModel?.mobile!!,
-                    "sessionId" to loginModel?.sessionid!!
+                    "sessionId" to sessionid!!
                 )
             )?.compose(NetworkScheduler.compose())
                 ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity!!) {

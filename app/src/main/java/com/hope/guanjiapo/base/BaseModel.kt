@@ -10,5 +10,6 @@ package com.hope.guanjiapo.base
 open class BaseModel<T> {
     var code: String? = ""
     var msg: String? = null
-    var data:T ?= null
+    var data: T? = null
+    var sessionId: String? = null
 }

@@ -11,6 +11,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import kotlinx.android.synthetic.main.activity_add_destination.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -62,7 +63,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&param=$params"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&param=$params"
         val requestBody = RequestBody.create(
             MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )
@@ -90,7 +91,7 @@ class AddDestinationActivity : BaseActivity(), View.OnClickListener {
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!,
+                "sessionId" to  sessionid!!,
                 "param" to JSONObject(
                     hashMapOf(
                         "receivepoint" to name,

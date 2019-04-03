@@ -16,6 +16,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -77,7 +78,7 @@ class PerformanceFragment : LazyFragment(), OnItemEventListener, View.OnClickLis
                 "id" to loginModel?.id!!,
                 "isBuy" to 0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<PerformanceListModel>>>(activity!!) {
@@ -95,7 +96,7 @@ class PerformanceFragment : LazyFragment(), OnItemEventListener, View.OnClickLis
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<PerformanceListModel>>>(activity!!) {

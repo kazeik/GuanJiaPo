@@ -17,6 +17,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -93,7 +94,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!, "type" to 0)
+                "sessionId" to sessionid!!, "type" to 0)
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {
@@ -113,7 +114,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {

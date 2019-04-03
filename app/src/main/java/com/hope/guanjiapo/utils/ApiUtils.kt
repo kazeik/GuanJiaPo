@@ -14,6 +14,7 @@ import com.hope.guanjiapo.model.VehicleModel
 object ApiUtils {
     var loginModel: LoginModel? = null
     var connectionStatus: Boolean = false
+    var sessionid: String? = null
     val line = "----------------------------------------\n"
 
     var vehicleModel: VehicleModel? = null

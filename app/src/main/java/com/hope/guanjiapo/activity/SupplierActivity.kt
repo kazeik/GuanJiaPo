@@ -18,6 +18,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -72,7 +73,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
                     "clientCategory" to "4",
                     "clientVersion" to "1.0",
                     "id" to "${loginModel?.id}",
-                    "sessionId" to "${loginModel?.sessionid}",
+                    "sessionId" to sessionid!!,
                     "mobile" to loginModel?.mobile!!,
                     "servicenamelist" to tempAll
                 )
@@ -113,7 +114,7 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {

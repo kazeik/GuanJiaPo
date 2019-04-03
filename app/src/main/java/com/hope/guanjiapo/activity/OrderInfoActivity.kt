@@ -13,6 +13,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -91,7 +92,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> createOrder()
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
-            R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201,"a" to true)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
@@ -156,7 +157,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             )
         ).toString()
         val data =
-            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=$order"
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&order=$order"
         val requestBody = RequestBody.create(
             MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )

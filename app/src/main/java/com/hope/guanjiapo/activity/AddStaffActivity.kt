@@ -13,6 +13,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.MD5Utils
 import com.hope.guanjiapo.utils.Utils.logs
 import kotlinx.android.synthetic.main.activity_add_staff.*
@@ -90,7 +91,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
                 "memberSort" to 0,
                 "memberType" to level,
                 "mobile" to phone,
-                "sessionId" to loginModel?.sessionid!!
+                "sessionId" to sessionid!!
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {

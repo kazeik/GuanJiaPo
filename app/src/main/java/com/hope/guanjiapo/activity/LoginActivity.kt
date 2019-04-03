@@ -15,6 +15,7 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.MD5Utils
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.view.JFDialog
@@ -135,7 +136,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<LoginModel>>(this) {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
-                    loginModel = data?.data
+                    loginModel = data?.data!!
+                    sessionid = data.sessionId!!
                     startActivity<MainActivity>()
                 }
 
