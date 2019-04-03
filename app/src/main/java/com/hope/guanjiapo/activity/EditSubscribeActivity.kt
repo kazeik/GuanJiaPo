@@ -155,45 +155,44 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         val bfStr = etBf.text.toString()
         val dskStr = etDsk.text.toString()
 
-        HttpNetUtils.getInstance().getManager()?.wladd(
+        val order = JSONObject(
             hashMapOf(
-                "id" to loginModel?.id!!,
-                "sessionId" to loginModel?.sessionid!!,
-                "mobile" to loginModel?.mobile!!,
-                "order" to JSONObject(
-                    hashMapOf(
-                        "copycount" to hdfsStr, //回单份数
-                        "agentmoney" to zzhStr, //中转费
-                        "shipfee" to 0, //运费 （总计
-                        "serviceName" to "",//供应商
-                        "dispatchfee" to psfStr, //派送费
-                        "receivername" to shrStr,//收货人
-                        "productweight" to zlStr,//重量
-                        "receivepoint" to mddStr, //目的地
-                        "shipfeesendpay" to zzhStr,//中转费
-                        "costFee" to "", //成本
-                        "senderphone" to fhrModel?.mobile,//发货人电话
-                        "shipfeestate" to payType,//运费支付，0欠款，1已付
-                        "shipfeepaytype" to shipfeepaytype, //支付方式
-                        "sendername" to fhrStr,//发货人
-                        "receiveraddress" to shrModel?.addr, //收货人的地址
-                        "waitnotify" to tzfh,//等通知放货，0否，1是
-                        "productno" to dhStr,//快递单号
-                        "baseshipfee" to jbyhStr, //基本运费
-                        "insurancefee" to bfStr, //保费
-                        "recno" to 1,
-                        "productcount" to hwslStr,//货物数量
-                        "recway" to recway,//收货方式，0自提，1派送
-                        "productsize" to tjStr,//体积
-                        "receiverphone" to shrModel?.mobile,//收货人电话
-                        "productdescript" to hwmcStr, //货物名称
-                        "returnmoney" to fkStr,//返款
-                        "carname" to cc!!,//车次
-                        "comment" to bz, //备注
-                        "senderaddress" to fhrModel?.addr//发货人地址
-                    )
-                ).toString()
+                "copycount" to hdfsStr, //回单份数
+                "agentmoney" to zzhStr, //中转费
+                "shipfee" to 0, //运费 （总计
+                "serviceName" to "",//供应商
+                "dispatchfee" to psfStr, //派送费
+                "receivername" to shrStr,//收货人
+                "productweight" to zlStr,//重量
+                "receivepoint" to mddStr, //目的地
+                "shipfeesendpay" to zzhStr,//中转费
+                "costFee" to "", //成本
+                "senderphone" to fhrModel?.mobile,//发货人电话
+                "shipfeestate" to payType,//运费支付，0欠款，1已付
+                "shipfeepaytype" to shipfeepaytype, //支付方式
+                "sendername" to fhrStr,//发货人
+                "receiveraddress" to shrModel?.addr, //收货人的地址
+                "waitnotify" to tzfh,//等通知放货，0否，1是
+                "productno" to dhStr,//快递单号
+                "baseshipfee" to jbyhStr, //基本运费
+                "insurancefee" to bfStr, //保费
+                "recno" to 1,
+                "productcount" to hwslStr,//货物数量
+                "recway" to recway,//收货方式，0自提，1派送
+                "productsize" to tjStr,//体积
+                "receiverphone" to shrModel?.mobile,//收货人电话
+                "productdescript" to hwmcStr, //货物名称
+                "returnmoney" to fkStr,//返款
+                "carname" to cc!!,//车次
+                "comment" to bz, //备注
+                "senderaddress" to fhrModel?.addr//发货人地址
             )
+        ).toString()
+        val data =
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=${loginModel?.sessionid}&order=$order"
+
+        HttpNetUtils.getInstance().getManager()?.wladd(
+           data
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
