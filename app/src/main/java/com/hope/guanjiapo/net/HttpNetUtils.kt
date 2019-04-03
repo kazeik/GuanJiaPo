@@ -6,9 +6,9 @@ import com.google.gson.Gson
 import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.utils.ApiInter
 import com.hope.guanjiapo.utils.ApiUtils
-import com.hope.guanjiapo.utils.ApiUtils.loginModel
-import com.hope.guanjiapo.utils.ApiUtils.sessionid
-import okhttp3.*
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,21 +22,7 @@ import java.util.concurrent.TimeUnit
  * 2017 04 27 11:28
  * 类说明:
  */
-class HttpNetUtils : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        val httpurl = request.url().newBuilder()
-            .addQueryParameter("clientCategory", "3")
-            .addQueryParameter("clientVersion", "1.0")
-            .addQueryParameter("id", "${loginModel?.id}")
-            .addQueryParameter("mobile", "${loginModel?.mobile}")
-            .addQueryParameter("sessionId", sessionid!!)
-            .build()
-        val requestFactory = request.newBuilder().addHeader("Content-Type", "text/json;charset=UTF-8")
-            .addHeader("Content-Type", "text/plain;charset=UTF-8").url(httpurl).build()
-        return chain.proceed(requestFactory)
-    }
-
+class HttpNetUtils {
     private val okClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .connectTimeout(time, TimeUnit.SECONDS)
