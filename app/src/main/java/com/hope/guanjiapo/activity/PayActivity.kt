@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_pay.*
 import kotlinx.android.synthetic.main.view_title.*
 
 class PayActivity : BaseActivity(), View.OnClickListener {
@@ -23,6 +24,8 @@ class PayActivity : BaseActivity(), View.OnClickListener {
     override fun initData() {
         tvTitle.setText(R.string.payaccount)
         ivBackup.setOnClickListener(this)
+        btnPay.setOnClickListener(this)
+        btnRePay.setOnClickListener(this)
     }
 
     private fun gtoto() {

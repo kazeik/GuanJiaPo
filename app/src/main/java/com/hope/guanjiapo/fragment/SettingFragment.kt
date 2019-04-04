@@ -48,7 +48,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             4 -> {
                 val intent = Intent()
                 intent.action = "android.intent.action.VIEW"
-                intent.data = Uri.parse("https//h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
+                intent.data = Uri.parse("https://h5.m.taobao.com/awp/core/detail.htm?id=552270159252")
                 intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity")
                 startActivity(intent)
             }
