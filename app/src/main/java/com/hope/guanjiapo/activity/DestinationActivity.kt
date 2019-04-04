@@ -43,7 +43,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         listDialog.setItems(items) { _, which ->
             when (which) {
                 0 -> startActivity<AddDestinationActivity>("change" to true, "data" to allitem[pos])
-                1 -> delete()
+                1 -> delete(pos)
             }
         }
         listDialog.show()
@@ -78,7 +78,7 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.receivepoint.contains(msg)  || it.operatorMobile.contains(msg)}
+                val templist = allitem.filter { it.receivepoint.contains(msg) || it.operatorMobile.contains(msg) }
                 adapter.setDataEntityList(templist)
             }
         })
@@ -88,13 +88,22 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         rcvDataList.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    private fun getData() {
         HttpNetUtils.getInstance().getManager()?.getcompanyPointList(
-            hashMapOf("id" to loginModel?.id!!,
+            hashMapOf(
+                "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to sessionid!!, "type" to 0)
+                "sessionId" to sessionid!!, "type" to 0
+            )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<DestinationModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<DestinationModel>>?) {
@@ -105,11 +114,11 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
             })
     }
 
-    private fun delete() {
+    private fun delete(pos: Int) {
         HttpNetUtils.getInstance().getManager()?.deletecompanyPoint(
             hashMapOf(
                 "bossid" to loginModel?.bossId!!,
-                "customerid" to 7,
+                "customerid" to allitem[pos].id,
                 "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
@@ -119,6 +128,10 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 toast(data?.msg!!)
+                if (data.msg == "success") {
+                    allitem.removeAt(pos)
+                    adapter.setDataEntityList(allitem)
+                }
             }
         })
     }
