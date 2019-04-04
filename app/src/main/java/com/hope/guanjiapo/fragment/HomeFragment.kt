@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
 
-        version.text = "当前版本1.0，build04041117"
+        version.text = "当前版本1.0，build04041140"
     }
 
 

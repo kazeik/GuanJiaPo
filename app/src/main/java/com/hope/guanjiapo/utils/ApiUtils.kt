@@ -18,6 +18,7 @@ object ApiUtils {
     val line = "----------------------------------------\n"
 
     var vehicleModel: VehicleModel? = null
+    var staffModel: ArrayList<StaffModel>? = null
     var allStaffModel: List<StaffModel>? = null
 
     const val baseUrl: String = "http://wl56.mmd520.cn/api/"

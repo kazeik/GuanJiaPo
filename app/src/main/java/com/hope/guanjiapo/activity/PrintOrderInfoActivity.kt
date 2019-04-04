@@ -14,8 +14,10 @@ import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
+import com.hope.guanjiapo.utils.ApiUtils.staffModel
 import kotlinx.android.synthetic.main.activity_print_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -74,12 +76,22 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etPsh.setText(waybillModel?.dispatchfee)
         etZzh.setText(waybillModel?.agentmoney)
         etGys.setText(waybillModel?.serviceName)
-        etFhr.setText(waybillModel?.senderphone)
+        etFhr.setText(waybillModel?.sendername)
         etTj.setText(waybillModel?.productsize)
         etHwsl.setText("${waybillModel?.productcount}")
         etCb.setText(waybillModel?.costFee)
         etBz.setText(waybillModel?.comment)
-//        etYwy.setText(waybillModel?.)
+        etKddh.setText(waybillModel?.productno)
+        etHwmc.setText(waybillModel?.productdescript)
+        etZl.setText(waybillModel?.productweight)
+        etDsk.setText(waybillModel?.agentmoney)
+        etFhd.setText(waybillModel?.senderaddress )
+
+        if (staffModel != null && staffModel?.isNotEmpty()!!) {
+            val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
+            etYwy.setText(tempStaff?.userName)
+        }
+
         tvOrderStatus.text = when (waybillModel?.oderstate) {
             0 -> "待装车"
             1 -> "运输中"

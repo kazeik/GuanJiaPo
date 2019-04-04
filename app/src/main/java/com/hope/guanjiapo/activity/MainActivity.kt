@@ -16,8 +16,10 @@ import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
+import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.staffModel
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -56,6 +58,22 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
                 override fun onSuccess(data: BaseModel<VehicleModel>?) {
                     vehicleModel = data?.data
+                }
+            })
+
+        HttpNetUtils.getInstance().getManager()?.wladdOrDel(
+            hashMapOf(
+                "id" to ApiUtils.loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to ApiUtils.loginModel?.mobile!!,
+                "sessionId" to ApiUtils.sessionid!!,
+                "isAdd" to -1
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
+                override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
+                    staffModel = data?.data
                 }
             })
     }
