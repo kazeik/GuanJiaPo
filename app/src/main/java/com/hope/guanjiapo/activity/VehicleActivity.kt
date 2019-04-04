@@ -26,7 +26,7 @@ import org.jetbrains.anko.toast
 
 class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
-        showInputDialog(allcar.get(pos))
+        showInputDialog(allcar.get(pos), true)
     }
 
     override fun onItemEvent(pos: Int) {
@@ -39,11 +39,11 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> showInputDialog("")
+            R.id.tvTitleRight -> showInputDialog("", false)
         }
     }
 
-    private fun showInputDialog(msg: String) {
+    private fun showInputDialog(msg: String, edit: Boolean) {
         val editText = EditText(this)
         if (!TextUtils.isEmpty(msg))
             editText.setText(msg)
@@ -63,6 +63,11 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 return@setPositiveButton
             }
             var tempAllString = ""
+            if (edit) {
+                val temp = allcar.filterNot { it == msg }
+                allcar.clear()
+                allcar.addAll(temp)
+            }
             allcar.add(car)
             allcar.forEach {
                 tempAllString += "$it,"
@@ -75,12 +80,21 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     "clientVersion" to 1.0,
                     "mobile" to loginModel?.mobile!!,
                     "sessionId" to sessionid!!,
-                    "recCarNoList" to tempAllString
+                    "recCarNoList" to tempAllString,
+                    "companyname" to "",
+                    "faHuoDiList" to "",
+                    "servicenamelist" to "",
+                    "recPointList" to "",
+                    "wrapNameList" to ""
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
-                        allcar.add(car)
+//                        if (edit) {
+//                            val tempList = allcar.filterNot { it == msg }
+//                            allcar.clear()
+//                            allcar.addAll(tempList)
+//                        }
                         adapter.setDataEntityList(allcar)
                     }
                 })
@@ -109,11 +123,13 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         adapter.itemLongListener = this
 
         HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
-            hashMapOf("id" to loginModel?.id!!,
+            hashMapOf(
+                "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to sessionid!!)
+                "sessionId" to sessionid!!
+            )
         )
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
