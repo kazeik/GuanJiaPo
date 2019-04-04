@@ -33,12 +33,14 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
 
     private var type: Boolean = false
     private var consigneeModel: ConsigneeModel? = null
+    private var isConsigner: Boolean ?= false
     @SuppressLint("SetTextI18n")
     override fun initData() {
 
         ivBackup.setOnClickListener(this)
         btnAdd.setOnClickListener(this)
 
+        isConsigner = intent.getBooleanExtra("isConsigner", false)
         type = intent.getBooleanExtra("type", false)
         consigneeModel = intent.getSerializableExtra("data") as? ConsigneeModel
         tvTitle.setText(if (type) R.string.changecontacts else R.string.contacts)
@@ -69,16 +71,30 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
-        val stat = if (type) "0" else "1"
-        val params = JSONObject(
-            hashMapOf(
+        var map: HashMap<String, Any>? = null
+        var stat = ""
+        if (type) {
+            stat = "0"
+            map = hashMapOf(
                 "operatorMobile" to phone,
                 "mobile" to phone,
                 "addr" to address,
-                "type" to "0",
+                "type" to if(isConsigner!!) "1" else "0",
                 "name" to name,
                 "id" to consigneeModel?.id!!
             )
+        } else {
+            stat = "1"
+            map = hashMapOf(
+                "operatorMobile" to phone,
+                "mobile" to phone,
+                "addr" to address,
+                "type" to if(isConsigner!!) "1" else "0",
+                "name" to name
+            )
+        }
+        val params = JSONObject(
+            map
         ).toString()
         val data =
             "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=$stat&mobile=${loginModel?.mobile}&sessionId=$sessionid&param=$params"

@@ -39,7 +39,7 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> startActivity<AddConsigneeActivity>()
+            R.id.tvTitleRight -> startActivity<AddConsigneeActivity>("isConsigner" to true)
         }
     }
 
@@ -48,14 +48,14 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         val listDialog = AlertDialog.Builder(this)
         listDialog.setItems(items) { _, which ->
             when (which) {
-                0 -> startActivity<AddConsigneeActivity>("type" to true, "data" to allitem[pos])
-                1 -> delete(allitem[pos])
+                0 -> startActivity<AddConsigneeActivity>("type" to true, "data" to allitem[pos], "isConsigner" to true)
+                1 -> delete(pos)
             }
         }
         listDialog.show()
     }
 
-    private fun delete(model: ConsigneeModel) {
+    private fun delete(pos: Int) {
         HttpNetUtils.getInstance().getManager()?.connectordelete(
             hashMapOf(
                 "id" to loginModel?.id!!,
@@ -64,12 +64,16 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
                 "mobile" to loginModel?.mobile!!,
                 "sessionId" to sessionid!!,
                 "bossid" to loginModel?.bossId!!,
-                "customerid" to model.id
+                "customerid" to allitem[pos].id
             )
         )
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
+                    if (data.msg == "success") {
+                        allitem.removeAt(pos)
+                        adapter.setDataEntityList(allitem)
+                    }
                 }
             })
     }
@@ -107,7 +111,14 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
                 adapter.setDataEntityList(templist)
             }
         })
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    private fun getData() {
         HttpNetUtils.getInstance().getManager()?.getConnector(
             hashMapOf(
                 "id" to loginModel?.id!!,
