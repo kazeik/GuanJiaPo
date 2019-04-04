@@ -171,7 +171,6 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "shipfeesendpay" to zzhStr,//中转费
                 "costFee" to "", //成本
                 "senderphone" to fhrModel?.mobile,//发货人电话
-                "shipfeestate" to payType,//运费支付，0欠款，1已付
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
                 "receiveraddress" to shrModel?.addr, //收货人的地址
@@ -188,7 +187,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to cc!!,//车次
                 "comment" to bz, //备注
-                "senderaddress" to fhrModel?.addr//发货人地址
+                "senderaddress" to fhrModel?.addr,//发货人地址
+                "ShipFeeState" to "0" //运费支付，0欠款，1已付
             )
         ).toString()
         val data =

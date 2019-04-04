@@ -137,7 +137,6 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "shipfeesendpay" to zzfStr,//中转费
                 "costFee" to cbStr, //成本
                 "senderphone" to fhrModel?.mobile,//发货人电话
-                "shipfeestate" to "",//运费支付，0欠款，1已付
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
                 "receiveraddress" to shrModel?.addr, //收货人的地址
@@ -154,7 +153,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr//发货人地址
+                "senderaddress" to fhrModel?.addr,//发货人地址
+                "shipFeeState" to "0" //运费支付，0欠款，1已付
             )
         ).toString()
         val data =
