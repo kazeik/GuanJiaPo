@@ -14,7 +14,6 @@ import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.staffModel
@@ -86,6 +85,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etZl.setText(waybillModel?.productweight)
         etDsk.setText(waybillModel?.agentmoney)
         etFhd.setText(waybillModel?.senderaddress)
+        etBf.setText(waybillModel?.insurancefee)
+        tvCc.text = waybillModel?.carname
 
         if (staffModel != null && staffModel?.isNotEmpty()!!) {
             val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
@@ -115,6 +116,17 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 R.id.rbZt -> recway = 0
                 R.id.rbPs -> recway = 1
             }
+        }
+
+        if (waybillModel?.recway == 0) {
+            rbZt.isChecked = true
+        } else
+            rbPs.isChecked = true
+
+        when (waybillModel?.shipfeepaytype) {
+            0 -> rbXf.isChecked = true
+            1 -> rbYj.isChecked = true
+            2 -> rbTf.isChecked = true
         }
     }
 
@@ -222,8 +234,9 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr,//发货人地址
-                "shipFeeState" to "0"  //0未付，1付清
+                "senderaddress" to fhdStr,//发货人地址
+                "shipFeeState" to "0", //0未付，1付清
+                "id" to waybillModel?.id!!
             )
         ).toString()
         val data =
@@ -237,6 +250,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
+                    if (data.msg == "success") {
+                        btnPrintBq.visibility = View.GONE
+                        btnPrintXp.visibility = View.GONE
+                    }
                 }
             })
     }

@@ -127,7 +127,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val order = JSONObject(
             hashMapOf(
                 "copycount" to hdfsStr, //回单份数
-                "agentmoney" to zzfStr, //中转费
+                "agentmoney" to dskStr, //代收款
                 "shipfee" to 0, //运费 （总计
                 "serviceName" to gysStr,//供应商
                 "dispatchfee" to psfStr, //派送费
@@ -153,7 +153,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr,//发货人地址
+                "senderaddress" to fhdStr,//发货人地址
                 "shipFeeState" to "0" //运费支付，0欠款，1已付
             )
         ).toString()
