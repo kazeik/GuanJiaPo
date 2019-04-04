@@ -67,7 +67,18 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
         waybillModel = intent.getSerializableExtra("data") as WaybillModel
 
+        etJbyf.setText("${waybillModel?.baseshipfee}")
         etOrderId.setText(waybillModel?.id!!)
+        etMdd.setText(waybillModel?.receivepoint)
+        etShr.setText(waybillModel?.receivername)
+        etPsh.setText(waybillModel?.dispatchfee)
+        etZzh.setText(waybillModel?.agentmoney)
+        etGys.setText(waybillModel?.serviceName)
+        etFhr.setText(waybillModel?.senderphone)
+        etTj.setText(waybillModel?.productsize)
+        etHwsl.setText("${waybillModel?.productcount}")
+        etCb.setText(waybillModel?.costFee)
+        etBz.setText(waybillModel?.comment)
 //        etYwy.setText(waybillModel?.)
         tvOrderStatus.text = when (waybillModel?.oderstate) {
             0 -> "待装车"
@@ -147,7 +158,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         val fhrStr = etFhr.text.toString()
         val bzStr = etBz.text.toString()
 
-        if(TextUtils.isEmpty(jbyfStr)){
+        if (TextUtils.isEmpty(jbyfStr)) {
             toast("基本运费不能为空")
             return
         }
@@ -183,7 +194,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
                 "senderaddress" to fhrModel?.addr,//发货人地址
-                "ShipFeeState" to "0"  //0未付，1付清
+                "shipFeeState" to "0"  //0未付，1付清
             )
         ).toString()
         val data =
