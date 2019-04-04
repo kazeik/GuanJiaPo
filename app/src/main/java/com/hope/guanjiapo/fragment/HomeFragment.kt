@@ -53,6 +53,8 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         rcvData.adapter = adapter
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
+
+        version.text = "当前版本1.0，build04041117"
     }
 
 

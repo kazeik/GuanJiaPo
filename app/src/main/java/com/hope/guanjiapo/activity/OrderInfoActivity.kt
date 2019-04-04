@@ -154,8 +154,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr,//发货人地址
-                "shipFeeState" to "0"
+                "senderaddress" to fhrModel?.addr//发货人地址
             )
         ).toString()
         val data =

@@ -188,8 +188,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to cc!!,//车次
                 "comment" to bz, //备注
-                "senderaddress" to fhrModel?.addr,//发货人地址
-                "ShipFeeState" to "0"
+                "senderaddress" to fhrModel?.addr//发货人地址
             )
         ).toString()
         val data =

@@ -21,7 +21,7 @@ class MainApplication : MultiDexApplication() {
         MultiDex.install(this)
         activityList = LinkedList()
         ZXingLibrary.initDisplayOpinion(this)
-//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null)
     }
 
 
