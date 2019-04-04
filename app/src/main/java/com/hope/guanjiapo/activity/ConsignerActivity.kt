@@ -70,7 +70,7 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
-                    if (data.msg == "success") {
+                    if (data.code == "success") {
                         allitem.removeAt(pos)
                         adapter.setDataEntityList(allitem)
                     }

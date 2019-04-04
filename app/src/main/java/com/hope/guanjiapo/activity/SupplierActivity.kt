@@ -75,11 +75,18 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
                     "id" to "${loginModel?.id}",
                     "sessionId" to sessionid!!,
                     "mobile" to loginModel?.mobile!!,
-                    "servicenamelist" to tempAll
+                    "servicenamelist" to tempAll,
+                    "companyname" to "",
+                    "faHuoDiList" to "",
+                    "recCarNoList" to "",
+                    "recPointList" to "",
+                    "wrapNameList" to ""
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
+                        toast(data?.msg!!)
+                        if(data.code == "success")
                         adapter.setDataEntityList(allitem)
                     }
                 })
