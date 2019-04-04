@@ -29,8 +29,11 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
     }
 
     private var startTime: String? = ""
+    private var ywy: String? = ""
+    private var mdd: String? = ""
     private var endTime: String? = ""
     private var ccStr: String? = ""
+    private var fhd: String? = ""
     private var dsk: Int? = 0
     private var orderstatus: Int? = 0
     private var shrModel: ConsigneeModel? = null //货人
@@ -58,7 +61,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivDh -> startActivityForResult<CaptureActivity>(REQUEST_CODE)
             R.id.tvKsrq -> showTime(true)
             R.id.tvJsrq -> showTime(false)
-            R.id.tvCc -> startActivityForResult<VehicleActivity>(201,"a" to true)
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201, "a" to true)
             R.id.tvYwy -> startActivityForResult<StaffActivity>(194)
             R.id.tvYdzt -> showOrderStatusDialog()
             R.id.tvFhd -> startActivityForResult<ShipmentsActivity>(195)
@@ -67,12 +70,23 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivFhdh -> startActivityForResult<ConsignerActivity>(197)
             R.id.btnSearch -> {
                 val intt = Intent()
-                intt.putExtra("orderid", etDh.text.toString())
-                intt.putExtra("receiverphone", etShdh.text.toString())
-                intt.putExtra("recno", ccStr)
-                intt.putExtra("recpoint", etMdd.text.toString())
-                intt.putExtra("senderphone", etFhdh.text.toString())
-                intt.putExtra("endDate", endTime)
+                intt.putExtra(
+                    "data", hashMapOf(
+                        "orderid" to etDh.text.toString(),
+                        "receiverphone" to etShdh.text.toString(),
+                        "recno" to ccStr!!,
+                        "recpoint" to etMdd.text.toString(),
+                        "senderphone" to etFhdh.text.toString(),
+                        "endDate" to endTime!!,
+                        "agentmoney" to dsk!!,
+                        "carname" to ccStr!!,
+                        "oderstate" to "1",
+                        "operatorMobile" to ywy!!,
+                        "receivepoint" to mdd!!,
+                        "senderaddress" to fhd!!,
+                        "startDate" to startTime!!
+                    )
+                )
                 setResult(119, intt)
                 finish()
             }
@@ -121,7 +135,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             }
             195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                tvFhd.text = destinationModel.receivepoint
+                fhd= destinationModel.receivepoint
+                tvFhd.text =fhd
             }
             199 -> {
                 val item = data.getSerializableExtra("data") as DestinationModel
@@ -138,6 +153,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             194 -> {
                 val staffModel = data.getSerializableExtra("data") as StaffModel
                 tvYwy.text = staffModel.userName
+                ywy = staffModel.mobile
             }
             201 -> {
                 ccStr = data.getStringExtra("data")

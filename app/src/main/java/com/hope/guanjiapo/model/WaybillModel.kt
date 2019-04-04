@@ -51,7 +51,7 @@ data class WaybillModel(
     @SerializedName("receiverphone")
     val receiverphone: String,
     @SerializedName("recno")
-    val recno: String,
+    val recno: Int,
     @SerializedName("recway")
     val recway: Int,
     @SerializedName("returnmoney")

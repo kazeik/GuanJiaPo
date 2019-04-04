@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
+import kotlin.collections.HashMap
 
 class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
 //    override fun onItemLongEvent(pos: Int) {
@@ -49,6 +50,16 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
             R.id.btnAllow -> {
+                val temp = getChooice()
+                if (temp.isNullOrEmpty()) {
+                    toast("请选择您要结帐的数据")
+                    return
+                }
+                var allowData = ""
+                temp.forEach {
+                    allowData += "$it,"
+                }
+                allow(allowData)
             }
             R.id.btnChangeStatus -> {
                 val temp = getChooice()
@@ -61,6 +72,22 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                 }
             }
         }
+    }
+
+    private fun allow(data: String) {
+        HttpNetUtils.getInstance().getManager()?.wlEditStates(
+            hashMapOf(
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to sessionid!!, "idStrs" to data.substring(0, data.length - 1), "shipfeestate" to 1
+            )
+        )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+            override fun onSuccess(data: BaseModel<String>?) {
+                toast(data?.msg!!)
+            }
+        })
     }
 
     /**

@@ -31,6 +31,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_print_order_info
     }
 
+    private val items by lazy { resources.getStringArray(R.array.bzdw) }
     private var fhdStr: Int? = 0
     private var ccStr: String? = ""
     private var bzdwStr: Int? = 0
@@ -73,7 +74,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etMdd.setText(waybillModel?.receivepoint)
         etShr.setText(waybillModel?.receivername)
         etPsh.setText(waybillModel?.dispatchfee)
-        etZzh.setText(waybillModel?.agentmoney)
+        etZzh.setText(waybillModel?.shipfeesendpay)
         etGys.setText(waybillModel?.serviceName)
         etFhr.setText(waybillModel?.sendername)
         etTj.setText(waybillModel?.productsize)
@@ -87,6 +88,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etFhd.setText(waybillModel?.senderaddress)
         etBf.setText(waybillModel?.insurancefee)
         tvCc.text = waybillModel?.carname
+//        etFk.setText(waybillModel?.returnmoney  )
+//        etHdfs.setText(waybillModel?.copycount  )
 
         if (staffModel != null && staffModel?.isNotEmpty()!!) {
             val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
@@ -103,6 +106,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             6 -> "已开票"
             else -> ""
         }
+
+        tvBzdw.text = items[waybillModel?.recno!!]
 
         mPayTypeGroup.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
             when (i) {
@@ -131,10 +136,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun showBzdwListDialog() {
-        val items = resources.getStringArray(R.array.bzdw)
+
         val listDialog = AlertDialog.Builder(this)
         listDialog.setTitle("请选择包装单位")
-        listDialog.setItems(items) { dialog, which ->
+        listDialog.setItems(items) { _, which ->
             bzdwStr = which
             tvBzdw.text = items[which]
         }
@@ -217,7 +222,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "shipfeesendpay" to zzfStr,//中转费
                 "costFee" to cbStr, //成本
                 "senderphone" to fhrModel?.mobile,//发货人电话
-                "shipfeestate" to "",//运费支付，0欠款，1已付
+                "shipfeestate" to "0",//运费支付，0欠款，1已付
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
                 "receiveraddress" to shrModel?.addr, //收货人的地址
@@ -225,7 +230,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "productno" to kddhStr,//快递单号
                 "baseshipfee" to jbyfStr, //基本运费
                 "insurancefee" to bfStr, //保费
-                "recno" to 1,
+                "recno" to bzdwStr, //包装单位
                 "productcount" to hwslStr,//货物数量
                 "recway" to recway,//收货方式，0自提，1派送
                 "productsize" to tjStr,//体积
@@ -250,10 +255,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
-                    if (data.msg == "success") {
-                        btnPrintBq.visibility = View.GONE
-                        btnPrintXp.visibility = View.GONE
-                    }
+                    if ("success" == data.msg)
+                        finish()
                 }
             })
     }

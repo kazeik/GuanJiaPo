@@ -135,7 +135,15 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.adapter = adapter
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         adapter.itemListener = this
+        checkGPprinter()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getOrderList()
+    }
+
+    private fun getOrderList() {
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
                 "bossId" to loginModel?.bossId!!,
@@ -160,8 +168,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     adapter.setDataEntityList(allItem)
                 }
             })
-
-        checkGPprinter()
     }
 
     private fun initDevice() {
@@ -536,27 +542,15 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         when (requestCode) {
             119 -> {
                 if (null == data) return
-                val orderid = data.getStringExtra("orderid")
-                val receiverphone = data.getStringExtra("receiverphone")
-                val recno = data.getStringExtra("recno")
-                val recpoint = data.getStringExtra("recpoint")
-                val senderphone = data.getStringExtra("senderphone")
-                val endDate = data.getStringExtra("endDate")
-
+                val map = data.getSerializableExtra("data") as HashMap<String, Any>
+                map["onlyDriver"] = 0
+                map["clientCategory"] = 4
+                map["clientVersion"] = 1.0
+                map["mobile"] = loginModel?.mobile!!
+                map["sessionId"] = sessionid!!
+                map["id"] = loginModel?.id!!
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-                    hashMapOf(
-                        "orderid" to orderid,
-                        "receiverphone" to receiverphone,
-                        "recno" to recno,
-                        "recpoint" to recpoint,
-                        "senderphone" to senderphone,
-                        "startDate" to endDate,
-                        "id" to loginModel?.id!!,
-                        "clientCategory" to 4,
-                        "clientVersion" to 1.0,
-                        "mobile" to loginModel?.mobile!!,
-                        "sessionId" to sessionid!!
-                    )
+                    map
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                         override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {

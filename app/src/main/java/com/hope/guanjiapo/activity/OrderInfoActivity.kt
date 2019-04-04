@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -168,6 +169,9 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
+                    if (data.msg == "success") {
+                        startActivity<PrintOrderInfoActivity>("data" to data.data)
+                    }
                 }
             })
     }
