@@ -31,8 +31,7 @@ class StaffAdapter<A> : BaseAdapter<A>() {
 
         val entity = dataList?.get(position) as StaffModel
         tvType.text = when (entity.userType) {
-            0 -> "老板"
-            1 -> "店长"
+            1 -> "经理"
             2 -> "员工"
             10 -> "VIP 客户"
             else -> ""

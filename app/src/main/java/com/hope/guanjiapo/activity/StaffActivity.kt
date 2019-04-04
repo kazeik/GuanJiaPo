@@ -20,6 +20,7 @@ import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_staff.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
@@ -47,7 +48,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         listDialog.setItems(items) { _, which ->
             when (which) {
                 0 -> startActivity<AddStaffActivity>("change" to true, "item" to itemData[pos])
-                1 -> delete(itemData[pos])
+                1 -> delete(pos)
             }
         }
         listDialog.show()
@@ -59,11 +60,11 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         return R.layout.activity_staff
     }
 
-    private fun delete(item: StaffModel) {
+    private fun delete(pos: Int) {
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(
             hashMapOf(
                 "isAdd" to 0,
-                "memberMobile" to item.mobile,
+                "memberMobile" to itemData[pos].mobile,
                 "id" to ApiUtils.loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
@@ -73,8 +74,12 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
                 override fun onSuccess(data: BaseModel<ArrayList<StaffModel>>?) {
-                    itemData.clear()
-                    itemData.addAll(data?.data!!)
+                    toast(data?.msg!!)
+                    if (data.code == "success") {
+                        itemData.clear()
+                        itemData.addAll(data.data!!)
+                        adapter.setDataEntityList(itemData)
+                    }
                 }
             })
     }
@@ -91,6 +96,11 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
         rcvData.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         getdata()
     }
 
@@ -102,7 +112,7 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
                 "clientVersion" to 1.0,
                 "mobile" to ApiUtils.loginModel?.mobile!!,
                 "sessionId" to sessionid!!,
-                 "isAdd" to -1
+                "isAdd" to -1
             )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<ArrayList<StaffModel>>>(this) {
@@ -114,9 +124,9 @@ class StaffActivity : BaseActivity(), View.OnClickListener, OnItemEventListener,
             })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data == null) return
-        getdata()
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (data == null) return
+//        getdata()
+//    }
 }
