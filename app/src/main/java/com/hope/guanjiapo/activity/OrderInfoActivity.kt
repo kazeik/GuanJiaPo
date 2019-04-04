@@ -92,7 +92,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> createOrder()
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
-            R.id.tvCc -> startActivityForResult<VehicleActivity>(201,"a" to true)
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201, "a" to true)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
@@ -153,7 +153,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr//发货人地址
+                "senderaddress" to fhrModel?.addr,//发货人地址
+                "shipFeeState" to "0"
             )
         ).toString()
         val data =

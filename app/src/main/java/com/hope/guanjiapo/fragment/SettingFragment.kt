@@ -16,6 +16,7 @@ import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
@@ -135,13 +136,26 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             allItem.add(item)
         }
 
-        allItem.get(0).rightItem = vehicleModel?.companyname
-
         rcvData.layoutManager = LinearLayoutManager(activity)
         rcvData.adapter = adapter
         rcvData.addItemDecoration(RecycleViewDivider(activity!!, RecyclerView.VERTICAL))
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
+
+
+        HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
+            hashMapOf(
+                "id" to loginModel?.id!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(activity!!) {
+                override fun onSuccess(data: BaseModel<VehicleModel>?) {
+                    vehicleModel = data?.data
+
+                    allItem.get(0).rightItem = data?.data?.companyname
+                    adapter.notifyDataSetChanged()
+                }
+            })
     }
 
 }

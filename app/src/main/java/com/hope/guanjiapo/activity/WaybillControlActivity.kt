@@ -149,7 +149,7 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
             119 -> {
                 val orderid = data.getStringExtra("orderid")
                 val receiverphone = data.getStringExtra("receiverphone")
-                val recno = data.getIntExtra("recno", 0)
+                val recno = data.getStringExtra("recno")
                 val recpoint = data.getStringExtra("recpoint")
                 val senderphone = data.getStringExtra("senderphone")
                 val endDate = data.getStringExtra("endDate")
