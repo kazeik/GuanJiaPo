@@ -76,7 +76,8 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
                 "mobile" to phone,
                 "addr" to address,
                 "type" to "0",
-                "name" to name
+                "name" to name,
+                "id" to consigneeModel?.id!!
             )
         ).toString()
         val data =

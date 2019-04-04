@@ -32,14 +32,14 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
 
     }
 
-    private fun showOrderStatusDialog(pos: Int) {
+    private fun showOrderStatusDialog() {
         val items = resources.getStringArray(R.array.orderstatus)
         val listDialog = AlertDialog.Builder(this)
         listDialog.setTitle(R.string.changeorderstatus)
         listDialog.setItems(items) { dialog, which ->
             dialog.dismiss()
             orderstatus = which
-            changeState(pos)
+            changeState()
         }
         listDialog.show()
     }
@@ -55,9 +55,10 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                     toast("请选择您要结帐的数据")
                     return
                 }
+
                 var allowData = ""
                 temp.forEach {
-                    allowData += "$it,"
+                    allowData += "${allItem[it].id},"
                 }
                 allow(allowData)
             }
@@ -67,9 +68,7 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                     toast("请选择您要修改的数据")
                     return
                 }
-                temp.forEach {
-                    showOrderStatusDialog(it)
-                }
+                showOrderStatusDialog()
             }
         }
     }
@@ -152,10 +151,16 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
             })
     }
 
-    private fun changeState(pos: Int) {
+    private fun changeState() {
+        val temp = getChooice()
+        var items = ""
+        temp.forEach {
+            items += "${allItem[it].id},"
+        }
+        items = items.substring(0, items.length - 1)
         HttpNetUtils.getInstance().getManager()?.wlEditStates(
             hashMapOf(
-                "idStrs" to allItem[pos].id, "newState" to orderstatus!!, "id" to loginModel?.id!!,
+                "idStrs" to items, "newState" to orderstatus!!, "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
@@ -163,8 +168,12 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
             )
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
-                allItem[pos].oderstate = orderstatus!!
-                adapter.setDataEntityList(allItem)
+                if (data?.msg == "success") {
+                    temp.forEach {
+                        allItem[it].oderstate = orderstatus!!
+                    }
+                    adapter.setDataEntityList(allItem)
+                }
             }
         })
     }

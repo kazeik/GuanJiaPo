@@ -1,5 +1,6 @@
 package com.hope.guanjiapo.adapter
 
+import android.annotation.SuppressLint
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R
@@ -23,6 +24,7 @@ class ConsigneeAdapter<A> : BaseAdapter<A>() {
         return R.layout.adadpter_consignee
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val consigneeitem = holder.getViewById<LinearLayout>(R.id.llConsignee)
         val tvType = holder.getViewById<TextView>(R.id.tvType)
@@ -31,8 +33,8 @@ class ConsigneeAdapter<A> : BaseAdapter<A>() {
         val tvAddress = holder.getViewById<TextView>(R.id.tvAddress)
 
         val entity = dataList?.get(position) as ConsigneeModel
-        tvPhone.text = entity.operatorMobile
-        tvType.text = if (entity.type == 0) "收货人" else "发货人"
+        tvPhone.text = entity.mobile
+        tvType.text = "$position."
         tvName.text = entity.name
         tvAddress.text = entity.addr
 

@@ -555,7 +555,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 dataMap["sessionId"] = sessionid!!
                 dataMap["id"] = loginModel?.id!!
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-                    map
+                    dataMap
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                         override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {

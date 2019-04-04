@@ -5,10 +5,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.ConsigneeAdapter
 import com.hope.guanjiapo.base.BaseActivity
@@ -46,7 +43,7 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         listDialog.setItems(items) { _, which ->
             when (which) {
                 0 -> startActivity<AddConsigneeActivity>("type" to true, "data" to allitem[pos])
-                1 -> delete(allitem[pos])
+                1 -> delete(pos)
             }
         }
         listDialog.show()
@@ -59,8 +56,24 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         }
     }
 
-    private fun delete(model: ConsigneeModel) {
-
+    private fun delete(pos: Int) {
+        val items = allitem[pos]
+        val map = hashMapOf<String, Any>(
+            "id" to loginModel?.id!!,
+            "clientCategory" to 4,
+            "clientVersion" to 1.0,
+            "sessionId" to sessionid!!,
+            "bossid" to loginModel?.bossId!!,
+            "customerid" to items.id,
+            "mobile" to items.mobile
+        )
+        HttpNetUtils.getInstance().getManager()?.connectordelete(map)?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    allitem.removeAt(pos)
+                    adapter.setDataEntityList(allitem)
+                }
+            })
     }
 
     private val adapter: ConsigneeAdapter<ConsigneeModel> by lazy { ConsigneeAdapter<ConsigneeModel>() }
@@ -75,7 +88,7 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         tvTitleRight.visibility = View.VISIBLE
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
-        etSearch.addTextChangedListener(object:TextWatcher{
+        etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -84,7 +97,8 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
+                val templist =
+                    allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
                 adapter.setDataEntityList(templist)
             }
         })
@@ -94,13 +108,22 @@ class ConsigneeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         rcvDataList.adapter = adapter
         adapter.itemListener = this
         adapter.itemLongListener = this
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    private fun getData() {
         HttpNetUtils.getInstance().getManager()?.getConnector(
-            hashMapOf("id" to loginModel?.id!!,
+            hashMapOf(
+                "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
                 "mobile" to loginModel?.mobile!!,
-                "sessionId" to sessionid!!, "type" to 0)
+                "sessionId" to sessionid!!, "type" to 0
+            )
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<ConsigneeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<ConsigneeModel>>?) {
