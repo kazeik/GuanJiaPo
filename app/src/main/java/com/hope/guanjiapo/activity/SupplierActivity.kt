@@ -16,7 +16,6 @@ import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
@@ -26,7 +25,7 @@ import org.jetbrains.anko.toast
 
 class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
-        showInputDialog(allitem[pos])
+        showListDialog(pos)
     }
 
     override fun onItemEvent(pos: Int) {
@@ -36,14 +35,33 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
         finish()
     }
 
+    private fun showListDialog(pos: Int) {
+        val items = resources.getStringArray(R.array.alertmenu)
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setItems(items) { _, which ->
+            when (which) {
+                0 -> showInputDialog(allitem[pos], true)
+                1 -> {
+                    val list = allitem.filterNot { it == allitem[pos] }
+                    var tempAll = ""
+                    list.forEach {
+                        tempAll += "$it,"
+                    }
+                    edit(tempAll)
+                }
+            }
+        }
+        listDialog.show()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> showInputDialog("")
+            R.id.tvTitleRight -> showInputDialog("", false)
         }
     }
 
-    private fun showInputDialog(msg: String) {
+    private fun showInputDialog(msg: String, edit: Boolean) {
         val editText = EditText(this)
         if (!TextUtils.isEmpty(msg))
             editText.setText(msg)
@@ -62,36 +80,47 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
                 toast("列表中已有$car")
                 return@setPositiveButton
             }
+
+            if (edit) {
+                val temp = allitem.filterNot { it == msg }
+                allitem.clear()
+                allitem.addAll(temp)
+            }
             allitem.add(car)
             var tempAll = ""
             allitem.forEach {
                 tempAll += "$it,"
             }
             tempAll = tempAll.substring(0, tempAll.length - 1)
-            HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-                hashMapOf(
-                    "clientCategory" to "4",
-                    "clientVersion" to "1.0",
-                    "id" to "${loginModel?.id}",
-                    "sessionId" to sessionid!!,
-                    "mobile" to loginModel?.mobile!!,
-                    "servicenamelist" to tempAll,
-                    "companyname" to "",
-                    "faHuoDiList" to "",
-                    "recCarNoList" to "",
-                    "recPointList" to "",
-                    "wrapNameList" to ""
-                )
-            )
-                ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
-                    override fun onSuccess(data: BaseModel<String>?) {
-                        toast(data?.msg!!)
-                        if(data.code == "success")
-                        adapter.setDataEntityList(allitem)
-                    }
-                })
+            edit(tempAll)
         }.show()
     }
+
+    private fun edit(msg: String) {
+        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
+            hashMapOf(
+                "clientCategory" to "4",
+                "clientVersion" to "1.0",
+                "id" to "${loginModel?.id}",
+                "sessionId" to sessionid!!,
+                "mobile" to loginModel?.mobile!!,
+                "servicenamelist" to msg,
+                "companyname" to "",
+                "faHuoDiList" to "",
+                "recCarNoList" to "",
+                "recPointList" to "",
+                "wrapNameList" to ""
+            )
+        )
+            ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    toast(data?.msg!!)
+                    if (data.code == "success")
+                        adapter.setDataEntityList(allitem)
+                }
+            })
+    }
+
 
     private val adapter: VehicleAdapter<String> by lazy { VehicleAdapter<String>() }
     private val allitem: ArrayList<String> by lazy { arrayListOf<String>() }
