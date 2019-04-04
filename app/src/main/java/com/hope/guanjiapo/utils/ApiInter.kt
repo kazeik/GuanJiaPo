@@ -100,4 +100,8 @@ interface ApiInter {
     @POST(ApiUtils.wlEditStates)
     @FormUrlEncoded
     fun wlEditStates(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+
+    @POST(ApiUtils.wleditOrDel)
+    @FormUrlEncoded
+    fun wleditOrDel(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
 }

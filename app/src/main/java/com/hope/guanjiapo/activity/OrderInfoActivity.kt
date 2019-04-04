@@ -199,8 +199,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 etFhr.setText(fhrModel?.name)
             }
             195 -> {
-                val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                etFhd.setText(destinationModel.receivepoint)
+                val destinationModel = data.getStringExtra("data")
+                etFhd.setText(destinationModel)
             }
 
             201 -> {

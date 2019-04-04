@@ -26,6 +26,8 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
+
+
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
@@ -42,7 +44,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             R.id.btnRegister -> startActivity<RegisterActivity>()
             R.id.tvQQ -> {
                 try {
-                    startActivity(getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq"));
+                    val url3521 = "mqqwpa://im/chat?chat_type=wpa&uin=37688599"
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url3521)))
                 } catch (e: Exception) {
                     toast("未检测到已安装了QQ")
                 }

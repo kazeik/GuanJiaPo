@@ -85,7 +85,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etHwmc.setText(waybillModel?.productdescript)
         etZl.setText(waybillModel?.productweight)
         etDsk.setText(waybillModel?.agentmoney)
-        etFhd.setText(waybillModel?.senderaddress )
+        etFhd.setText(waybillModel?.senderaddress)
 
         if (staffModel != null && staffModel?.isNotEmpty()!!) {
             val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
@@ -145,9 +145,26 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.btnPrintXp -> startActivityForResult<ConfigPrintActivity>(194)
             R.id.btnPrintBq -> {
             }
-            R.id.btnDelete -> {
-            }
+            R.id.btnDelete -> delete()
         }
+    }
+
+    private fun delete() {
+        val map = hashMapOf<String, Any>(
+            "clientCategory" to 4,
+            "clientVersion" to "1.0",
+            "id" to loginModel?.id!!,
+            "isDel" to 1,
+            "mobile" to loginModel?.mobile!!,
+            "orderid" to waybillModel?.id!!,
+            "sessionId" to sessionid!!
+        )
+        HttpNetUtils.getInstance().getManager()?.wleditOrDel(map)?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    toast(data?.msg!!)
+                }
+            })
     }
 
 
