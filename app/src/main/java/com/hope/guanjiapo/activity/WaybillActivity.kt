@@ -543,12 +543,17 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             119 -> {
                 if (null == data) return
                 val map = data.getSerializableExtra("data") as HashMap<String, Any>
-                map["onlyDriver"] = 0
-                map["clientCategory"] = 4
-                map["clientVersion"] = 1.0
-                map["mobile"] = loginModel?.mobile!!
-                map["sessionId"] = sessionid!!
-                map["id"] = loginModel?.id!!
+                val dataMap = hashMapOf<String,Any>()
+                map.entries.forEach {
+                    if(it.value !="")
+                        dataMap.put(it.key,it.value)
+                }
+                dataMap["onlyDriver"] = 0
+                dataMap["clientCategory"] = 4
+                dataMap["clientVersion"] = 1.0
+                dataMap["mobile"] = loginModel?.mobile!!
+                dataMap["sessionId"] = sessionid!!
+                dataMap["id"] = loginModel?.id!!
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
                     map
                 )?.compose(NetworkScheduler.compose())
