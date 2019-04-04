@@ -10,6 +10,7 @@ import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.model.DestinationModel
 import com.hope.guanjiapo.model.SubscribeModel
+import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
@@ -187,7 +188,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to cc!!,//车次
                 "comment" to bz, //备注
-                "senderaddress" to fhrModel?.addr//发货人地址
+                "senderaddress" to fhrModel?.addr,//发货人地址
+                "ShipFeeState" to "0"
             )
         ).toString()
         val data =
@@ -198,9 +200,12 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.wladd(
             requestBody
         )?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
-                override fun onSuccess(data: BaseModel<String>?) {
-                    delete()
+            ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
+                override fun onSuccess(data: BaseModel<WaybillModel>?) {
+                    if (data?.code == "success")
+                        delete()
+                    else
+                        toast(data?.msg!!)
                 }
             })
     }

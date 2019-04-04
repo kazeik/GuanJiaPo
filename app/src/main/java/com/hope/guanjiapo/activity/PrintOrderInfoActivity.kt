@@ -176,7 +176,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
-                "senderaddress" to fhrModel?.addr//发货人地址
+                "senderaddress" to fhrModel?.addr,//发货人地址
+                "ShipFeeState" to "0"  //0未付，1付清
             )
         ).toString()
         val data =
@@ -187,8 +188,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.wladd(
             requestBody
         )?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
-                override fun onSuccess(data: BaseModel<String>?) {
+            ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
+                override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
                 }
             })

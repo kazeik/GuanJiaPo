@@ -9,6 +9,7 @@ import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.ConsigneeModel
 import com.hope.guanjiapo.model.DestinationModel
+import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
@@ -60,7 +61,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
 
         change = intent.getBooleanExtra("change", false)
 
-        mPayTypeGroup.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
+        mPayTypeGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             when (i) {
                 R.id.rbXf -> shipfeepaytype = 0
                 R.id.rbYj -> shipfeepaytype = 1
@@ -165,8 +166,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         HttpNetUtils.getInstance().getManager()?.wladd(
             requestBody
         )?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
-                override fun onSuccess(data: BaseModel<String>?) {
+            ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
+                override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
                 }
             })
