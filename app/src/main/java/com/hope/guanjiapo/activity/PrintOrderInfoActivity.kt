@@ -2,6 +2,7 @@ package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import android.widget.RadioGroup
 import com.hope.guanjiapo.R
@@ -145,6 +146,11 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         val gysStr = etGys.text.toString()
         val fhrStr = etFhr.text.toString()
         val bzStr = etBz.text.toString()
+
+        if(TextUtils.isEmpty(jbyfStr)){
+            toast("基本运费不能为空")
+            return
+        }
 
         val order = JSONObject(
             hashMapOf(
