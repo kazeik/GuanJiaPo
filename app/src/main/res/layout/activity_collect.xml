@@ -6,202 +6,250 @@
 
     <include layout="@layout/view_title"/>
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:orientation="vertical"
                 android:layout_height="match_parent">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/tvPrintTime"
-                    android:textColor="@color/black"
-                    android:layout_margin="@dimen/dp_10"/>
-
-            <include layout="@layout/view_line_horizontal"/>
-
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
 
-                <include layout="@layout/view_line_vertical"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/tvPrintTime"
+                        android:textColor="@color/black"
+                        android:layout_margin="@dimen/dp_10"/>
+
+                <include layout="@layout/view_line_horizontal"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                    <include layout="@layout/view_line_vertical"/>
+                    <!--<include layout="@layout/view_line_horizontal"/>-->
+                    <!--序号  单号  件数 体积  应收运费  备注-->
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="序号"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="单号"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="件数"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="体积"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="应收运费"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="备注"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+                </LinearLayout>
+
+
+                <include layout="@layout/view_line_horizontal"/>
+
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/rcvData"
+                        android:layout_height="wrap_content"/>
                 <!--<include layout="@layout/view_line_horizontal"/>-->
-                <!--序号  单号  件数 体积  应收运费  备注-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                    <include layout="@layout/view_line_vertical"/>
+                    <!--<include layout="@layout/view_line_horizontal"/>-->
+                    <!--序号  单号  件数 体积  应收运费  备注-->
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:text="合计"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:id="@+id/tvAllNum"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:id="@+id/tvAllMoney"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+
+                    <TextView
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dp_5"
+                            android:layout_height="wrap_content"/>
+
+                    <include layout="@layout/view_line_vertical"/>
+                </LinearLayout>
+
+                <include layout="@layout/view_line_horizontal"/>
+
                 <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="序号"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/dp_5"
+                        android:id="@+id/tvInfo"
                         android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
+                        android:layout_gravity="center_horizontal"
                         android:layout_height="wrap_content"/>
 
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="单号"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="件数"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="体积"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="应收运费"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="备注"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-
-            <include layout="@layout/view_line_horizontal"/>
-
-            <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:id="@+id/rcvData"
-                    android:layout_height="wrap_content"/>
-            <!--<include layout="@layout/view_line_horizontal"/>-->
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-
-                <include layout="@layout/view_line_vertical"/>
-                <!--<include layout="@layout/view_line_horizontal"/>-->
-                <!--序号  单号  件数 体积  应收运费  备注-->
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:text="合计"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:id="@+id/tvAllNum"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:id="@+id/tvAllMoney"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-
-                <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/dp_5"
-                        android:layout_height="wrap_content"/>
-
-                <include layout="@layout/view_line_vertical"/>
-            </LinearLayout>
-
-            <include layout="@layout/view_line_horizontal"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_margin="@dimen/dp_5"
-                    android:id="@+id/tvInfo"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/tvSendDl"
+                    android:layout_width="@dimen/dp_0"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/white"
+                    android:text="发给电脑"
+                    android:padding="@dimen/dp_10"
+                    android:gravity="center_horizontal"
+                    android:background="@color/orger"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"/>
 
+            <TextView
+                    android:id="@+id/tvWxShare"
+                    android:layout_width="@dimen/dp_0"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/white"
+                    android:text="微信分享"
+                    android:padding="@dimen/dp_10"
+                    android:gravity="center_horizontal"
+                    android:background="#00ff37"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/tvYun"
+                    android:layout_width="@dimen/dp_0"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/white"
+                    android:text="云打印机"
+                    android:padding="@dimen/dp_10"
+                    android:gravity="center_horizontal"
+                    android:background="@color/blue"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 </LinearLayout>

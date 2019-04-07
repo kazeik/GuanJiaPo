@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseAdapter
 import com.hope.guanjiapo.base.BaseViewHolder
-import com.hope.guanjiapo.iter.OnItemChoiceListener
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
 
@@ -20,7 +19,6 @@ import com.hope.guanjiapo.model.AdapterItemModel
  */
 class PreferenceAdapter<A> : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
-    internal var itemSelectListener: OnItemChoiceListener? = null
     override fun getLayoutView(): Int {
         return R.layout.adapter_preference
     }
@@ -35,14 +33,8 @@ class PreferenceAdapter<A> : BaseAdapter<A>() {
         if (flag) {
             ivRight.setImageResource(R.drawable.gou)
             ivRight.visibility = View.VISIBLE
-            if (null != itemSelectListener) {
-                itemSelectListener?.getChoice(entity.items!!, true)
-            }
         } else {
             ivRight.visibility = View.GONE
-            if (null != itemSelectListener) {
-                itemSelectListener?.getChoice(entity.items!!, false)
-            }
         }
 
         text.text = entity.items

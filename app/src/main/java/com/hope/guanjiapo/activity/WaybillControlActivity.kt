@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
-import kotlin.collections.HashMap
 
 class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
 //    override fun onItemLongEvent(pos: Int) {

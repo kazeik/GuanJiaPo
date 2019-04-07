@@ -4,34 +4,43 @@ package com.hope.guanjiapo.activity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.AdapterView
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.PreferenceAdapter
 import com.hope.guanjiapo.base.BaseActivity
-import com.hope.guanjiapo.iter.OnItemChoiceListener
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.utils.PreferencesUtils
+import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
+import java.util.*
 
 
-class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemChoiceListener {
-    override fun getChoice(text: String, select: Boolean) {
-        map[text] = select
-    }
-
+class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
     override fun getLayoutView(): Int {
         return R.layout.fragment_data
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.ivBackup -> finish()
+            R.id.ivBackup -> {
+                back()
+            }
         }
     }
 
-    private val map: HashMap<String, Boolean> by lazy { hashMapOf<String, Boolean>() }
+    private fun back() {
+        check()
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        back()
+    }
+
+    private val map: TreeMap<Int, Boolean> by lazy { TreeMap<Int, Boolean>() }
     override fun initData() {
         tvTitle.setText(R.string.perference)
         ivBackup.setOnClickListener(this)
@@ -56,7 +65,17 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
     override fun onItemEvent(pos: Int) {
         allItem.get(pos).flag = !allItem.get(pos).flag
         adapter.setDataEntityList(allItem)
+        map[pos] = allItem.get(pos).flag
     }
 
+    private fun check() {
+        var str = ""
+        map.entries.forEach {
+            if (it.value) {
+                str += "${it.key},"
+            }
+        }
+        PreferencesUtils.putString(this, "prefer", str)
+    }
 
 }
