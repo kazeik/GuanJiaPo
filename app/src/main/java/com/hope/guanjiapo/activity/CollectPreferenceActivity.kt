@@ -4,9 +4,11 @@ package com.hope.guanjiapo.activity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.AdapterView
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.PreferenceAdapter
 import com.hope.guanjiapo.base.BaseActivity
+import com.hope.guanjiapo.iter.OnItemChoiceListener
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
 import com.hope.guanjiapo.view.RecycleViewDivider
@@ -14,7 +16,11 @@ import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 
 
-class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
+class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemChoiceListener {
+    override fun getChoice(text: String, select: Boolean) {
+        map[text] = select
+    }
+
     override fun getLayoutView(): Int {
         return R.layout.fragment_data
     }
@@ -25,6 +31,7 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
         }
     }
 
+    private val map: HashMap<String, Boolean> by lazy { hashMapOf<String, Boolean>() }
     override fun initData() {
         tvTitle.setText(R.string.perference)
         ivBackup.setOnClickListener(this)

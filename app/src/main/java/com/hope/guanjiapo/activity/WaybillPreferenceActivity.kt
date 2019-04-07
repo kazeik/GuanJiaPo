@@ -9,6 +9,7 @@ import com.hope.guanjiapo.adapter.PreferenceAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -33,6 +34,7 @@ class WaybillPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
         itemArr.forEach {
             val item = AdapterItemModel()
             item.items = it
+            item.flag = true
             item.imgs = R.mipmap.ic_launcher
             allItem.add(item)
         }
@@ -49,5 +51,7 @@ class WaybillPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
     override fun onItemEvent(pos: Int) {
         allItem.get(pos).flag = !allItem.get(pos).flag
         adapter.setDataEntityList(allItem)
+
+        PreferencesUtils.putBoolean(this, "auto", allItem.get(pos).flag)
     }
 }
