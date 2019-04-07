@@ -15,6 +15,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
+import com.hope.guanjiapo.utils.PreferencesUtils
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -30,7 +31,6 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_order_info
     }
 
-    private var fhdStr: Int? = 0
     private var ccStr: String? = ""
     private var bzdwStr: Int? = 0
     private var recway: Int = 0
@@ -43,6 +43,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var shrModel: ConsigneeModel? = null //货人
 
     private var change: Boolean? = false
+    private var flag: Boolean? = false
 
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
@@ -60,6 +61,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         ivLxr.setOnClickListener(this)
         ivFhd.setOnClickListener(this)
 
+        flag = PreferencesUtils.getBoolean(this, "auto")
         change = intent.getBooleanExtra("change", false)
 
         mPayTypeGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
@@ -74,6 +76,25 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 R.id.rbZt -> recway = 0
                 R.id.rbPs -> recway = 1
             }
+        }
+
+        if (flag!!) {
+            tvCc.text = PreferencesUtils.getString(this, "cc")
+            etMdd.setText(PreferencesUtils.getString(this, "mdd"))
+            val bzdw = PreferencesUtils.getInt(this, "bzdw", 0)
+            when (bzdw) {
+                0 -> rbZt.isChecked
+                1 -> rbPs.isChecked
+            }
+            etHwsl.setText("1")
+            val type = PreferencesUtils.getInt(this, "zffs")
+            when (type) {
+                0 -> rbXf.isChecked = true
+                1 -> rbYj.isChecked = true
+                2 -> rbTf.isChecked = true
+            }
+            etFhd.setText(PreferencesUtils.getString(this, "fhd"))
+            etFhr.setText(PreferencesUtils.getString(this, "fhr"))
         }
     }
 
@@ -123,6 +144,17 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val gysStr = etGys.text.toString()
         val fhrStr = etFhr.text.toString()
         val bzStr = etBz.text.toString()
+
+
+        if (flag!!) {
+            PreferencesUtils.putString(this, "cc", ccStr!!)
+            PreferencesUtils.putString(this, "mdd", mddStr)
+            PreferencesUtils.putInt(this, "bzdw", bzdwStr!!)
+            PreferencesUtils.putString(this, "hwsl", hwslStr)
+            PreferencesUtils.putInt(this, "zffs", shipfeepaytype)
+            PreferencesUtils.putString(this, "fhd", fhdStr)
+            PreferencesUtils.putString(this, "fhr", fhrStr)
+        }
 
 
         val order = JSONObject(

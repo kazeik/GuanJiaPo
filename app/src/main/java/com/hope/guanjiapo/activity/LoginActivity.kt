@@ -2,6 +2,7 @@ package com.hope.guanjiapo.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -24,8 +25,6 @@ import com.umeng.commonsdk.UMConfigure
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-
-
 
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -83,6 +82,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btnLogin.setOnClickListener(this)
         btnRegister.setOnClickListener(this)
         tvQQ.setOnClickListener(this)
+
+        val perfent = getSharedPreferences("TrineaAndroidCommon", Context.MODE_PRIVATE)
+        if (!perfent.contains("auto"))
+            PreferencesUtils.putBoolean(this, "auto", true)
 
 //        if (BuildConfig.DEBUG) {
 //            etPhone.setText("15988879319")
