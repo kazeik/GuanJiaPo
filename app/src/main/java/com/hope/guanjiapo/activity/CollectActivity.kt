@@ -70,8 +70,8 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         tvTitleRight.setText(R.string.more)
         tvTitleRight.setOnClickListener(this)
         tvSendDl.setOnClickListener(this)
-        tvTitleRight.setOnClickListener(this)
-        tvTitleRight.setOnClickListener(this)
+        tvWxShare.setOnClickListener(this)
+        tvYun.setOnClickListener(this)
 
         initDevice()
 
