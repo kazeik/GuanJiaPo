@@ -61,6 +61,7 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
                 val tempArr = tempstr?.split(",")
                 tempArr?.forEach {
                     allItem[it.toInt()].flag = true
+                    map[it.toInt()] = true
                 }
             }
         }
