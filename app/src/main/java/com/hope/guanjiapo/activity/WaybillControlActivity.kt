@@ -15,12 +15,14 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
+import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill_controll.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
+import kotlin.collections.HashMap
 
 class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
 //    override fun onItemLongEvent(pos: Int) {
@@ -139,6 +141,7 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {
+                    logs("tag","结帐运单记录响应了")
                     if (data?.data == null) {
                         toast(data?.msg!!)
                         return
@@ -182,27 +185,14 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         if (null == data) return
         when (requestCode) {
             119 -> {
-                val orderid = data.getStringExtra("orderid")
-                val receiverphone = data.getStringExtra("receiverphone")
-                val recno = data.getStringExtra("recno")
-                val recpoint = data.getStringExtra("recpoint")
-                val senderphone = data.getStringExtra("senderphone")
-                val endDate = data.getStringExtra("endDate")
-
+                val dmap = data.getSerializableExtra("data") as HashMap<String, Any>
+                dmap["id"] = loginModel?.id!!
+                dmap["clientCategory"] = 4
+                dmap["clientVersion"] = 1.0
+                dmap["mobile"] = loginModel?.mobile!!
+                dmap["sessionId"] = sessionid!!
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-                    hashMapOf(
-                        "orderid" to orderid,
-                        "receiverphone" to receiverphone,
-                        "recno" to recno,
-                        "recpoint" to recpoint,
-                        "senderphone" to senderphone,
-                        "startDate" to endDate,
-                        "id" to loginModel?.id!!,
-                        "clientCategory" to 4,
-                        "clientVersion" to 1.0,
-                        "mobile" to loginModel?.mobile!!,
-                        "sessionId" to sessionid!!
-                    )
+                    dmap
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                         override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {

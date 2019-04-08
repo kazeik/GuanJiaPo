@@ -107,7 +107,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     private val recwaytype: Array<String> by lazy { resources.getStringArray(R.array.recwaytype) }
 
     private fun connection() {
-        logs("tag", "connection")
         conn = PrinterServiceConnection()
         bindService(Intent(this, GpPrintService::class.java), conn, Context.BIND_AUTO_CREATE) // bindService
     }
@@ -136,13 +135,9 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         adapter.itemListener = this
         checkGPprinter()
-    }
 
-    override fun onResume() {
-        super.onResume()
         getOrderList()
     }
-
     private fun getOrderList() {
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
@@ -159,6 +154,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {
+                    logs("tag","运单记录响应了")
                     if (data?.data == null) {
                         toast(data?.msg!!)
                         return

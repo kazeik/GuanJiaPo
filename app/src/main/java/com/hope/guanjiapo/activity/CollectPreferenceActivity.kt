@@ -53,6 +53,13 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
             allItem.add(item)
         }
 
+        var tempstr = PreferencesUtils.getString(this, "prefer")
+        tempstr = tempstr?.substring(0, tempstr.length - 1)
+        val tempArr = tempstr?.split(",")
+        tempArr?.forEach {
+            allItem[it.toInt()].flag = true
+        }
+
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.adapter = adapter
         rcvData.addItemDecoration(RecycleViewDivider(this, RecyclerView.VERTICAL))

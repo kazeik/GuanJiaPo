@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
@@ -78,20 +79,35 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         tvPrintTime.text = printTime
         footer = PreferencesUtils.getString(this, "footer")
         tvInfo.text = footer
-        var allNum = 0.0
-        var allMoney = 0.0
-        allData?.forEach {
-            allMoney += it.baseshipfee
-            allNum += it.productcount
-        }
 
-        tvAllNum.text = "$allNum"
-        tvAllMoney.text = "$allMoney"
+//        var allNum = 0.0
+//        var allMoney = 0.0
+//        allData?.forEach {
+//            allMoney += it.baseshipfee
+//            allNum += it.productcount
+//        }
+//
+//        tvAllNum.text = "$allNum"
+//        tvAllMoney.text = "$allMoney"
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
+//        rcvData.layoutManager = GridLayoutManager(this,arr?.size!!)
         rcvData.isNestedScrollingEnabled = false
         rcvData.adapter = adapter
-        adapter.setDataEntityList(allData!!)
+//        adapter.setDataEntityList(allData!!)
+
+        var temp = PreferencesUtils.getString(this, "prefer")
+        if (!TextUtils.isEmpty(temp)) {
+            temp = temp?.substring(0, temp.length - 1)
+            val arr = temp?.split(",")
+            val itemArr = resources.getStringArray(R.array.hzdata)
+
+
+            val tempList = arrayListOf<String>()
+            arr?.forEach {
+                tempList.add(itemArr[it.toInt()])
+            }
+        }
     }
 
     override fun onClick(v: View?) {
