@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import java.util.*
 
 
 /**
@@ -57,8 +58,10 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
     private val REQUEST_PRINT_LABEL = 0xfd
     private val REQUEST_PRINT_RECEIPT = 0xfc
     private var allData: ArrayList<WaybillModel>? = null
-    private val adapter: CollectAdapter<WaybillModel> by lazy { CollectAdapter<WaybillModel>() }
+    private val adapter: CollectAdapter<LinkedList<String>> by lazy { CollectAdapter<LinkedList<String>>(this) }
     private var conn: PrinterServiceConnection? = null
+
+    private val tempList by lazy { LinkedList<String>() }
 
     @SuppressLint("SetTextI18n")
     override fun initData() {
@@ -91,22 +94,95 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //        tvAllMoney.text = "$allMoney"
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
-//        rcvData.layoutManager = GridLayoutManager(this,arr?.size!!)
         rcvData.isNestedScrollingEnabled = false
         rcvData.adapter = adapter
-//        adapter.setDataEntityList(allData!!)
 
         var temp = PreferencesUtils.getString(this, "prefer")
         if (!TextUtils.isEmpty(temp)) {
             temp = temp?.substring(0, temp.length - 1)
             val arr = temp?.split(",")
             val itemArr = resources.getStringArray(R.array.hzdata)
+            val alltemp = ArrayList<LinkedList<String>>()
 
-
-            val tempList = arrayListOf<String>()
+            tempList.clear()
             arr?.forEach {
                 tempList.add(itemArr[it.toInt()])
             }
+            alltemp.add(tempList)
+
+            for (j in 0 until allData?.size!!) {
+                val sublist = LinkedList<String>()
+                for (i in 0 until arr?.size!!) {
+                    val tempInt = arr[i].toInt()
+                    when (tempInt) {
+                        //序号
+                        0 -> sublist.add("${j + 1}")
+//                        单号
+                        1 -> sublist.add(allData?.get(j)?.id!!)
+//                        快递单号
+                        2 -> sublist.add(allData?.get(j)?.productno!!)
+//                        日期
+                        3 -> sublist.add(TimeUtil.getDayByType(allData?.get(j)?.createDate!!, TimeUtil.DATE_YMS))
+//                        修改时间
+                        4 -> sublist.add(TimeUtil.getDayByType(allData?.get(j)?.updateDate!!, TimeUtil.DATE_YMS))
+//                        车次
+                        5 -> sublist.add(allData?.get(j)?.carname!!)
+//                        发货点
+                        6 -> sublist.add(allData?.get(j)?.senderaddress!!)
+//                        发货人
+                        7 -> sublist.add(allData?.get(j)?.sendername!!)
+//                        目的地
+                        8 -> sublist.add(allData?.get(j)?.receivepoint!!)
+//                        收货人
+                        9 -> sublist.add(allData?.get(j)?.receivername!!)
+//                        货物名称
+                        10 -> sublist.add(allData?.get(j)?.productdescript!!)
+                        //件数
+                        11 -> sublist.add(allData?.get(j)?.id!!)
+//                        重重
+                        12 -> sublist.add(allData?.get(j)?.productweight!!)
+//                        体积
+                        13 -> sublist.add(allData?.get(j)?.productsize!!)
+//                        中转费
+                        14 -> sublist.add(allData?.get(j)?.shipfeesendpay!!)
+//                        保费
+                        15 -> sublist.add(allData?.get(j)?.insurancefee!!)
+//                        应收运费
+                        16 -> sublist.add("${allData?.get(j)?.baseshipfee!!}")
+//                        成本
+                        17 -> sublist.add(allData?.get(j)?.costFee!!)
+//                        利润
+                        18 -> sublist.add(allData?.get(j)?.id!!)
+//                        供应商
+                        19 -> sublist.add(allData?.get(j)?.serviceName!!)
+//                        支付
+                        20 -> sublist.add(allData?.get(j)?.id!!)
+//                        已付
+                        21 -> sublist.add(allData?.get(j)?.shipfeestate!!)
+//                        欠款
+                        22 -> sublist.add(allData?.get(j)?.shipfeestate!!)
+//                        代收款
+                        23 -> sublist.add(allData?.get(j)?.id!!)
+//                        小计
+                        24 -> sublist.add(allData?.get(j)?.id!!)
+//                        业务员
+                        25 -> sublist.add(allData?.get(j)?.operatorMobile!!)
+//                        返款
+                        26 -> sublist.add(allData?.get(j)?.id!!)
+//                        回单份数
+                        27 -> sublist.add(allData?.get(j)?.copycount!!)
+//                        通知放货
+                        28 -> sublist.add(allData?.get(j)?.waitnotify!!)
+//                        备注
+                        29 -> sublist.add(allData?.get(j)?.comment!!)
+//                        提货人签名
+                        30 -> sublist.add(allData?.get(j)?.id!!)
+                    }
+
+                }
+                alltemp.add(sublist)
+            }
+            adapter.setDataEntityList(alltemp)
         }
     }
 
@@ -298,47 +374,50 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         var allNum = 0.0
         var allMoney = 0.0
         var allbaseMoney = 0
-        for (i in 0 until allData?.size!!) {
-            val item = allData?.get(i)
-            esc.addText("${i + 1}")
-            esc.addSetHorAndVerMotionUnits(4.toByte(), 0.toByte())
-            esc.addText("${item?.senderaddress}")
-            esc.addSetAbsolutePrintPosition(8.toShort())
-            esc.addText("${item?.sendername}")
-            esc.addSetAbsolutePrintPosition(16.toShort())
-            esc.addText("${item?.receivepoint}")
-            esc.addSetAbsolutePrintPosition(24.toShort())
-            esc.addText("${item?.receivername}")
-            esc.addSetAbsolutePrintPosition(32.toShort())
-            esc.addText("${item?.productdescript}")
-            esc.addSetAbsolutePrintPosition(44.toShort())
-            esc.addText("${item?.productcount}")
-            esc.addSetAbsolutePrintPosition(52.toShort())
-            esc.addText("${item?.agentmoney}")
-            esc.addSetAbsolutePrintPosition(64.toShort())
-            esc.addText(paytype[item?.shipfeepaytype!!])
-            esc.addSetAbsolutePrintPosition(72.toShort())
-            esc.addText(item.agentmoney)
-            esc.addSetAbsolutePrintPosition(82.toShort())
-            esc.addText("${item.baseshipfee}")
-            esc.addSetAbsolutePrintPosition(90.toShort())
-            esc.addText(item.comment)
-            esc.addSetAbsolutePrintPosition(98.toShort())
-            esc.addPrintAndLineFeed()
-            esc.addText("$line\n")
+        for (i in 0 until tempList.size) {
+            esc.addText(tempList[i])
+            esc.addSetAbsolutePrintPosition((8*i).toShort())
 
-            allNum += item.productcount
-            allMoney += item.baseshipfee
+//            val item = allData?.get(i)
+//            esc.addText("${i + 1}")
+//            esc.addSetHorAndVerMotionUnits(4.toByte(), 0.toByte())
+//            esc.addText("${item?.senderaddress}")
+//            esc.addSetAbsolutePrintPosition(8.toShort())
+//            esc.addText("${item?.sendername}")
+//            esc.addSetAbsolutePrintPosition(16.toShort())
+//            esc.addText("${item?.receivepoint}")
+//            esc.addSetAbsolutePrintPosition(24.toShort())
+//            esc.addText("${item?.receivername}")
+//            esc.addSetAbsolutePrintPosition(32.toShort())
+//            esc.addText("${item?.productdescript}")
+//            esc.addSetAbsolutePrintPosition(44.toShort())
+//            esc.addText("${item?.productcount}")
+//            esc.addSetAbsolutePrintPosition(52.toShort())
+//            esc.addText("${item?.agentmoney}")
+//            esc.addSetAbsolutePrintPosition(64.toShort())
+//            esc.addText(paytype[item?.shipfeepaytype!!])
+//            esc.addSetAbsolutePrintPosition(72.toShort())
+//            esc.addText(item.agentmoney)
+//            esc.addSetAbsolutePrintPosition(82.toShort())
+//            esc.addText("${item.baseshipfee}")
+//            esc.addSetAbsolutePrintPosition(90.toShort())
+//            esc.addText(item.comment)
+//            esc.addSetAbsolutePrintPosition(98.toShort())
+//            esc.addPrintAndLineFeed()
+//            esc.addText("$line\n")
+//
+//            allNum += item.productcount
+//            allMoney += item.baseshipfee
         }
 
-        esc.addText("合计")
-        esc.addSetHorAndVerMotionUnits(4.toByte(), 0.toByte())
-        esc.addText("$allNum")
-        esc.addSetAbsolutePrintPosition(82.toShort())
-        esc.addText("$allMoney")
-        esc.addSetAbsolutePrintPosition(90.toShort())
-        esc.addPrintAndLineFeed()
-        esc.addText("$line\n")
+//        esc.addText("合计")
+//        esc.addSetHorAndVerMotionUnits(4.toByte(), 0.toByte())
+//        esc.addText("$allNum")
+//        esc.addSetAbsolutePrintPosition(82.toShort())
+//        esc.addText("$allMoney")
+//        esc.addSetAbsolutePrintPosition(90.toShort())
+//        esc.addPrintAndLineFeed()
+//        esc.addText("$line\n")
         esc.addPrintAndLineFeed()
 
 //        /* 绝对位置 具体详细信息请查看GP58编程手册 */

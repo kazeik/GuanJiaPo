@@ -3,6 +3,7 @@ package com.hope.guanjiapo.activity
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.PreferenceAdapter
@@ -53,11 +54,15 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
             allItem.add(item)
         }
 
-        var tempstr = PreferencesUtils.getString(this, "prefer")
-        tempstr = tempstr?.substring(0, tempstr.length - 1)
-        val tempArr = tempstr?.split(",")
-        tempArr?.forEach {
-            allItem[it.toInt()].flag = true
+        if (PreferencesUtils.getShared(this).contains("prefer")) {
+            var tempstr = PreferencesUtils.getString(this, "prefer")
+            if (!TextUtils.isEmpty(tempstr)) {
+                tempstr = tempstr?.substring(0, tempstr.length - 1)
+                val tempArr = tempstr?.split(",")
+                tempArr?.forEach {
+                    allItem[it.toInt()].flag = true
+                }
+            }
         }
 
         rcvData.layoutManager = LinearLayoutManager(this)

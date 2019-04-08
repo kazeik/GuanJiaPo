@@ -2,6 +2,7 @@ package com.hope.guanjiapo.utils
 
 
 import android.content.Context
+import android.content.SharedPreferences
 
 /**
  * PreferencesUtils, easy to get or put data
@@ -60,6 +61,10 @@ object PreferencesUtils {
     fun getString(context: Context, key: String, defaultValue: String? = null): String? {
         val settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         return settings.getString(key, defaultValue)
+    }
+
+    fun getShared(context: Context): SharedPreferences{
+        return context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
     }
 
     /**
