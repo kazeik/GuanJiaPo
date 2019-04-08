@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.activity
 
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -31,10 +32,16 @@ class WaybillPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
         ivBackup.setOnClickListener(this)
 
         val itemArr = arrayOf("是否记忆上次运单")
+        var flag = true
+        val pref = getSharedPreferences("TrineaAndroidCommon", Context.MODE_PRIVATE)
+        if (pref.contains("auto")) {
+            flag = PreferencesUtils.getBoolean(this, "auto")
+        }
+
         itemArr.forEach {
             val item = AdapterItemModel()
             item.items = it
-            item.flag = true
+            item.flag = flag
             item.imgs = R.mipmap.ic_launcher
             allItem.add(item)
         }
