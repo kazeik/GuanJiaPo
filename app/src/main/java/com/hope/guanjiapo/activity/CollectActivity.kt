@@ -47,7 +47,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_collect
     }
 
-    private val paytype: Array<String> by lazy { resources.getStringArray(R.array.paytype) }
     private val line: String =
         "------------------------------------------------------------------------------------------------------------"
     private var printTime: String = ""
@@ -69,6 +68,9 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         ivBackup.setOnClickListener(this)
         tvTitleRight.visibility = View.VISIBLE
         tvTitleRight.setText(R.string.more)
+        tvTitleRight.setOnClickListener(this)
+        tvSendDl.setOnClickListener(this)
+        tvTitleRight.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
 
         initDevice()
@@ -190,7 +192,17 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> showListDialog()
+            R.id.tvSendDl,
+            R.id.tvWxShare,
+            R.id.tvYun -> share()
         }
+    }
+
+    private fun share() {
+        val textIntent = Intent(Intent.ACTION_SEND)
+        textIntent.type = "text/plain"
+        textIntent.putExtra(Intent.EXTRA_TEXT, "手机就能开单管帐，您专属的物流管理工具《物流管家婆》 http://wl.hfuture.cn")
+        startActivity(Intent.createChooser(textIntent, "分享到"))
     }
 
     private fun showListDialog() {
@@ -376,7 +388,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         var allbaseMoney = 0
         for (i in 0 until tempList.size) {
             esc.addText(tempList[i])
-            esc.addSetAbsolutePrintPosition((8*i).toShort())
+            esc.addSetAbsolutePrintPosition((8 * i).toShort())
 
 //            val item = allData?.get(i)
 //            esc.addText("${i + 1}")

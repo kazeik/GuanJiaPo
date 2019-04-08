@@ -36,11 +36,13 @@ class CollectAdapter<B>(private val context: Context) : BaseAdapter<B>() {
             textView.gravity = Gravity.CENTER_HORIZONTAL or (Gravity.CENTER_VERTICAL)
             textView.textSize = 14.0f
             textView.setPadding(3, 5, 3, 5)
-            textView.layoutParams = LinearLayout.LayoutParams(
+            val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
             )
+            params.gravity=Gravity.CENTER_VERTICAL or Gravity.CENTER_HORIZONTAL
+            textView.layoutParams = params
             llview.addView(textView)
         }
     }
