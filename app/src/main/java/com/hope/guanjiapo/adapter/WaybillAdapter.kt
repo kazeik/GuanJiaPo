@@ -2,6 +2,7 @@ package com.hope.guanjiapo.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,6 +14,7 @@ import com.hope.guanjiapo.iter.OnItemLongEventListener
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
 import com.hope.guanjiapo.utils.TimeUtil
+import org.jetbrains.anko.textColor
 
 
 /**
@@ -62,6 +64,12 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
 
 
         val entity = dataList?.get(position) as? WaybillModel
+
+        if (entity?.shipfeestate == "1") {
+            tvItem2.textColor = Color.BLACK
+        } else {
+            tvItem1.textColor = Color.RED
+        }
 
         val lele = allStaffModel?.filter { it.mobile == entity?.operatorMobile }
         var namelelv = ""
