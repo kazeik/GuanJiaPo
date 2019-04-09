@@ -94,8 +94,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 //        etHdfs.setText(waybillModel?.copycount  )
 
         val yf =
-            waybillModel?.baseshipfee?.toDouble()!! + waybillModel?.dispatchfee?.toDouble()!! + waybillModel?.insurancefee?.toDouble()!!
-        val al = yf + waybillModel?.agentmoney?.toDouble()!! + waybillModel?.shipfeesendpay?.toDouble()!!
+            getValue(waybillModel?.baseshipfee) + getValue(waybillModel?.dispatchfee) + getValue(waybillModel?.insurancefee)
+        val al = yf + getValue(waybillModel?.agentmoney) + getValue(waybillModel?.shipfeesendpay)
         tvAllMoney.text =
             "运费：$yf 合计(含代收中转):$al"
 
@@ -158,6 +158,11 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             if (!b) check()
         }
     }
+
+    private fun getValue(value: String?): Double {
+        return if (TextUtils.isEmpty(value)) 0.0 else value?.toDouble()!!
+    }
+
 
     private fun check() {
         val item1 = etJbyf.text.toString()
