@@ -69,7 +69,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
         waybillModel = intent.getSerializableExtra("data") as WaybillModel
 
-        etJbyf.setText("${waybillModel?.baseshipfee}")
+        etJbyf.setText(waybillModel?.baseshipfee)
         etOrderId.setText(waybillModel?.id!!)
         etMdd.setText(waybillModel?.receivepoint)
         etShr.setText(waybillModel?.receivername)
@@ -78,7 +78,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etGys.setText(waybillModel?.serviceName)
         etFhr.setText(waybillModel?.sendername)
         etTj.setText(waybillModel?.productsize)
-        etHwsl.setText("${waybillModel?.productcount}")
+        etHwsl.setText(waybillModel?.productcount)
         etCb.setText(waybillModel?.costFee)
         etBz.setText(waybillModel?.comment)
         etKddh.setText(waybillModel?.productno)
