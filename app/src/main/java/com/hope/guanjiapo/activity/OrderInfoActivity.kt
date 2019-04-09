@@ -177,7 +177,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "productno" to kddhStr,//快递单号
                 "baseshipfee" to jbyfStr, //基本运费
                 "insurancefee" to bfStr, //保费
-                "recno" to 1,
+                "recno" to bzdwStr,
                 "productcount" to hwslStr,//货物数量
                 "recway" to recway,//收货方式，0自提，1派送
                 "productsize" to tjStr,//体积
@@ -187,7 +187,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
                 "senderaddress" to fhdStr,//发货人地址
-                "shipFeeState" to "0" //运费支付，0欠款，1已付
+                "shipFeeState" to if (shipfeepaytype == 0) "1" else "0" //运费支付，0欠款，1已付
             )
         ).toString()
         val data =
@@ -201,7 +201,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
-                    if (data.msg == "success") {
+                    if (data.code == "success") {
                         startActivity<PrintOrderInfoActivity>("data" to data.data)
                     }
                 }
