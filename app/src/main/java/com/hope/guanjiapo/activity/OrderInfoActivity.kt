@@ -1,7 +1,11 @@
 package com.hope.guanjiapo.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.widget.RadioGroup
 import com.hope.guanjiapo.R
@@ -44,6 +48,9 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
 
     private var change: Boolean? = false
     private var flag: Boolean? = false
+
+    private var yf: Double? = 0.0
+    private var hj: Double? = 0.0
 
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
@@ -96,7 +103,39 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             etFhd.setText(PreferencesUtils.getString(this, "fhd"))
             etFhr.setText(PreferencesUtils.getString(this, "fhr"))
         }
+        etJbyf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etPsh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etBf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etZzh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etDsk.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
     }
+
+    private fun check() {
+        val item1 = etJbyf.text.toString()
+        val item2 = etPsh.text.toString()
+        val item3 = etBf.text.toString()
+        val item4 = etZzh.text.toString()
+        val item5 = etDsk.text.toString()
+        val p0: Double? = if (TextUtils.isEmpty(item1)) 0.0 else item1.toDouble()
+        val p1: Double? = if (TextUtils.isEmpty(item2)) 0.0 else item2.toDouble()
+        val p2: Double? = if (TextUtils.isEmpty(item3)) 0.0 else item3.toDouble()
+        val p3: Double? = if (TextUtils.isEmpty(item4)) 0.0 else item4.toDouble()
+        val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
+        val yf = p0!! + p1!! + p2!!
+        val hj = p0 + p1 + p2 + p3!! + p4!!
+        tvAllMoney.text = "运费：$yf 合计(含代收中转):$hj"
+    }
+
 
     private fun showBzdwListDialog() {
         val items = resources.getStringArray(R.array.bzdw)

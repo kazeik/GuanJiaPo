@@ -484,7 +484,8 @@
             </LinearLayout>
 
             <TextView
-                    android:text="运费：0"
+                    android:id="@+id/tvAllMoney"
+                    android:text="运费："
                     android:textSize="@dimen/sp_14"
                     android:layout_margin="@dimen/dp_10"
                     android:layout_width="wrap_content"

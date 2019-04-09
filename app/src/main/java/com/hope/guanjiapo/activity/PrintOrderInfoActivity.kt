@@ -1,5 +1,6 @@
 package com.hope.guanjiapo.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.text.TextUtils
@@ -47,6 +48,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var waybillModel: WaybillModel? = null
 
 
+    @SuppressLint("SetTextI18n")
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
         tvTitleRight.setText(R.string.save)
@@ -91,6 +93,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 //        etFk.setText(waybillModel?.returnmoney  )
 //        etHdfs.setText(waybillModel?.copycount  )
 
+        val yf =
+            waybillModel?.baseshipfee?.toDouble()!! + waybillModel?.dispatchfee?.toDouble()!! + waybillModel?.insurancefee?.toDouble()!!
+        val al = yf + waybillModel?.agentmoney?.toDouble()!! + waybillModel?.shipfeesendpay?.toDouble()!!
+        tvAllMoney.text =
+            "运费：$yf 合计(含代收中转):$al"
+
         if (staffModel != null && staffModel?.isNotEmpty()!!) {
             val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
             etYwy.setText(tempStaff?.userName)
@@ -133,6 +141,38 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             1 -> rbYj.isChecked = true
             2 -> rbTf.isChecked = true
         }
+
+        etJbyf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etPsh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etBf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etZzh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etDsk.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+    }
+
+    private fun check() {
+        val item1 = etJbyf.text.toString()
+        val item2 = etPsh.text.toString()
+        val item3 = etBf.text.toString()
+        val item4 = etZzh.text.toString()
+        val item5 = etDsk.text.toString()
+        val p0: Double? = if (TextUtils.isEmpty(item1)) 0.0 else item1.toDouble()
+        val p1: Double? = if (TextUtils.isEmpty(item2)) 0.0 else item2.toDouble()
+        val p2: Double? = if (TextUtils.isEmpty(item3)) 0.0 else item3.toDouble()
+        val p3: Double? = if (TextUtils.isEmpty(item4)) 0.0 else item4.toDouble()
+        val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
+        val yf = p0!! + p1!! + p2!!
+        val hj = p0 + p1 + p2 + p3!! + p4!!
+        tvAllMoney.text = "运费：$yf 合计(含代收中转):$hj"
     }
 
     private fun showBzdwListDialog() {
@@ -260,8 +300,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     toast(data?.msg!!)
-                    if ("success" == data.msg)
-                        finish()
+//                    if ("success" == data.code)
+//                        finish()
                 }
             })
     }
