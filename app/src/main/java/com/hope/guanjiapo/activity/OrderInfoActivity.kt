@@ -203,6 +203,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                     toast(data?.msg!!)
                     if (data.code == "success") {
                         startActivity<PrintOrderInfoActivity>("data" to data.data)
+                        finish()
                     }
                 }
             })
