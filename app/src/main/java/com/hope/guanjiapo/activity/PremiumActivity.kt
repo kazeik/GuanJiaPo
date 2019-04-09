@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.RadioGroup
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.base.BaseActivity
-import com.hope.guanjiapo.model.SubscribeModel
 import kotlinx.android.synthetic.main.activity_premium.*
 import kotlinx.android.synthetic.main.view_title.*
 
@@ -24,6 +23,17 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
                 R.id.rbSure -> tzfh = 1
             }
         }
+
+        val fk = intent.getStringExtra("fk")
+        val hdfs = intent.getStringExtra("hdfs")
+        val tzfh = intent.getStringExtra("tzfh")
+        if (tzfh == "0") {
+            rbNo.isChecked = true
+        } else {
+            rbSure.isChecked = true
+        }
+        etFk.setText(fk)
+        etHdfs.setText(hdfs)
     }
 
 

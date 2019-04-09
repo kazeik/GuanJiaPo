@@ -109,14 +109,14 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
         tvBzdw.text = items[waybillModel?.recno!!]
 
-        mPayTypeGroup.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
+        mPayTypeGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             when (i) {
                 R.id.rbXf -> shipfeepaytype = 0
                 R.id.rbYj -> shipfeepaytype = 1
                 R.id.rbTf -> shipfeepaytype = 2
             }
         }
-        msgShfs.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
+        msgShfs.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             when (i) {
                 R.id.rbZt -> recway = 0
                 R.id.rbPs -> recway = 1
@@ -151,7 +151,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> createOrder()
-            R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
+            R.id.tvFwhy -> startActivityForResult<PremiumActivity>(
+                200,
+                "fk" to waybillModel?.returnmoney,
+                "hdfs" to waybillModel?.copycount,
+                "tzfh" to waybillModel?.waitnotify
+            )
             R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
