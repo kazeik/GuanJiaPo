@@ -40,8 +40,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var fkStr: String? = ""
     private var hdfsStr: String? = ""
     private var tzfh: Int = 0
+    private var pay :Int ?=0
 
-    private var fhrModel: ConsigneeModel? = null //发货人
+    private var fhr :String ?= ""
+//    private var fhrModel: ConsigneeModel? = null //发货人
     private var shrModel: ConsigneeModel? = null //货人
 
     private var waybillModel: WaybillModel? = null
@@ -127,6 +129,13 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             when (i) {
                 R.id.rbZt -> recway = 0
                 R.id.rbPs -> recway = 1
+            }
+        }
+
+        payGroup.setOnCheckedChangeListener { radioGroup, i ->
+            when(i){
+                R.id.rbQk-> pay = 0
+                R.id.rbYf->pay = 1
             }
         }
 
@@ -275,8 +284,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "receivepoint" to mddStr, //目的地
                 "shipfeesendpay" to zzfStr,//中转费
                 "costFee" to cbStr, //成本
-                "senderphone" to fhrModel?.mobile,//发货人电话
-                "shipfeestate" to "0",//运费支付，0欠款，1已付
+                "senderphone" to fhr,//发货人电话
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
                 "receiveraddress" to shrModel?.addr, //收货人的地址
@@ -293,6 +301,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "returnmoney" to fkStr,//返款
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
+                "shipfeestate" to pay,
                 "senderaddress" to fhdStr,//发货人地址
                 "shipFeeState" to if (shipfeepaytype == 0) "1" else "0", //0未付，1付清
                 "id" to waybillModel?.id!!
@@ -338,8 +347,9 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 etGys.setText(itemStr)
             }
             196 -> {
-                fhrModel = data.getSerializableExtra("data") as ConsigneeModel
-                etFhr.setText(fhrModel?.name)
+//                fhrModel = data.getSerializableExtra("data") as ConsigneeModel
+                fhr = data.getStringExtra("data")
+                etFhr.setText(fhr)
             }
             195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel

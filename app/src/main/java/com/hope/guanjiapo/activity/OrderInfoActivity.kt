@@ -46,6 +46,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
 
     private var change: Boolean? = false
     private var flag: Boolean? = false
+    private var pay: Int? = 0
 
     private val hwmc: ArrayList<String> by lazy { arrayListOf<String>() }
 
@@ -85,6 +86,13 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 R.id.rbPs -> recway = 1
             }
         }
+        payGroup.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                R.id.rbQk -> pay = 0
+                R.id.rbYf -> pay = 1
+            }
+        }
+
 
         if (flag!!) {
             tvCc.text = PreferencesUtils.getString(this, "cc")
@@ -255,6 +263,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
                 "senderaddress" to fhdStr,//发货人地址
+                "shipfeestate" to pay,
                 "shipFeeState" to if (shipfeepaytype == 0) "1" else "0" //运费支付，0欠款，1已付
             )
         ).toString()
