@@ -40,17 +40,24 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> {
-                val fkStr = etFk.text.toString()
-                val hdfsStr = etHdfs.text.toString()
-                val intent = Intent()
-                intent.putExtra("fk", fkStr)
-                intent.putExtra("hdfs", hdfsStr)
-                intent.putExtra("tzfh", tzfh)
-                setResult(200, intent)
-                finish()
+               back()
             }
         }
     }
 
+    private fun back(){
+        val fkStr = etFk.text.toString()
+        val hdfsStr = etHdfs.text.toString()
+        val intent = Intent()
+        intent.putExtra("fk", fkStr)
+        intent.putExtra("hdfs", hdfsStr)
+        intent.putExtra("tzfh", tzfh)
+        setResult(200, intent)
+        finish()
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        back()
+    }
 }
