@@ -47,9 +47,6 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var change: Boolean? = false
     private var flag: Boolean? = false
 
-    private var yf: Double? = 0.0
-    private var hj: Double? = 0.0
-
     private val hwmc: ArrayList<String> by lazy { arrayListOf<String>() }
 
     override fun initData() {
@@ -209,7 +206,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         if (!hwmc.contains(hwmcStr))
             hwmc.add(hwmcStr)
 
-        var temp: String = ""
+        var temp = ""
         hwmc.forEach {
             temp += "$it,"
         }
