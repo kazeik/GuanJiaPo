@@ -37,8 +37,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var bzdwStr: Int? = 0
     private var recway: Int = 0
     private var shipfeepaytype: Int = 0
-    private var fkStr: String = ""
-    private var hdfsStr: String = ""
+    private var fkStr: String? = ""
+    private var hdfsStr: String? = ""
     private var tzfh: Int = 0
 
     private var fhrModel: ConsigneeModel? = null //发货人
@@ -156,6 +156,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etDsk.setOnFocusChangeListener { _, b ->
             if (!b) check()
         }
+
+        fkStr = waybillModel?.returnmoney
+        hdfsStr = waybillModel?.copycount
+        tzfh = if (TextUtils.isEmpty(waybillModel?.waitnotify)) 0 else waybillModel?.waitnotify?.toInt()!!
     }
 
     private fun getValue(value: String?): Double {
@@ -198,9 +202,9 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.tvTitleRight -> createOrder()
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(
                 200,
-                "fk" to waybillModel?.returnmoney,
-                "hdfs" to waybillModel?.copycount,
-                "tzfh" to waybillModel?.waitnotify?.toInt()
+                "fk" to fkStr,
+                "hdfs" to hdfsStr,
+                "tzfh" to tzfh
             )
             R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
             R.id.tvBzdw -> showBzdwListDialog()
