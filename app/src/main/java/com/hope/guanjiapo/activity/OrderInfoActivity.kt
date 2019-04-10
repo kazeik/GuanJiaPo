@@ -52,6 +52,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var yf: Double? = 0.0
     private var hj: Double? = 0.0
 
+    private val hwmc: ArrayList<String> by lazy{ arrayListOf<String>()}
+
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
         tvTitleRight.setText(R.string.save)
@@ -67,9 +69,13 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         ivGys.setOnClickListener(this)
         ivLxr.setOnClickListener(this)
         ivFhd.setOnClickListener(this)
+        ivHwmc.setOnClickListener(this)
 
         flag = PreferencesUtils.getBoolean(this, "auto")
         change = intent.getBooleanExtra("change", false)
+
+        val tempHwmc = PreferencesUtils.getString(this, "hwmc")
+        tempHwmc?.split(",")?.forEach { hwmc.add(it) }
 
         mPayTypeGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             when (i) {
@@ -120,6 +126,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun check() {
         val item1 = etJbyf.text.toString()
         val item2 = etPsh.text.toString()
@@ -148,11 +155,22 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         listDialog.show()
     }
 
+    private fun showHwmcListDialog() {
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setTitle("请选择货物名称")
+        listDialog.setItems(hwmc?.toTypedArray()) { dialog, which ->
+            etHwmc.setText(hwmc?.get(which))
+        }
+        listDialog.show()
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBackup -> finish()
-            R.id.tvTitleRight -> createOrder()
+            R.id.tvTitleRight -> {
+                createOrder()
+            }
             R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
             R.id.tvCc -> startActivityForResult<VehicleActivity>(201, "a" to true)
             R.id.tvBzdw -> showBzdwListDialog()
@@ -161,6 +179,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivGys -> startActivityForResult<SupplierActivity>(197, "a" to true)
             R.id.ivLxr -> startActivityForResult<ConsignerActivity>(196)
+            R.id.ivHwmc -> showHwmcListDialog()
         }
     }
 
@@ -184,6 +203,16 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val fhrStr = etFhr.text.toString()
         val bzStr = etBz.text.toString()
 
+        if (!hwmc?.contains(hwmcStr)!!)
+            hwmc?.add(hwmcStr)
+
+        var temp: String = ""
+        hwmc?.forEach {
+            temp += "$it,"
+        }
+
+        temp = temp.substring(0, temp.length - 1)
+        PreferencesUtils.putString(this, "hwmc", temp)
 
         if (flag!!) {
             PreferencesUtils.putString(this, "cc", ccStr!!)
