@@ -105,16 +105,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             etYwy.setText(tempStaff?.userName)
         }
 
-        tvOrderStatus.text = when (waybillModel?.oderstate) {
-            0 -> "待装车"
-            1 -> "运输中"
-            2 -> "已到站"
-            3 -> "已提货"
-            4 -> "已收款"
-            5 -> "已打款"
-            6 -> "已开票"
-            else -> ""
-        }
+        val stat = resources.getStringArray(R.array.orderstatus)
+        tvOrderStatus.text = stat[waybillModel?.oderstate!!]
 
         tvBzdw.text = items[waybillModel?.recno!!]
 
@@ -145,8 +137,14 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             rbPs.isChecked = true
 
         when (waybillModel?.shipfeepaytype) {
-            0 -> rbXf.isChecked = true
-            1 -> rbYj.isChecked = true
+            0 -> {
+                rbXf.isChecked = true
+                rbQk.isChecked = true
+            }
+            1 -> {
+                rbYj.isChecked = true
+                rbYf.isChecked = true
+            }
             2 -> rbTf.isChecked = true
         }
 
@@ -274,6 +272,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
         val order = JSONObject(
             hashMapOf(
+                "agentmoney" to dskStr,
                 "copycount" to hdfsStr, //回单份数
                 "agentmoney" to zzfStr, //中转费
                 "shipfee" to 0, //运费 （总计
