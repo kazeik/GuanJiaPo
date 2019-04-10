@@ -16,6 +16,9 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
     private var tzfh: Int = 0
     override fun initData() {
         tvTitle.setText(R.string.fwhy)
+        tvTitleRight.visibility = View.VISIBLE
+        tvTitleRight.text="确定"
+        tvTitleRight.setOnClickListener(this)
         ivBackup.setOnClickListener(this)
         msgShfs.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
             when (i) {
@@ -39,9 +42,8 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.ivBackup -> {
-               back()
-            }
+            R.id.ivBackup -> finish()
+            R.id.tvTitleRight->back()
         }
     }
 
@@ -56,8 +58,7 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
         finish()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        back()
-    }
+//    override fun onBackPressed() {
+//        back()
+//    }
 }

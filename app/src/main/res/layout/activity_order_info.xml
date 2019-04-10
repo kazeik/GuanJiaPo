@@ -389,54 +389,6 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        android:text="运费支付"
-                        android:textSize="@dimen/sp_14"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/dp_10"
-                        android:layout_width="@dimen/dp_70"
-                        android:layout_height="wrap_content"/>
-
-                <info.hoang8f.android.segmented.SegmentedGroup
-                        android:id="@+id/payGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        segmentedgroup:sc_border_width="1dp"
-                        segmentedgroup:sc_checked_text_color="@color/white"
-                        segmentedgroup:sc_corner_radius="10dp"
-                        segmentedgroup:sc_tint_color="@color/blue">
-
-                    <RadioButton
-                            android:id="@+id/rbQk"
-                            style="@style/RadioButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="欠款"/>
-
-                    <RadioButton
-                            android:id="@+id/rbYf"
-                            style="@style/RadioButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="已付"/>
-
-                </info.hoang8f.android.segmented.SegmentedGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                <TextView
                         android:text="基本运费"
                         android:textSize="@dimen/sp_14"
                         android:layout_margin="@dimen/dp_10"

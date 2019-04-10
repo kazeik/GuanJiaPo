@@ -40,10 +40,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var fkStr: String? = ""
     private var hdfsStr: String? = ""
     private var tzfh: Int = 0
-    private var pay :Int ?=0
+    private var pay: Int? = 0
 
-    private var fhr :String ?= ""
-//    private var fhrModel: ConsigneeModel? = null //发货人
+    //    private var fhr :String ?= ""
+    private var fhrModel: ConsigneeModel? = null //发货人
     private var shrModel: ConsigneeModel? = null //货人
 
     private var waybillModel: WaybillModel? = null
@@ -133,9 +133,9 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         }
 
         payGroup.setOnCheckedChangeListener { radioGroup, i ->
-            when(i){
-                R.id.rbQk-> pay = 0
-                R.id.rbYf->pay = 1
+            when (i) {
+                R.id.rbQk -> pay = 0
+                R.id.rbYf -> pay = 1
             }
         }
 
@@ -284,7 +284,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "receivepoint" to mddStr, //目的地
                 "shipfeesendpay" to zzfStr,//中转费
                 "costFee" to cbStr, //成本
-                "senderphone" to fhr,//发货人电话
+                "senderphone" to fhrModel?.mobile,//发货人电话
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
                 "receiveraddress" to shrModel?.addr, //收货人的地址
@@ -326,7 +326,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         if (null == data) return
         when (requestCode) {
             200 -> {
@@ -347,13 +346,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 etGys.setText(itemStr)
             }
             196 -> {
-//                fhrModel = data.getSerializableExtra("data") as ConsigneeModel
-                fhr = data.getStringExtra("data")
-                etFhr.setText(fhr)
+                fhrModel = data.getSerializableExtra("data") as ConsigneeModel
+                etFhr.setText(fhrModel?.name)
             }
             195 -> {
-                val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                etFhd.setText(destinationModel.receivepoint)
+//                val destinationModel = data.getSerializableExtra("data") as DestinationModel
+                etFhd.setText(data.getStringExtra("data"))
             }
 
             201 -> {
