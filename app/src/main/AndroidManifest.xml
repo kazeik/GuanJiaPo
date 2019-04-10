@@ -40,16 +40,24 @@
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.FooterActivity"/>
         <activity android:name=".activity.ConfigPrintActivity"/>
-        <activity android:name=".activity.SearchActivity"/>
-        <activity android:name=".activity.SubscribeActivity"/>
+        <activity
+                android:name=".activity.SearchActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.SubscribeActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.PayActivity"/>
         <activity android:name=".activity.VehicleActivity"/>
         <activity android:name=".activity.WaybillActivity"/>
         <activity android:name=".activity.AddStaffActivity"/>
         <activity android:name=".activity.StaffActivity"/>
         <activity android:name=".activity.AddConsigneeActivity"/>
-        <activity android:name=".activity.ConsigneeActivity"/>
-        <activity android:name=".activity.ChangePassActivity"/>
+        <activity
+                android:name=".activity.ConsigneeActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.ChangePassActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.LoginActivity">
@@ -59,22 +67,34 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ConsignerActivity"/>
-        <activity android:name=".activity.DestinationActivity"/>
-        <activity android:name=".activity.AddDestinationActivity"/>
-        <activity android:name=".activity.ShipmentsActivity"/>
+        <activity
+                android:name=".activity.ConsignerActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.DestinationActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.AddDestinationActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name=".activity.ShipmentsActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.WaybillControlActivity"/>
         <activity android:name=".activity.SupplierActivity"/>
         <activity android:name=".activity.PreferenceActivity"/>
         <activity android:name=".activity.WaybillPreferenceActivity"/>
         <activity android:name=".activity.CollectPreferenceActivity"/>
-        <activity android:name=".activity.EditSubscribeActivity"/>
+        <activity
+                android:name=".activity.EditSubscribeActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.PremiumActivity"/>
         <activity
                 android:name=".activity.OrderInfoActivity"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.ConfigPrintSetActivity"/>
-        <activity android:name=".activity.OrderSearchActivity"/>
+        <activity
+                android:name=".activity.OrderSearchActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
                 android:name=".activity.PrintOrderInfoActivity"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
