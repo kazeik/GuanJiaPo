@@ -303,7 +303,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "comment" to bzStr, //备注
                 "shipfeestate" to pay,
                 "senderaddress" to fhdStr,//发货人地址
-                "shipFeeState" to if (shipfeepaytype == 0) "1" else "0", //0未付，1付清
+                "shipFeeState" to waybillModel?.shipfeestate, //0未付，1付清
                 "id" to waybillModel?.id!!
             )
         ).toString()
