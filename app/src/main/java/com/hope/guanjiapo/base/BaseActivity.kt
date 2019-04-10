@@ -53,9 +53,14 @@ abstract class BaseActivity : AppCompatActivity() {
         startOther(cls)
         if (finish) finish()
     }
+    override fun onPause() {
+        super.onPause()
+        MobclickAgent.onPause(this)
+    }
 
     override fun onResume() {
         super.onResume()
+        MobclickAgent.onResume(this)
         check()
     }
 

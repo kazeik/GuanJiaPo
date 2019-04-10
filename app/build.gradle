@@ -66,8 +66,8 @@ dependencies {
     //控制条
     implementation 'info.hoang8f:android-segmented:1.0.6'
     //友盟
-    implementation 'com.umeng.sdk:common:1.5.3'
-    implementation 'com.umeng.sdk:analytics:7.5.3'
+    implementation 'com.umeng.umsdk:analytics:7.5.4'
+    implementation 'com.umeng.umsdk:common:1.5.4'
     //二维码
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     //时间选择器
