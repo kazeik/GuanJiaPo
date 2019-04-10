@@ -3,9 +3,7 @@ package com.hope.guanjiapo.activity
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.View
 import android.widget.RadioGroup
 import com.hope.guanjiapo.R
@@ -52,7 +50,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var yf: Double? = 0.0
     private var hj: Double? = 0.0
 
-    private val hwmc: ArrayList<String> by lazy{ arrayListOf<String>()}
+    private val hwmc: ArrayList<String> by lazy { arrayListOf<String>() }
 
     override fun initData() {
         tvTitle.setText(R.string.orderinfo)
@@ -158,8 +156,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private fun showHwmcListDialog() {
         val listDialog = AlertDialog.Builder(this)
         listDialog.setTitle("请选择货物名称")
-        listDialog.setItems(hwmc?.toTypedArray()) { dialog, which ->
-            etHwmc.setText(hwmc?.get(which))
+        listDialog.setItems(hwmc.toTypedArray()) { _, which ->
+            etHwmc.setText(hwmc.get(which))
         }
         listDialog.show()
     }
@@ -171,7 +169,12 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.tvTitleRight -> {
                 createOrder()
             }
-            R.id.tvFwhy -> startActivityForResult<PremiumActivity>(200)
+            R.id.tvFwhy -> startActivityForResult<PremiumActivity>(
+                200,
+                "fk" to fkStr,
+                "hdfs" to hdfsStr,
+                "tzfh" to tzfh
+            )
             R.id.tvCc -> startActivityForResult<VehicleActivity>(201, "a" to true)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
@@ -203,11 +206,11 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val fhrStr = etFhr.text.toString()
         val bzStr = etBz.text.toString()
 
-        if (!hwmc?.contains(hwmcStr)!!)
-            hwmc?.add(hwmcStr)
+        if (!hwmc.contains(hwmcStr))
+            hwmc.add(hwmcStr)
 
         var temp: String = ""
-        hwmc?.forEach {
+        hwmc.forEach {
             temp += "$it,"
         }
 
