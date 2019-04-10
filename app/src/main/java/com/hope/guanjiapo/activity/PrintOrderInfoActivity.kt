@@ -200,7 +200,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 200,
                 "fk" to waybillModel?.returnmoney,
                 "hdfs" to waybillModel?.copycount,
-                "tzfh" to waybillModel?.waitnotify
+                "tzfh" to waybillModel?.waitnotify?.toInt()
             )
             R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
             R.id.tvBzdw -> showBzdwListDialog()

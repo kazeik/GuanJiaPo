@@ -26,8 +26,8 @@ class PremiumActivity : BaseActivity(), View.OnClickListener {
 
         val fk = intent.getStringExtra("fk")
         val hdfs = intent.getStringExtra("hdfs")
-        val tzfh = intent.getStringExtra("tzfh")
-        if (tzfh == "0") {
+        val tzfh = intent.getIntExtra("tzfh", 0)
+        if (tzfh == 0) {
             rbNo.isChecked = true
         } else {
             rbSure.isChecked = true
