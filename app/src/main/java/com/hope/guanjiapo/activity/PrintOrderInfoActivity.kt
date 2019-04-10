@@ -33,7 +33,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
     private val items by lazy { resources.getStringArray(R.array.bzdw) }
-    private var fhdStr: Int? = 0
     private var ccStr: String? = ""
     private var bzdwStr: Int? = 0
     private var recway: Int = 0
@@ -164,6 +163,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun check() {
         val item1 = etJbyf.text.toString()
         val item2 = etPsh.text.toString()
@@ -290,7 +290,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "carname" to ccStr!!,//车次
                 "comment" to bzStr, //备注
                 "senderaddress" to fhdStr,//发货人地址
-                "shipFeeState" to "0", //0未付，1付清
+                "shipFeeState" to if (shipfeepaytype == 0) "1" else "0", //0未付，1付清
                 "id" to waybillModel?.id!!
             )
         ).toString()
