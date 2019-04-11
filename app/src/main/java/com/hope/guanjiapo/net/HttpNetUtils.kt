@@ -23,25 +23,24 @@ import java.util.concurrent.TimeUnit
  * 类说明:
  */
 class HttpNetUtils {
-    private val okClient: OkHttpClient by lazy {
-        OkHttpClient.Builder()
-            .connectTimeout(time, TimeUnit.SECONDS)
-            .readTimeout(time, TimeUnit.SECONDS)
-            .writeTimeout(time, TimeUnit.SECONDS)
-            .addInterceptor(
-                HttpLoggingInterceptor().setLevel(
-                    if (BuildConfig.LOG_DEBUG)
-                        HttpLoggingInterceptor.Level.BODY
-                    else HttpLoggingInterceptor.Level.NONE
-                )
-            )
-            .build()
-    }
     private val time: Long = 15
     private val retrofit: Retrofit? by lazy {
         Retrofit.Builder()
             .baseUrl(ApiUtils.baseUrl)
-            .client(okClient)
+            .client(
+                OkHttpClient.Builder()
+                    .connectTimeout(time, TimeUnit.SECONDS)
+                    .readTimeout(time, TimeUnit.SECONDS)
+                    .writeTimeout(time, TimeUnit.SECONDS)
+                    .addInterceptor(
+                        HttpLoggingInterceptor().setLevel(
+                            if (BuildConfig.LOG_DEBUG)
+                                HttpLoggingInterceptor.Level.BODY
+                            else HttpLoggingInterceptor.Level.NONE
+                        )
+                    )
+                    .build()
+            )
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
