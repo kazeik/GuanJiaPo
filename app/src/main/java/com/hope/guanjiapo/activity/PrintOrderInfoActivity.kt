@@ -139,13 +139,20 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         when (waybillModel?.shipfeepaytype) {
             0 -> {
                 rbXf.isChecked = true
-                rbQk.isChecked = true
             }
             1 -> {
                 rbYj.isChecked = true
-                rbYf.isChecked = true
             }
             2 -> rbTf.isChecked = true
+        }
+
+        when (waybillModel?.shipfeestate) {
+            "0" -> {
+                rbQk.isChecked = true
+            }
+            "1" -> {
+                rbYf.isChecked = true
+            }
         }
 
         etJbyf.setOnFocusChangeListener { _, b ->
@@ -274,7 +281,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             hashMapOf(
                 "agentmoney" to dskStr,
                 "copycount" to hdfsStr, //回单份数
-                "agentmoney" to zzfStr, //中转费
                 "shipfee" to 0, //运费 （总计
                 "serviceName" to gysStr,//供应商
                 "dispatchfee" to psfStr, //派送费

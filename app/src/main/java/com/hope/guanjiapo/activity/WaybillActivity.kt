@@ -135,9 +135,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         adapter.itemListener = this
         checkGPprinter()
-
         getOrderList()
     }
+
+
     private fun getOrderList() {
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
