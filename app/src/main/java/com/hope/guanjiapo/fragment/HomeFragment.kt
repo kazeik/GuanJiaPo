@@ -17,10 +17,6 @@ import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.support.v4.startActivity
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class HomeFragment : BaseFragment(), OnItemEventListener {
     override fun onItemEvent(pos: Int) {
         when (pos) {
@@ -54,6 +50,4 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
     }
-
-
 }

@@ -24,14 +24,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
 
-class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
-//    override fun onItemLongEvent(pos: Int) {
-//        showListDialog(pos)
-//    }
-
-    override fun onItemEvent(pos: Int) {
-
-    }
+class WaybillControlActivity : BaseActivity(), View.OnClickListener {
 
     private fun showOrderStatusDialog() {
         val items = resources.getStringArray(R.array.orderstatus)
@@ -90,10 +83,6 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         })
     }
 
-    /**
-     * 获取已选中的项
-     * @return ArrayList<Int>
-     */
     private fun getChooice(): ArrayList<Int> {
         val arrayInt: ArrayList<Int> = arrayListOf()
         for (entry in adapter.itemsStatus.entries) {
@@ -124,7 +113,6 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
-        adapter.itemListener = this
 
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
@@ -185,18 +173,11 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         when (requestCode) {
             119 -> {
                 val dmap = data.getSerializableExtra("data") as HashMap<String, Any>
-//                dmap["id"] = loginModel?.id!!
-//                dmap["clientCategory"] = 4
-//                dmap["clientVersion"] = 1.0
-//                dmap["mobile"] = loginModel?.mobile!!
-//                dmap["sessionId"] = sessionid!!
-
                 var tempData =
                     "onlyDriver=0&clientCategory=4&clientVersion=1.0&mobile=${loginModel?.mobile!!}&sessionId=$sessionid&id=${loginModel?.id!!}"
                 var temp = ""
                 dmap.entries.forEach {
                     if (it.value != "")
-//                        dataMap.put(it.key, it.value)
                         temp = "&${it.key}=${it.value}"
 
                 }
@@ -205,7 +186,6 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
                     MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), tempData
                 )
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-//                    dmap
                     requestBody
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {

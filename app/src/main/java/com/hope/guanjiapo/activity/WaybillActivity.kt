@@ -542,32 +542,20 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             119 -> {
                 if (null == data) return
                 val map = data.getSerializableExtra("data") as HashMap<String, Any>
-//                val dataMap = hashMapOf<String, Any>()
-
                 var tempData =
                     "onlyDriver=0&clientCategory=4&clientVersion=1.0&mobile=${loginModel?.mobile!!}&sessionId=$sessionid&id=${loginModel?.id!!}"
                 var temp = ""
                 map.entries.forEach {
                     if (it.value != "")
-//                        dataMap.put(it.key, it.value)
                         temp = "&${it.key}=${it.value}"
-
                 }
                 tempData += temp
-//                dataMap["onlyDriver"] = 0
-//                dataMap["clientCategory"] = 4
-//                dataMap["clientVersion"] = 1.0
-//                dataMap["mobile"] = loginModel?.mobile!!
-//                dataMap["sessionId"] = sessionid!!
-//                dataMap["id"] = loginModel?.id!!
-
 
                 val requestBody = RequestBody.create(
                     MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), tempData
                 )
 
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-//                    dataMap
                     requestBody
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
@@ -589,7 +577,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     public override fun onDestroy() {
         super.onDestroy()
         if (conn != null) {
-            unbindService(conn) // unBindService
+            unbindService(conn)
         }
         unregisterReceiver(mBroadcastReceiver)
     }
