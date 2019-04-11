@@ -83,6 +83,42 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 R.id.rbPs -> recway = 1
             }
         }
+
+        etFhr.setText(subscribeModel?.sendername)
+        etFhdh.setText(subscribeModel?.senderphone)
+        etFhdz.setText(subscribeModel?.senderaddress1)
+        etBz.setText(subscribeModel?.comment)
+        etDh.setText(subscribeModel?.id)
+        etYwy.setText(subscribeModel?.operatorMobile)
+        etShr.setText(subscribeModel?.receivername)
+        etShdh.setText(subscribeModel?.receiverphone)
+        etShdz.setText(subscribeModel?.receiveraddress)
+        etHwmc.setText(subscribeModel?.productdescript)
+        etHwsl.setText(subscribeModel?.productcount)
+        etZl.setText(subscribeModel?.productweight)
+        etTj.setText(subscribeModel?.productsize)
+        etZzz.setText(subscribeModel?.senderaddress1)
+        etZzh.setText(subscribeModel?.agentmoney)
+        etBf.setText(subscribeModel?.insurancefee)
+        etDsk.setText(subscribeModel?.senderaddress1)
+
+        when (subscribeModel?.shipfeepaytype) {
+            0 -> rbXf.isChecked = true
+            1 -> rbYj.isChecked = true
+            2 -> rbTf.isChecked = true
+        }
+        when (subscribeModel?.shipfeestate) {
+            0 -> rbQk.isChecked = true
+            1 -> rbYf.isChecked = true
+        }
+        when (subscribeModel?.recway) {
+            0 -> rbZt.isChecked = true
+            1 -> rbPs.isChecked = true
+        }
+
+        val stat = resources.getStringArray(R.array.orderstatus)
+        tvYdzt.text = stat[subscribeModel?.status!!]
+
     }
 
     private fun showCcListDialog() {
