@@ -31,7 +31,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
 
     private var startTime: String? = ""
     private var ywy: String? = ""
-    private var mdd: String? = ""
     private var endTime: String? = ""
     private var ccStr: String? = ""
     private var fhd: String? = ""
@@ -77,7 +76,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                 val fhr = etFhdh.text.toString().trim()
                 if (!TextUtils.isEmpty(tempOrderId)) map["orderid"] = tempOrderId
                 if (!TextUtils.isEmpty(recePhone)) map["receiverphone"] = recePhone
-                if (!TextUtils.isEmpty(ccStr)) map["recno"] = ccStr!!
                 if (!TextUtils.isEmpty(recepoint)) map["receivepoint"] = recepoint
                 if (!TextUtils.isEmpty(fhr)) map["senderphone"] = fhr
                 if (!TextUtils.isEmpty(endTime)) map["endDate"] = endTime!!
@@ -110,8 +108,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                     tvJsrq.text = tempTime
                 }
             }
-            .build();
-        dialogYearMonthDay.show(supportFragmentManager, "YEAR_MONTH_DAY");
+            .build()
+        dialogYearMonthDay.show(supportFragmentManager, "YEAR_MONTH_DAY")
     }
 
     private fun showOrderStatusDialog() {
