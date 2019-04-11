@@ -155,7 +155,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {
-                    logs("tag","运单记录响应了")
+                    logs("tag", "运单记录响应了")
                     if (data?.data == null) {
                         toast(data?.msg!!)
                         return
@@ -540,10 +540,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             119 -> {
                 if (null == data) return
                 val map = data.getSerializableExtra("data") as HashMap<String, Any>
-                val dataMap = hashMapOf<String,Any>()
+                val dataMap = hashMapOf<String, Any>()
                 map.entries.forEach {
-                    if(it.value !="")
-                        dataMap.put(it.key,it.value)
+                    if (it.value != "")
+                        dataMap.put(it.key, it.value)
                 }
                 dataMap["onlyDriver"] = 0
                 dataMap["clientCategory"] = 4
@@ -556,12 +556,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                         override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {
-                            if (data?.data == null) {
-                                toast(data?.msg!!)
-                                return
-                            }
+                            toast(data?.msg!!)
                             allItem.clear()
-                            allItem.addAll(data.data!!)
+                            if (data.data != null)
+                                allItem.addAll(data.data!!)
                             adapter.setDataEntityList(allItem)
                         }
                     })

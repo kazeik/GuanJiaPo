@@ -2,6 +2,7 @@ package com.hope.guanjiapo.activity
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import android.widget.CompoundButton
 import com.hope.guanjiapo.R
@@ -69,24 +70,26 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             R.id.ivShdh -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivFhdh -> startActivityForResult<ConsignerActivity>(197)
             R.id.btnSearch -> {
+                val map = hashMapOf<String, Any>()
+                val tempOrderId = etDh.text.toString().trim()
+                val recePhone = etShdh.text.toString().trim()
+                val recepoint = etMdd.text.toString().trim()
+                val fhr = etFhdh.text.toString().trim()
+                if (!TextUtils.isEmpty(tempOrderId)) map["orderid"] = tempOrderId
+                if (!TextUtils.isEmpty(recePhone)) map["receiverphone"] = recePhone
+                if (!TextUtils.isEmpty(ccStr)) map["recno"] = ccStr!!
+                if (!TextUtils.isEmpty(recepoint)) map["recpoint"] = recepoint
+                if (!TextUtils.isEmpty(fhr)) map["senderphone"] = fhr
+                if (!TextUtils.isEmpty(endTime)) map["endDate"] = endTime!!
+                if (0 != dsk) map["agentmoney"] = dsk!!
+                if (!TextUtils.isEmpty(ccStr)) map["carname"] = ccStr!!
+                if (0 != orderstatus) map["oderstate"] = orderstatus!!
+                if (!TextUtils.isEmpty(ywy)) map["operatorMobile"] = ywy!!
+                if (!TextUtils.isEmpty(mdd)) map["receivepoint"] = mdd!!
+                if (!TextUtils.isEmpty(fhd)) map["senderaddress"] = fhd!!
+                if (!TextUtils.isEmpty(startTime)) map["startDate"] = startTime!!
                 val intt = Intent()
-                intt.putExtra(
-                    "data", hashMapOf(
-                        "orderid" to etDh.text.toString(),
-                        "receiverphone" to etShdh.text.toString(),
-                        "recno" to ccStr!!,
-                        "recpoint" to etMdd.text.toString(),
-                        "senderphone" to etFhdh.text.toString(),
-                        "endDate" to endTime!!,
-                        "agentmoney" to dsk!!,
-                        "carname" to ccStr!!,
-                        "oderstate" to "1",
-                        "operatorMobile" to ywy!!,
-                        "receivepoint" to mdd!!,
-                        "senderaddress" to fhd!!,
-                        "startDate" to startTime!!
-                    )
-                )
+                intt.putExtra("data", map)
                 setResult(119, intt)
                 finish()
             }
@@ -135,8 +138,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             }
             195 -> {
                 val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                fhd= destinationModel.receivepoint
-                tvFhd.text =fhd
+                fhd = destinationModel.receivepoint
+                tvFhd.text = fhd
             }
             199 -> {
                 val item = data.getSerializableExtra("data") as DestinationModel
