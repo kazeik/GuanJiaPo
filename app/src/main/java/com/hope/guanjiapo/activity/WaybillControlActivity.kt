@@ -18,6 +18,8 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill_controll.*
 import kotlinx.android.synthetic.main.view_title.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
@@ -183,13 +185,28 @@ class WaybillControlActivity : BaseActivity(), OnItemEventListener, View.OnClick
         when (requestCode) {
             119 -> {
                 val dmap = data.getSerializableExtra("data") as HashMap<String, Any>
-                dmap["id"] = loginModel?.id!!
-                dmap["clientCategory"] = 4
-                dmap["clientVersion"] = 1.0
-                dmap["mobile"] = loginModel?.mobile!!
-                dmap["sessionId"] = sessionid!!
+//                dmap["id"] = loginModel?.id!!
+//                dmap["clientCategory"] = 4
+//                dmap["clientVersion"] = 1.0
+//                dmap["mobile"] = loginModel?.mobile!!
+//                dmap["sessionId"] = sessionid!!
+
+                var tempData =
+                    "onlyDriver=0&clientCategory=4&clientVersion=1.0&mobile=${loginModel?.mobile!!}&sessionId=$sessionid&id=${loginModel?.id!!}"
+                var temp = ""
+                dmap.entries.forEach {
+                    if (it.value != "")
+//                        dataMap.put(it.key, it.value)
+                        temp = "&${it.key}=${it.value}"
+
+                }
+                tempData += temp
+                val requestBody = RequestBody.create(
+                    MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), tempData
+                )
                 HttpNetUtils.getInstance().getManager()?.wlsearch(
-                    dmap
+//                    dmap
+                    requestBody
                 )?.compose(NetworkScheduler.compose())
                     ?.subscribe(object : ProgressSubscriber<BaseModel<List<WaybillModel>>>(this) {
                         override fun onSuccess(data: BaseModel<List<WaybillModel>>?) {

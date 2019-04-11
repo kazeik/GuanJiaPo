@@ -78,14 +78,13 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                 if (!TextUtils.isEmpty(tempOrderId)) map["orderid"] = tempOrderId
                 if (!TextUtils.isEmpty(recePhone)) map["receiverphone"] = recePhone
                 if (!TextUtils.isEmpty(ccStr)) map["recno"] = ccStr!!
-                if (!TextUtils.isEmpty(recepoint)) map["recpoint"] = recepoint
+                if (!TextUtils.isEmpty(recepoint)) map["receivepoint"] = recepoint
                 if (!TextUtils.isEmpty(fhr)) map["senderphone"] = fhr
                 if (!TextUtils.isEmpty(endTime)) map["endDate"] = endTime!!
                 if (0 != dsk) map["agentmoney"] = dsk!!
                 if (!TextUtils.isEmpty(ccStr)) map["carname"] = ccStr!!
                 if (0 != orderstatus) map["oderstate"] = orderstatus!!
                 if (!TextUtils.isEmpty(ywy)) map["operatorMobile"] = ywy!!
-                if (!TextUtils.isEmpty(mdd)) map["receivepoint"] = mdd!!
                 if (!TextUtils.isEmpty(fhd)) map["senderaddress"] = fhd!!
                 if (!TextUtils.isEmpty(startTime)) map["startDate"] = startTime!!
                 val intt = Intent()
@@ -137,8 +136,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
                 etDh.setText(result)
             }
             195 -> {
-                val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                fhd = destinationModel.receivepoint
+//                val destinationModel = data.getSerializableExtra("data") as DestinationModel
+                fhd = data.getStringExtra("data")
                 tvFhd.text = fhd
             }
             199 -> {
@@ -151,7 +150,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCh
             }
             197 -> {
                 fhrModel = data.getSerializableExtra("data") as ConsigneeModel
-                etFhdh.setText(fhrModel?.name)
+                etFhdh.setText(fhrModel?.mobile)
             }
             194 -> {
                 val staffModel = data.getSerializableExtra("data") as StaffModel
