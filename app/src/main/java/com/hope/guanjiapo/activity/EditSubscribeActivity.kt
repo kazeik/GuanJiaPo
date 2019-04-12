@@ -1,7 +1,9 @@
 package com.hope.guanjiapo.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import android.widget.RadioGroup
 import com.hope.guanjiapo.R
@@ -26,6 +28,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 
+
 class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutView(): Int {
         return R.layout.activity_edit_subscribe
@@ -40,7 +43,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private var shrModel: ConsigneeModel? = null //发货人
     private var bzdw: Int? = 0
     private var cc: Int? = 0
-
+    private var yf:Double?=0.0
     private var shipfeepaytype: Int = 0
     private var recway: Int = 0
 
@@ -64,7 +67,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         tvBzdw.setOnClickListener(this)
         tvCc.setOnClickListener(this)
 
-        mPayTypeGroup.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
+        mPayTypeGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             when (i) {
                 R.id.rbXf -> shipfeepaytype = 0
                 R.id.rbYj -> shipfeepaytype = 1
@@ -97,10 +100,12 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         etHwsl.setText(subscribeModel?.productcount)
         etZl.setText(subscribeModel?.productweight)
         etTj.setText(subscribeModel?.productsize)
-        etZzz.setText(subscribeModel?.senderaddress1)
-        etZzh.setText(subscribeModel?.agentmoney)
+        etZzz.setText(subscribeModel?.transferName)
+        etZzh.setText(subscribeModel?.shipfeesendpay)
         etBf.setText(subscribeModel?.insurancefee)
-        etDsk.setText(subscribeModel?.senderaddress1)
+        etDsk.setText(
+            subscribeModel?.agentmoney
+        )
 
         when (subscribeModel?.shipfeepaytype) {
             0 -> rbXf.isChecked = true
@@ -119,6 +124,38 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         val stat = resources.getStringArray(R.array.orderstatus)
         tvYdzt.text = stat[subscribeModel?.status!!]
 
+        etJbyf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etPsh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etBf.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etZzh.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+        etDsk.setOnFocusChangeListener { _, b ->
+            if (!b) check()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun check() {
+        val item1 = etJbyf.text.toString()
+        val item2 = etPsh.text.toString()
+        val item3 = etBf.text.toString()
+        val item4 = etZzh.text.toString()
+        val item5 = etDsk.text.toString()
+        val p0: Double? = if (TextUtils.isEmpty(item1)) 0.0 else item1.toDouble()
+        val p1: Double? = if (TextUtils.isEmpty(item2)) 0.0 else item2.toDouble()
+        val p2: Double? = if (TextUtils.isEmpty(item3)) 0.0 else item3.toDouble()
+        val p3: Double? = if (TextUtils.isEmpty(item4)) 0.0 else item4.toDouble()
+        val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
+        yf = p0!! + p1!! + p2!!
+        val hj = p0 + p1 + p2 + p3!! + p4!!
+        tvAllMoney.text = "应收运费：$yf 合计(含代收中转):$hj"
     }
 
     private fun showCcListDialog() {
@@ -159,7 +196,12 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> createOrder()
-            R.id.tvFwhy -> startActivity<PremiumActivity>()
+            R.id.tvFwhy -> startActivityForResult<PremiumActivity>(
+                200,
+                "fk" to fkStr,
+                "hdfs" to hdfsStr,
+                "tzfh" to tzfh
+            )
             R.id.btnDelete -> delete()
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
@@ -196,9 +238,11 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
 
         val order = JSONObject(
             hashMapOf(
+                "transferName" to zzzStr,
+                "agentmoney" to dskStr,
                 "copycount" to hdfsStr, //回单份数
-                "agentmoney" to zzhStr, //中转费
-                "shipfee" to 0, //运费 （总计
+                "shipfeesendpay" to zzhStr, //中转费
+                "shipfee" to yf, //运费 （总计
                 "serviceName" to "",//供应商
                 "dispatchfee" to psfStr, //派送费
                 "receivername" to shrStr,//收货人
@@ -214,7 +258,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "productno" to dhStr,//快递单号
                 "baseshipfee" to jbyhStr, //基本运费
                 "insurancefee" to bfStr, //保费
-                "recno" to 1,
+                "recno" to bzdw,
                 "productcount" to hwslStr,//货物数量
                 "recway" to recway,//收货方式，0自提，1派送
                 "productsize" to tjStr,//体积
@@ -224,7 +268,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "carname" to cc!!,//车次
                 "comment" to bz, //备注
                 "senderaddress" to fhrModel?.addr,//发货人地址
-                "ShipFeeState" to "0" //运费支付，0欠款，1已付
+                "shipFeeState" to if (shipfeepaytype == 0) "1" else "0" //运费支付，0欠款，1已付
             )
         ).toString()
         val data =
@@ -261,6 +305,12 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
+                    if (data.code == "success") {
+                        val waybill = subscribeModel as WaybillModel
+                        waybill.oderstate = subscribeModel?.status
+                        startActivity<PrintOrderInfoActivity>("data" to waybill)
+                        finish()
+                    }
                 }
             })
     }
@@ -291,8 +341,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 etFhdz.setText(fhrModel?.addr)
             }
             195 -> {
-                val destinationModel = data.getSerializableExtra("data") as DestinationModel
-                etFhd.setText(destinationModel.receivepoint)
+//                val destinationModel = data.getSerializableExtra("data") as DestinationModel
+                etFhd.setText(data.getStringExtra("data"))
             }
         }
     }

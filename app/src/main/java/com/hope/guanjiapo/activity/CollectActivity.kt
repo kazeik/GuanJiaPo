@@ -150,7 +150,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        保费
                         15 -> sublist.add(allData?.get(j)?.insurancefee!!)
 //                        应收运费
-                        16 -> sublist.add("${allData?.get(j)?.baseshipfee!!}")
+                        16 -> sublist.add(allData?.get(j)?.baseshipfee!!)
 //                        成本
                         17 -> sublist.add(allData?.get(j)?.costFee!!)
 //                        利润
@@ -160,9 +160,9 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        支付
                         20 -> sublist.add(allData?.get(j)?.id!!)
 //                        已付
-                        21 -> sublist.add(allData?.get(j)?.shipfeestate!!)
+                        21 -> sublist.add("${allData?.get(j)?.shipfeestate!!}")
 //                        欠款
-                        22 -> sublist.add(allData?.get(j)?.shipfeestate!!)
+                        22 -> sublist.add("${allData?.get(j)?.shipfeestate!!}")
 //                        代收款
                         23 -> sublist.add(allData?.get(j)?.id!!)
 //                        小计

@@ -65,7 +65,7 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
 
         val entity = dataList?.get(position) as? WaybillModel
 
-        if (entity?.shipfeestate == "1") {
+        if (entity?.shipfeestate == 1) {
             tvItem2.textColor = Color.BLACK
         } else {
             tvItem1.textColor = Color.RED
@@ -82,7 +82,7 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
         tvItem1.text =
             "单号:${entity?.id} $namelelv 时间:${TimeUtil.getDayByType(entity?.updateDate!!, TimeUtil.DATE_YMD_HMS)}"
         tvItem2.text =
-            "${entity.carname} ${orderstatus[entity.oderstate]} 件数:${entity.productcount} ${paytype[entity.shipfeepaytype]}  ${entity.shipfee}"
+            "${entity.carname} ${orderstatus[entity.oderstate!!]} 件数:${entity.productcount} ${paytype[entity.shipfeepaytype!!]}  ${entity.shipfee}"
         tvItem3.text =
             "代收款:${entity.agentmoney}  发货人:${entity.sendername} ${entity.senderaddress} => ${entity.receivepoint} ${entity.receivername}"
     }

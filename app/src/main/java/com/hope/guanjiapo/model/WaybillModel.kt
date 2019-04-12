@@ -1,85 +1,45 @@
 package com.hope.guanjiapo.model
 
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class WaybillModel(
-    @SerializedName("agentmoney")
-    val agentmoney: String,
-    @SerializedName("baseshipfee")
-    val baseshipfee: String,
-    @SerializedName("bossId")
-    val bossId: String,
-    @SerializedName("bossMobile")
-    val bossMobile: String,
-    @SerializedName("carname")
-    val carname: String,
-    @SerializedName("comment")
-    val comment: String,
-    @SerializedName("copycount")
-    val copycount: String,
-    @SerializedName("costFee")
-    val costFee: String,
-    @SerializedName("createDate")
-    val createDate: Long,
-    @SerializedName("dispatchfee")
-    val dispatchfee: String,
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("insurancefee")
-    val insurancefee: String,
-    @SerializedName("oderstate")
-    var oderstate: Int,
-    @SerializedName("operatorMobile")
-    val operatorMobile: String,
-    @SerializedName("productcount")
-    val productcount: String,
-    @SerializedName("productdescript")
-    val productdescript: String,
-    @SerializedName("productno")
-    val productno: String,
-    @SerializedName("productsize")
-    val productsize: String,
-    @SerializedName("productweight")
-    val productweight: String,
-    @SerializedName("receivepoint")
-    val receivepoint: String,
-    @SerializedName("receiveraddress")
-    val receiveraddress: String,
-    @SerializedName("receivername")
-    val receivername: String,
-    @SerializedName("receiverphone")
-    val receiverphone: String,
-    @SerializedName("recno")
-    val recno: Int,
-    @SerializedName("recway")
-    val recway: Int,
-    @SerializedName("returnmoney")
-    val returnmoney: String,
-    @SerializedName("senderaddress")
-    val senderaddress: String,
-    @SerializedName("sendername")
-    val sendername: String,
-    @SerializedName("senderphone")
-    val senderphone: String,
-    @SerializedName("serviceName")
-    val serviceName: String,
-    @SerializedName("shipfee")
-    val shipfee: String,
-    @SerializedName("shipfeepaytype")
-    val shipfeepaytype: Int,
-    @SerializedName("shipfeesendpay")
-    val shipfeesendpay: String,
-    @SerializedName("shipfeestate")
-    val shipfeestate: String,
-    @SerializedName("sort")
-    val sort: String,
-    @SerializedName("status")
-    val status: String,
-    @SerializedName("updateDate")
-    val updateDate: Long,
-    @SerializedName("updatorMobile")
-    val updatorMobile: String,
-    @SerializedName("waitnotify")
-    val waitnotify: String
-) : Serializable
+open class WaybillModel : Serializable {
+    var agentmoney: String? = null
+    var baseshipfee: String? = null
+    var bossId: String? = null
+    var bossMobile: String? = null
+    var carname: String? = null
+    var comment: String? = null
+    var copycount: String? = null
+    var costFee: String? = null
+    var createDate: Long? = 0
+    var dispatchfee: String? = null
+    var id: String? = null
+    var insurancefee: String? = null
+    var oderstate: Int? = 0
+    var operatorMobile: String? = null
+    var productcount: String? = null
+    var productdescript: String? = null
+    var productno: String? = null
+    var productsize: String? = null
+    var productweight: String? = null
+    var receivepoint: String? = null
+    var receiveraddress: String? = null
+    var receivername: String? = null
+    var receiverphone: String? = null
+    var recno: Int? = 0
+    var recway: Int? = 0
+    var returnmoney: String? = null
+    var senderaddress: String? = null
+    var sendername: String? = null
+    var senderphone: String? = null
+    var serviceName: String? = null
+    var shipfee: String? = null
+    var shipfeepaytype: Int? = 0
+    var shipfeesendpay: String? = null
+    var shipfeestate: Int? = null
+    var sort: String? = null
+    var status: Int? = null
+    var updateDate: Long? = 0
+    var updatorMobile: String? = null
+    var waitnotify: String? = null
+}

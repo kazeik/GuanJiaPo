@@ -30,7 +30,7 @@ class SubscribeAdapter<A> : BaseAdapter<A>() {
         val tvItem2 = holder.getViewById<TextView>(R.id.tvItem2)
 
         val entity = dataList?.get(position) as SubscribeModel
-        tvItem1.text = "时间:${TimeUtil.getDayByType(entity.createDate, TimeUtil.DATE_YMD_HMS)} 微信:${entity.clientname}"
+        tvItem1.text = "时间:${TimeUtil.getDayByType(entity.createDate!!, TimeUtil.DATE_YMD_HMS)} 微信:${entity.clientname}"
         tvItem2.text = "待接单 ${entity.operatorMobile} ${entity.productdescript} 件数:${entity.productcount}"
 
         consigneeitem.setOnClickListener {

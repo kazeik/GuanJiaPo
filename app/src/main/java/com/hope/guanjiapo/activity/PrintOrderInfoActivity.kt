@@ -147,10 +147,10 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         }
 
         when (waybillModel?.shipfeestate) {
-            "0" -> {
+            0 -> {
                 rbQk.isChecked = true
             }
-            "1" -> {
+            1 -> {
                 rbYf.isChecked = true
             }
         }

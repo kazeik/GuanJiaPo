@@ -366,7 +366,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "运费:${item.baseshipfee}  ${paytype[item.shipfeepaytype]}"
+            "运费:${item.baseshipfee}  ${paytype[item.shipfeepaytype!!]}"
         )
 
         tsc.addText(
@@ -386,7 +386,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "开单时间:${TimeUtil.getDayByType(item.createDate, TimeUtil.DATE_YMD_HMS)} 扫描查询物流"
+            "开单时间:${TimeUtil.getDayByType(item.createDate!!, TimeUtil.DATE_YMD_HMS)} 扫描查询物流"
         )
 //        寄件联要添加线
 //        tsc.addBar(xstart, 350, 520, 2)
@@ -466,7 +466,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             EscCommand.ENABLE.ON,
             EscCommand.ENABLE.OFF
         )// 设置为倍高倍宽
-        esc.addText("${paytype[waybillModel.shipfeepaytype]} ${recwaytype[waybillModel.recway]}\n") // 打印文字
+        esc.addText("${paytype[waybillModel.shipfeepaytype!!]} ${recwaytype[waybillModel.recway!!]}\n") // 打印文字
         esc.addPrintAndLineFeed()
 
         /* 打印文字 */
@@ -480,7 +480,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addSelectJustification(EscCommand.JUSTIFICATION.LEFT)// 设置打印左对齐
         esc.addText(
             "单号:${waybillModel.id}  日期:${TimeUtil.getDayByType(
-                waybillModel.updateDate,
+                waybillModel.updateDate!!,
                 TimeUtil.DATE_YMD_HMS
             )}\n"
         ) // 打印文字
@@ -494,9 +494,9 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addText(line)
         esc.addText("品名:${waybillModel.productdescript} 件数:${waybillModel.productcount}  包装:\n")
         esc.addText(line)
-        esc.addText("付款方式:${paytype[waybillModel.shipfeepaytype]} 提货方式:${recwaytype[waybillModel.recway]}  回单:${waybillModel.copycount}\n")
+        esc.addText("付款方式:${paytype[waybillModel.shipfeepaytype!!]} 提货方式:${recwaytype[waybillModel.recway!!]}  回单:${waybillModel.copycount}\n")
         esc.addText(line)
-        esc.addText("运费合计:${waybillModel.shipfee} ${toChinese(waybillModel.shipfee)}元整\n")
+        esc.addText("运费合计:${waybillModel.shipfee} ${toChinese(waybillModel.shipfee!!)}元整\n")
         esc.addText("代收款:${waybillModel.agentmoney} \n")
         esc.addText(line)
         /*

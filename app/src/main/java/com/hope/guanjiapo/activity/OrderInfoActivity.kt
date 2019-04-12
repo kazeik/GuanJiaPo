@@ -47,6 +47,8 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var change: Boolean? = false
     private var flag: Boolean? = false
 
+    private var yf:Double?=0.0
+
     private val hwmc: ArrayList<String> by lazy { arrayListOf<String>() }
 
     override fun initData() {
@@ -133,7 +135,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val p2: Double? = if (TextUtils.isEmpty(item3)) 0.0 else item3.toDouble()
         val p3: Double? = if (TextUtils.isEmpty(item4)) 0.0 else item4.toDouble()
         val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
-        val yf = p0!! + p1!! + p2!!
+        yf = p0!! + p1!! + p2!!
         val hj = p0 + p1 + p2 + p3!! + p4!!
         tvAllMoney.text = "运费：$yf 合计(含代收中转):$hj"
     }
@@ -229,7 +231,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
             hashMapOf(
                 "copycount" to hdfsStr, //回单份数
                 "agentmoney" to dskStr, //代收款
-                "shipfee" to 0, //运费 （总计
+                "shipfee" to yf, //运费 （总计
                 "serviceName" to gysStr,//供应商
                 "dispatchfee" to psfStr, //派送费
                 "receivername" to shrStr,//收货人
