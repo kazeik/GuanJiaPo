@@ -19,7 +19,6 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
-import com.hope.guanjiapo.utils.Utils.logs
 import kotlinx.android.synthetic.main.activity_edit_subscribe.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -40,10 +39,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private var tzfh: Int = 0
     private var subscribeModel: SubscribeModel? = null
     private var orderStatus: Int? = 0
-    private var fhrModel: ConsigneeModel? = null //发货人
-    private var shrModel: ConsigneeModel? = null //发货人
     private var bzdw: Int? = 0
-    private var cc: Int? = 0
+    private var cc: String? = ""
     private var yf: Double? = 0.0
     private var shipfeepaytype: Int = 0
     private var recway: Int = 0
@@ -164,7 +161,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         val listDialog = AlertDialog.Builder(this)
         listDialog.setTitle("请选择车次")
         listDialog.setItems(items) { dialog, which ->
-            cc = which
+            cc = items?.get(which)
             tvCc.text = items?.get(which)
         }
         listDialog.show()
@@ -251,10 +248,10 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "receivepoint" to mddStr, //目的地
                 "shipfeesendpay" to zzhStr,//中转费
                 "costFee" to "", //成本
-                "senderphone" to fhrModel?.mobile,//发货人电话
+                "senderphone" to fhdhStr,//发货人电话
                 "shipfeepaytype" to shipfeepaytype, //支付方式
                 "sendername" to fhrStr,//发货人
-                "receiveraddress" to shrModel?.addr, //收货人的地址
+                "receiveraddress" to shdzStr, //收货人的地址
                 "waitnotify" to tzfh,//等通知放货，0否，1是
                 "productno" to dhStr,//快递单号
                 "baseshipfee" to jbyhStr, //基本运费
@@ -263,12 +260,12 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "productcount" to hwslStr,//货物数量
                 "recway" to recway,//收货方式，0自提，1派送
                 "productsize" to tjStr,//体积
-                "receiverphone" to shrModel?.mobile,//收货人电话
+                "receiverphone" to shdhStr,//收货人电话
                 "productdescript" to hwmcStr, //货物名称
                 "returnmoney" to fkStr,//返款
                 "carname" to cc!!,//车次
                 "comment" to bz, //备注
-                "senderaddress" to fhrModel?.addr,//发货人地址
+                "senderaddress" to fhdzStr,//发货人地址
                 "shipFeeState" to if (shipfeepaytype == 0) "1" else "0" //运费支付，0欠款，1已付
             )
         ).toString()
@@ -329,16 +326,16 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 etMdd.setText(item.receivepoint)
             }
             198 -> {
-                shrModel = data.getSerializableExtra("data") as ConsigneeModel
-                etShr.setText(shrModel?.name)
-                etShdh.setText(shrModel?.mobile)
-                etShdz.setText(shrModel?.addr)
+                val shrModel = data.getSerializableExtra("data") as ConsigneeModel
+                etShr.setText(shrModel.name)
+                etShdh.setText(shrModel.mobile)
+                etShdz.setText(shrModel.addr)
             }
             196 -> {
-                fhrModel = data.getSerializableExtra("data") as ConsigneeModel
-                etFhr.setText(fhrModel?.name)
-                etFhdh.setText(fhrModel?.mobile)
-                etFhdz.setText(fhrModel?.addr)
+                val fhrModel = data.getSerializableExtra("data") as ConsigneeModel
+                etFhr.setText(fhrModel.name)
+                etFhdh.setText(fhrModel.mobile)
+                etFhdz.setText(fhrModel.addr)
             }
             195 -> {
 //                val destinationModel = data.getSerializableExtra("data") as DestinationModel
