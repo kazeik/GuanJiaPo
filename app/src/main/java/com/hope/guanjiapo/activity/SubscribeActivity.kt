@@ -39,7 +39,10 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
         adapter.itemListener = this
+    }
 
+    override fun onResume() {
+        super.onResume()
         searchOrder()
     }
 

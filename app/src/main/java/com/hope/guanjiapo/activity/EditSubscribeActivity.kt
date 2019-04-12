@@ -19,6 +19,7 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
+import com.hope.guanjiapo.utils.Utils.logs
 import kotlinx.android.synthetic.main.activity_edit_subscribe.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -43,7 +44,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private var shrModel: ConsigneeModel? = null //发货人
     private var bzdw: Int? = 0
     private var cc: Int? = 0
-    private var yf:Double?=0.0
+    private var yf: Double? = 0.0
     private var shipfeepaytype: Int = 0
     private var recway: Int = 0
 
@@ -308,6 +309,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                     if (data.code == "success") {
                         val waybill = subscribeModel as WaybillModel
                         waybill.oderstate = subscribeModel?.status
+
+                        logs("tag", "waybill = $waybill | subscri = $subscribeModel")
                         startActivity<PrintOrderInfoActivity>("data" to waybill)
                         finish()
                     }
