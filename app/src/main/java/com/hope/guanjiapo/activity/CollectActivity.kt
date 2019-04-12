@@ -119,43 +119,55 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                         //序号
                         0 -> sublist.add("${j + 1}")
 //                        单号
-                        1 -> sublist.add(allData?.get(j)?.id!!)
+                        1 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.id!!)) "" else allData?.get(j)?.id!!)
 //                        快递单号
-                        2 -> sublist.add(allData?.get(j)?.productno!!)
+                        2 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.productno!!)) "" else allData?.get(j)?.productno!!)
 //                        日期
                         3 -> sublist.add(TimeUtil.getDayByType(allData?.get(j)?.createDate!!, TimeUtil.DATE_YMS))
 //                        修改时间
                         4 -> sublist.add(TimeUtil.getDayByType(allData?.get(j)?.updateDate!!, TimeUtil.DATE_YMS))
 //                        车次
-                        5 -> sublist.add(allData?.get(j)?.carname!!)
+                        5 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.carname!!)) "" else allData?.get(j)?.carname!!)
 //                        发货点
-                        6 -> sublist.add(allData?.get(j)?.senderaddress!!)
+                        6 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.senderaddress!!)) "" else allData?.get(j)?.senderaddress!!)
 //                        发货人
-                        7 -> sublist.add(allData?.get(j)?.sendername!!)
+                        7 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.sendername!!)) "" else allData?.get(j)?.sendername!!)
 //                        目的地
-                        8 -> sublist.add(allData?.get(j)?.receivepoint!!)
+                        8 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.receivepoint!!)) "" else allData?.get(j)?.receivepoint!!)
 //                        收货人
-                        9 -> sublist.add(allData?.get(j)?.receivername!!)
+                        9 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.receivername!!)) "" else allData?.get(j)?.receivername!!)
 //                        货物名称
-                        10 -> sublist.add(allData?.get(j)?.productdescript!!)
+                        10 -> sublist.add(
+                            if (TextUtils.isEmpty(allData?.get(j)?.productdescript!!)) "" else allData?.get(
+                                j
+                            )?.productdescript!!
+                        )
                         //件数
-                        11 -> sublist.add(allData?.get(j)?.id!!)
+                        11 -> sublist.add("")
 //                        重重
-                        12 -> sublist.add(allData?.get(j)?.productweight!!)
+                        12 -> sublist.add(
+                            if (TextUtils.isEmpty(allData?.get(j)?.productweight!!)) "" else allData?.get(
+                                j
+                            )?.productweight!!
+                        )
 //                        体积
-                        13 -> sublist.add(allData?.get(j)?.productsize!!)
+                        13 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.productsize!!)) "" else allData?.get(j)?.productsize!!)
 //                        中转费
-                        14 -> sublist.add(allData?.get(j)?.shipfeesendpay!!)
+                        14 -> sublist.add(
+                            if (TextUtils.isEmpty(allData?.get(j)?.shipfeesendpay!!)) "" else allData?.get(
+                                j
+                            )?.shipfeesendpay!!
+                        )
 //                        保费
-                        15 -> sublist.add(allData?.get(j)?.insurancefee!!)
+                        15 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.insurancefee!!)) "" else allData?.get(j)?.insurancefee!!)
 //                        应收运费
-                        16 -> sublist.add(allData?.get(j)?.baseshipfee!!)
+                        16 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.baseshipfee!!)) "" else allData?.get(j)?.baseshipfee!!)
 //                        成本
-                        17 -> sublist.add(allData?.get(j)?.costFee!!)
+                        17 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.costFee!!)) "" else allData?.get(j)?.costFee!!)
 //                        利润
                         18 -> sublist.add("${allData?.get(j)?.shipfee!!.toDouble() - allData?.get(j)?.costFee!!.toDouble()}")
 //                        供应商
-                        19 -> sublist.add(allData?.get(j)?.serviceName!!)
+                        19 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.serviceName!!)) "" else allData?.get(j)?.serviceName!!)
 //                        支付
                         20 -> sublist.add(
                             when (allData?.get(j)?.shipfeepaytype!!) {
@@ -170,7 +182,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        欠款
                         22 -> sublist.add("${allData?.get(j)?.shipfeestate!!}")
 //                        代收款
-                        23 -> sublist.add(allData?.get(j)?.agentmoney!!)
+                        23 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.agentmoney!!)) "" else allData?.get(j)?.agentmoney!!)
 //                        小计
                         24 -> sublist.add(
                             "${allData?.get(j)?.shipfee!!.toDouble() + allData?.get(j)?.shipfeesendpay!!.toDouble() + allData?.get(
@@ -178,15 +190,19 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                             )?.agentmoney!!.toDouble()}"
                         )
 //                        业务员
-                        25 -> sublist.add(allData?.get(j)?.operatorMobile!!)
+                        25 -> sublist.add(
+                            if (TextUtils.isEmpty(allData?.get(j)?.operatorMobile!!)) "" else allData?.get(
+                                j
+                            )?.operatorMobile!!
+                        )
 //                        返款
-                        26 -> sublist.add(allData?.get(j)?.returnmoney!!)
+                        26 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.returnmoney!!)) "" else allData?.get(j)?.returnmoney!!)
 //                        回单份数
-                        27 -> sublist.add(allData?.get(j)?.copycount!!)
+                        27 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.copycount!!)) "" else allData?.get(j)?.copycount!!)
 //                        通知放货
-                        28 -> sublist.add(allData?.get(j)?.waitnotify!!)
+                        28 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.waitnotify!!)) "" else allData?.get(j)?.waitnotify!!)
 //                        备注
-                        29 -> sublist.add(allData?.get(j)?.comment!!)
+                        29 -> sublist.add(if (TextUtils.isEmpty(allData?.get(j)?.comment!!)) "" else allData?.get(j)?.comment!!)
 //                        提货人签名
                         30 -> sublist.add("")
                     }
