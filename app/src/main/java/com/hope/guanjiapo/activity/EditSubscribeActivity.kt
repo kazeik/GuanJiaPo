@@ -200,7 +200,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 "hdfs" to hdfsStr,
                 "tzfh" to tzfh
             )
-            R.id.btnDelete -> delete()
+            R.id.btnDelete -> delete(false)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
             R.id.ivFhr -> startActivityForResult<ConsignerActivity>(196)
@@ -281,7 +281,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
                     if (data?.code == "success") {
                         waybill = data.data
-                        delete()
+                        delete(true)
                     } else
                         toast(data?.msg!!)
                 }
@@ -289,7 +289,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    private fun delete() {
+    private fun delete(flag: Boolean) {
         HttpNetUtils.getInstance().getManager()?.wxdelete(
             hashMapOf(
                 "isDel" to 1,
@@ -305,7 +305,8 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
                     if (data.code == "success") {
-                        startActivity<PrintOrderInfoActivity>("data" to waybill)
+                        if (flag)
+                            startActivity<PrintOrderInfoActivity>("data" to waybill)
                         finish()
                     }
                 }
