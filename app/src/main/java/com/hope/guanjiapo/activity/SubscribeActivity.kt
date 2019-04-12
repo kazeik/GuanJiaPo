@@ -2,6 +2,7 @@ package com.hope.guanjiapo.activity
 
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.SubscribeAdapter
@@ -15,6 +16,7 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
@@ -26,7 +28,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
     }
 
     private val allitem: ArrayList<SubscribeModel> by lazy { arrayListOf<SubscribeModel>() }
-    private val adapter: SubscribeAdapter<SubscribeModel> by lazy { SubscribeAdapter<SubscribeModel>() }
+    private val adapter: SubscribeAdapter<SubscribeModel> by lazy { SubscribeAdapter<SubscribeModel>(this) }
 
     override fun initData() {
         tvTitle.setText(R.string.subscribe)
@@ -60,9 +62,11 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<List<SubscribeModel>>>(this) {
                 override fun onSuccess(data: BaseModel<List<SubscribeModel>>?) {
-                    allitem.clear()
-                    allitem.addAll(data?.data!!)
-                    adapter.setDataEntityList(allitem)
+                    if (data?.code == "success") {
+                        allitem.clear()
+                        allitem.addAll(data.data!!)
+                        adapter.setDataEntityList(allitem)
+                    }
                 }
             })
     }
@@ -83,6 +87,38 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         if (null == data) return
         when (requestCode) {
             119 -> {
+                val orderid = data.getStringExtra("orderid")
+                val receiverphone = data.getStringExtra("receiverphone")
+                val senderphone = data.getStringExtra("senderphone")
+                val startDate = data.getStringExtra("startDate")
+
+                val map = hashMapOf<String, Any>(
+                    "id" to loginModel?.id!!,
+                    "clientCategory" to 4,
+                    "clientVersion" to 1.0,
+                    "mobile" to loginModel?.mobile!!,
+                    "sessionId" to sessionid!!,
+                    "onlyDriver" to 0
+                )
+                if (!TextUtils.isEmpty(orderid))
+                    map["orderid"] = orderid
+                if (!TextUtils.isEmpty(receiverphone))
+                    map["receiverphone"] = receiverphone
+                if (!TextUtils.isEmpty(senderphone))
+                    map["senderphone"] = senderphone
+                if (!TextUtils.isEmpty(startDate))
+                    map["startDate"] = startDate
+                HttpNetUtils.getInstance().getManager()?.wxsearch(map)
+                    ?.compose(NetworkScheduler.compose())
+                    ?.subscribe(object : ProgressSubscriber<BaseModel<List<SubscribeModel>>>(this) {
+                        override fun onSuccess(data: BaseModel<List<SubscribeModel>>?) {
+                            if (data?.code == "success") {
+                                allitem.clear()
+                                allitem.addAll(data.data!!)
+                                adapter.setDataEntityList(allitem)
+                            }
+                        }
+                    })
             }
         }
     }

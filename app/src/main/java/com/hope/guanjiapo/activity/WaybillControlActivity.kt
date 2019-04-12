@@ -79,6 +79,9 @@ class WaybillControlActivity : BaseActivity(), View.OnClickListener {
         )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 toast(data?.msg!!)
+                if (data.code == "success") {
+                    getList()
+                }
             }
         })
     }
@@ -114,6 +117,10 @@ class WaybillControlActivity : BaseActivity(), View.OnClickListener {
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvData.adapter = adapter
 
+        getList()
+    }
+
+    private fun getList() {
         HttpNetUtils.getInstance().getManager()?.wlget(
             hashMapOf(
                 "bossId" to loginModel?.bossId!!,

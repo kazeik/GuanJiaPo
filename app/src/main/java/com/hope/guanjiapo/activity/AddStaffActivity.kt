@@ -57,6 +57,12 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
             etPhone.setText(itemData?.mobile)
             etPhone.isEnabled = false
         }
+
+        when (itemData?.userLevel) {
+            1 -> radioButtonOne.isChecked = true
+            2 -> radioButtonTwo.isChecked = true
+            10 -> radioButtonThree.isChecked = true
+        }
     }
 
     private fun addstaff() {
@@ -99,7 +105,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
                     val intt = Intent()
                     val bund = Bundle()
                     bund.putSerializable("data", data?.data!!)
-                    intt.putExtra("bund",bund)
+                    intt.putExtra("bund", bund)
                     setResult(99, intt)
                     finish()
                 }

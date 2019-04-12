@@ -45,7 +45,7 @@ import org.jetbrains.anko.toast
 class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
 
     override fun onItemEvent(pos: Int) {
-        startActivity<PrintOrderInfoActivity>("data" to allItem[pos])
+        startActivityForResult<PrintOrderInfoActivity>(99, "data" to allItem[pos])
     }
 
     override fun onClick(v: View?) {
@@ -571,6 +571,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             120 -> {
                 checkGPprinter()
             }
+            99 -> getOrderList()
         }
     }
 

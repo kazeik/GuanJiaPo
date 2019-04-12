@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R
@@ -17,7 +18,13 @@ import com.hope.guanjiapo.utils.TimeUtil
  *         2019 02 23 17:28
  * 类说明:
  */
-class SubscribeAdapter<A> : BaseAdapter<A>() {
+class SubscribeAdapter<A>(private val context: Context) : BaseAdapter<A>() {
+    private var items: Array<String>? = null
+
+    init {
+        items = context.resources.getStringArray(R.array.orderstatus)
+    }
+
     internal var itemListener: OnItemEventListener? = null
     override fun getLayoutView(): Int {
         return R.layout.adadpter_subscribe
@@ -31,7 +38,8 @@ class SubscribeAdapter<A> : BaseAdapter<A>() {
 
         val entity = dataList?.get(position) as SubscribeModel
         tvItem1.text = "时间:${TimeUtil.getDayByType(entity.createDate!!, TimeUtil.DATE_YMD_HMS)} 微信:${entity.clientname}"
-        tvItem2.text = "待接单 ${entity.operatorMobile} ${entity.productdescript} 件数:${entity.productcount}"
+        tvItem2.text =
+            "${items?.get(entity.status!!)} ${entity.operatorMobile} ${entity.productdescript} 件数:${entity.productcount}"
 
         consigneeitem.setOnClickListener {
             if (null != itemListener)

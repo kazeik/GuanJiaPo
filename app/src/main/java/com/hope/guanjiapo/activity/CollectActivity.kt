@@ -115,8 +115,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
             for (j in 0 until allData?.size!!) {
                 val sublist = LinkedList<String>()
                 for (i in 0 until arr?.size!!) {
-                    val tempInt = arr[i].toInt()
-                    when (tempInt) {
+                    when (arr[i].toInt()) {
                         //序号
                         0 -> sublist.add("${j + 1}")
 //                        单号
@@ -154,23 +153,34 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        成本
                         17 -> sublist.add(allData?.get(j)?.costFee!!)
 //                        利润
-                        18 -> sublist.add(allData?.get(j)?.id!!)
+                        18 -> sublist.add("${allData?.get(j)?.shipfee!!.toDouble() - allData?.get(j)?.costFee!!.toDouble()}")
 //                        供应商
                         19 -> sublist.add(allData?.get(j)?.serviceName!!)
 //                        支付
-                        20 -> sublist.add(allData?.get(j)?.id!!)
+                        20 -> sublist.add(
+                            when (allData?.get(j)?.shipfeepaytype!!) {
+                                0 -> "现付"
+                                1 -> "月结"
+                                2 -> "提付"
+                                else -> ""
+                            }
+                        )
 //                        已付
                         21 -> sublist.add("${allData?.get(j)?.shipfeestate!!}")
 //                        欠款
                         22 -> sublist.add("${allData?.get(j)?.shipfeestate!!}")
 //                        代收款
-                        23 -> sublist.add(allData?.get(j)?.id!!)
+                        23 -> sublist.add(allData?.get(j)?.agentmoney!!)
 //                        小计
-                        24 -> sublist.add(allData?.get(j)?.id!!)
+                        24 -> sublist.add(
+                            "${allData?.get(j)?.shipfee!!.toDouble() + allData?.get(j)?.shipfeesendpay!!.toDouble() + allData?.get(
+                                j
+                            )?.agentmoney!!.toDouble()}"
+                        )
 //                        业务员
                         25 -> sublist.add(allData?.get(j)?.operatorMobile!!)
 //                        返款
-                        26 -> sublist.add(allData?.get(j)?.id!!)
+                        26 -> sublist.add(allData?.get(j)?.returnmoney!!)
 //                        回单份数
                         27 -> sublist.add(allData?.get(j)?.copycount!!)
 //                        通知放货
@@ -178,7 +188,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        备注
                         29 -> sublist.add(allData?.get(j)?.comment!!)
 //                        提货人签名
-                        30 -> sublist.add(allData?.get(j)?.id!!)
+                        30 -> sublist.add("")
                     }
 
                 }

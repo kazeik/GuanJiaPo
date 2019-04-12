@@ -182,7 +182,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private fun showOrderStatusDialog() {
         val items = resources.getStringArray(R.array.orderstatus)
         val listDialog = AlertDialog.Builder(this)
-        listDialog.setTitle("请选择包装")
+        listDialog.setTitle("请选择运单状态")
         listDialog.setItems(items) { dialog, which ->
             orderStatus = which
             tvYdzt.text = items[which]

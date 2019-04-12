@@ -248,6 +248,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
+                    setResult(99)
+                    finish()
                 }
             })
     }

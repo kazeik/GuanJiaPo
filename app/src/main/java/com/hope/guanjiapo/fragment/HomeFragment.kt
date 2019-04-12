@@ -1,6 +1,7 @@
 package com.hope.guanjiapo.fragment
 
 
+import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
@@ -13,6 +14,9 @@ import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.loginModel
+import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -31,6 +35,7 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         return R.layout.fragment_data
     }
 
+    @SuppressLint("SetTextI18n")
     override fun bindData() {
         tvTitle.text = "首页"
         ivBackup.visibility = View.GONE
@@ -49,5 +54,12 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         rcvData.adapter = adapter
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
+
+        version.text = "${vehicleModel?.companyname}\n${loginModel?.userName}  ${when (loginModel?.userType) {
+            1 -> "经理"
+            2 -> "员工"
+            10 -> "VIP 客户"
+            else -> ""
+        }}\n版本：1.0"
     }
 }
