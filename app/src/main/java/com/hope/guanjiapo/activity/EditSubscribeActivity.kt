@@ -47,7 +47,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
     private var yf: Double? = 0.0
     private var shipfeepaytype: Int = 0
     private var recway: Int = 0
-
+    private var waybill: WaybillModel? = null
     private var payType: Int = 0
 
     override fun initData() {
@@ -282,9 +282,10 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         )?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<BaseModel<WaybillModel>>(this) {
                 override fun onSuccess(data: BaseModel<WaybillModel>?) {
-                    if (data?.code == "success")
+                    if (data?.code == "success") {
+                        waybill = data.data
                         delete()
-                    else
+                    } else
                         toast(data?.msg!!)
                 }
             })
@@ -307,10 +308,6 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)
                     if (data.code == "success") {
-                        val waybill = subscribeModel as WaybillModel
-                        waybill.oderstate = subscribeModel?.status
-
-                        logs("tag", "waybill = $waybill | subscri = $subscribeModel")
                         startActivity<PrintOrderInfoActivity>("data" to waybill)
                         finish()
                     }
