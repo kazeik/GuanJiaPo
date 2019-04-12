@@ -3,6 +3,7 @@ package com.hope.guanjiapo.utils
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.*
 import io.reactivex.Observable
+import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -60,8 +61,7 @@ interface ApiInter {
     fun wlget(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<List<WaybillModel>>>
 
     @POST(ApiUtils.editCompanyInfo)
-    @FormUrlEncoded
-    fun editCompanyInfo(@FieldMap map: HashMap<String, Any>): Observable<BaseModel<String>>
+    fun editCompanyInfo(@Body body:RequestBody): Observable<BaseModel<String>>
 
     @GET(ApiUtils.getCompanyInfo)
     fun getCompanyInfo(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<VehicleModel>>

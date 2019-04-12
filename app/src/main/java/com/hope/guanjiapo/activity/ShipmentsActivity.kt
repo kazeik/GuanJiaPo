@@ -23,6 +23,8 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.toast
 
 
@@ -79,16 +81,13 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
                 tempAllString += "$it,"
             }
             tempAllString = tempAllString.substring(0, tempAllString.length - 1)
-            HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-                hashMapOf(
-                    "id" to loginModel?.id!!,
-                    "clientCategory" to 4,
-                    "clientVersion" to 1.0,
-                    "mobile" to loginModel?.mobile!!,
-                    "sessionId" to sessionid!!,
-                    "faHuoDiList" to tempAllString
-                )
+
+            val data =
+                "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&faHuoDiList=$tempAllString"
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
             )
+            HttpNetUtils.getInstance().getManager()?.editCompanyInfo(requestBody)
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                     override fun onSuccess(data: BaseModel<String>?) {
                         adapter.setDataEntityList(allitem)
@@ -164,16 +163,14 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             tempAllString += "$it,"
         }
         tempAllString.substring(0, tempAllString.length - 1)
-        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-            hashMapOf(
-                "id" to loginModel?.id!!,
-                "clientCategory" to 4,
-                "clientVersion" to 1.0,
-                "mobile" to loginModel?.mobile!!,
-                "sessionId" to sessionid!!,
-                "faHuoDiList" to tempAllString
-            )
-        )?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+
+        val data =
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&faHuoDiList=$tempAllString"
+        val requestBody = RequestBody.create(
+            MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
+        )
+        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(requestBody)
+            ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
             override fun onSuccess(data: BaseModel<String>?) {
                 adapter.setDataEntityList(allitem)
                 toast(data?.msg!!)

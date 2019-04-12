@@ -21,6 +21,8 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.view_title.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.toast
 
 class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
@@ -97,16 +99,12 @@ class SupplierActivity : BaseActivity(), OnItemEventListener, View.OnClickListen
     }
 
     private fun edit(msg: String) {
-        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-            hashMapOf(
-                "clientCategory" to "4",
-                "clientVersion" to "1.0",
-                "id" to "${loginModel?.id}",
-                "sessionId" to sessionid!!,
-                "mobile" to loginModel?.mobile!!,
-                "serviceNameList" to msg
-            )
+        val data =
+            "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&serviceNameList=$msg"
+        val requestBody = RequestBody.create(
+            MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
         )
+        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(requestBody)
             ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
                 override fun onSuccess(data: BaseModel<String>?) {
                     toast(data?.msg!!)

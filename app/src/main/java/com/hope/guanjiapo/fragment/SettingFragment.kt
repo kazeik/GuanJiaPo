@@ -20,7 +20,6 @@ import com.hope.guanjiapo.model.VehicleModel
 import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
@@ -28,6 +27,8 @@ import com.hope.guanjiapo.view.JFDialog
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.view_title.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
@@ -92,7 +93,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
 
     private fun showInputDialog() {
         val editText = EditText(activity)
-        editText.setText(ApiUtils.vehicleModel?.companyname!!)
+        editText.setText(vehicleModel?.companyname!!)
         val inputDialog = AlertDialog.Builder(activity)
         inputDialog.setTitle(R.string.editcompanyname).setView(editText)
         inputDialog.setNegativeButton(R.string.cancel) { _, _ -> }
@@ -101,15 +102,13 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
             allItem[0].rightItem = name
             adapter.setDataEntityList(allItem)
 
+            val data =
+                "clientCategory=4&clientVersion=1.0&id=${loginModel?.id}&isadd=1&mobile=${loginModel?.mobile}&sessionId=$sessionid&companyname=$name"
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), data
+            )
             HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-                hashMapOf(
-                    "companyname" to name,
-                    "id" to loginModel?.id!!,
-                    "clientCategory" to 4,
-                    "clientVersion" to 1.0,
-                    "mobile" to loginModel?.mobile!!,
-                    "sessionId" to sessionid!!
-                )
+               requestBody
             )?.compose(NetworkScheduler.compose())
                 ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity!!) {
                     override fun onSuccess(data: BaseModel<String>?) {
@@ -152,7 +151,7 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 override fun onSuccess(data: BaseModel<VehicleModel>?) {
                     vehicleModel = data?.data
 
-                    allItem.get(0).rightItem = data?.data?.companyname
+                    allItem[0].rightItem = data?.data?.companyname
                     adapter.notifyDataSetChanged()
                 }
             })

@@ -71,8 +71,8 @@ class AddConsigneeActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
-        var map: HashMap<String, Any>? = null
-        var stat = ""
+        val map: HashMap<String, Any>?
+        var stat :String= ""
         if (type) {
             stat = "0"
             map = hashMapOf(
