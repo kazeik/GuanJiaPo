@@ -89,7 +89,7 @@ class EditSubscribeActivity : BaseActivity(), View.OnClickListener {
         etFhdh.setText(subscribeModel?.senderphone)
         etFhdz.setText(subscribeModel?.senderaddress1)
         etBz.setText(subscribeModel?.comment)
-        etDh.setText(subscribeModel?.id)
+        etDh.setText(subscribeModel?.productno)
         etYwy.setText(subscribeModel?.operatorMobile)
         etShr.setText(subscribeModel?.receivername)
         etShdh.setText(subscribeModel?.receiverphone)
