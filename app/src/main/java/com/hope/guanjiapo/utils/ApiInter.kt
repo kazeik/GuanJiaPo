@@ -3,7 +3,6 @@ package com.hope.guanjiapo.utils
 import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.model.*
 import io.reactivex.Observable
-import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -35,8 +34,6 @@ interface ApiInter {
     fun getConnector(@QueryMap map: HashMap<String, Any>): Observable<BaseModel<List<ConsigneeModel>>>
 
     @POST(ApiUtils.addoreditex)
-//    , "text/json", "text/javascript", "text/html", "text/plain"
-//    @Header("Content-Type","application/json")
     fun addoreditex(@Body map: RequestBody): Observable<BaseModel<String>>
 
 
