@@ -86,12 +86,7 @@ class ShipmentsActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
                     "clientVersion" to 1.0,
                     "mobile" to loginModel?.mobile!!,
                     "sessionId" to sessionid!!,
-                    "faHuoDiList" to tempAllString,
-                    "servicenamelist" to "",
-                    "companyname" to "",
-                    "recCarNoList" to "",
-                    "recPointList" to "",
-                    "wrapNameList" to ""
+                    "faHuoDiList" to tempAllString
                 )
             )
                 ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {

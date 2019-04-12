@@ -1,5 +1,6 @@
 package com.hope.guanjiapo.adapter
 
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.hope.guanjiapo.R
@@ -32,10 +33,11 @@ class DestinationAdapter<A> : BaseAdapter<A>() {
         val tvAddress = holder.getViewById<TextView>(R.id.tvAddress)
 
         val entity = dataList?.get(position) as DestinationModel
-        tvPhone.text = entity.operatorMobile
-        tvType.text = if (entity.type == 0) "收货" else "发货"
-        tvAddress.text = entity.receivepoint
+//        tvPhone.text = entity.operatorMobile
+//        tvType.text = if (entity.type == 0) "收货" else "发货"
+//        tvAddress.text = entity.receivepoint
 
+        tvType.text = entity.receivepoint
         consigneeitem.setOnLongClickListener {
             if (null != itemLongListener)
                 itemLongListener?.onItemLongEvent(position)

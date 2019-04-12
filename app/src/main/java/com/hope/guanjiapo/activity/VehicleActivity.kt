@@ -21,12 +21,13 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.view_title.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
 class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListener, OnItemLongEventListener {
     override fun onItemLongEvent(pos: Int) {
-        showInputDialog(allcar.get(pos), true)
+        showListDialog(pos)
     }
 
     override fun onItemEvent(pos: Int) {
@@ -35,6 +36,32 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         setResult(201, intt)
         finish()
     }
+
+    private fun showListDialog(pos: Int) {
+        val items = resources.getStringArray(R.array.alertmenu)
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setItems(items) { _, which ->
+            when (which) {
+                0 -> showInputDialog(allcar.get(pos), true)
+                1 -> delete(pos)
+            }
+        }
+        listDialog.show()
+    }
+
+    private fun delete(pos: Int) {
+        allcar.removeAt(pos)
+
+        var temp = ""
+        allcar.forEach {
+            temp += "$it,"
+        }
+
+        if (!TextUtils.isEmpty(temp))
+            temp = temp.substring(0, temp.length - 1)
+        edit(temp)
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -73,32 +100,26 @@ class VehicleActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                 tempAllString += "$it,"
             }
             tempAllString = tempAllString.substring(0, tempAllString.length - 1)
-            HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
-                hashMapOf(
-                    "id" to loginModel?.id!!,
-                    "clientCategory" to 4,
-                    "clientVersion" to 1.0,
-                    "mobile" to loginModel?.mobile!!,
-                    "sessionId" to sessionid!!,
-                    "recCarNoList" to tempAllString,
-                    "companyname" to "",
-                    "faHuoDiList" to "",
-                    "servicenamelist" to "",
-                    "recPointList" to "",
-                    "wrapNameList" to ""
-                )
-            )
-                ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
-                    override fun onSuccess(data: BaseModel<String>?) {
-//                        if (edit) {
-//                            val tempList = allcar.filterNot { it == msg }
-//                            allcar.clear()
-//                            allcar.addAll(tempList)
-//                        }
-                        adapter.setDataEntityList(allcar)
-                    }
-                })
+            edit(tempAllString)
         }.show()
+    }
+
+    private fun edit(str: String) {
+        HttpNetUtils.getInstance().getManager()?.editCompanyInfo(
+            hashMapOf(
+                "id" to loginModel?.id!!,
+                "clientCategory" to 4,
+                "clientVersion" to 1.0,
+                "mobile" to loginModel?.mobile!!,
+                "sessionId" to sessionid!!,
+                "recCarNoList" to str
+            )
+        )
+            ?.compose(NetworkScheduler.compose())?.subscribe(object : ProgressSubscriber<BaseModel<String>>(this) {
+                override fun onSuccess(data: BaseModel<String>?) {
+                    adapter.setDataEntityList(allcar)
+                }
+            })
     }
 
     private val allcar: ArrayList<String> by lazy { ArrayList<String>() }
