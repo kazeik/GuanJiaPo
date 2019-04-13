@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -22,17 +23,21 @@ import com.hope.guanjiapo.adapter.CollectAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.service.PrinterServiceConnection
-import com.hope.guanjiapo.utils.*
 import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ExcelUtils.initExcel
 import com.hope.guanjiapo.utils.ExcelUtils.writeObjListToExcel
+import com.hope.guanjiapo.utils.PreferencesUtils
+import com.hope.guanjiapo.utils.SdcardUtils
+import com.hope.guanjiapo.utils.TimeUtil
+import com.hope.guanjiapo.utils.Utils
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_collect.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import java.io.File
 import java.util.*
 
 
@@ -228,17 +233,17 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 val sdUtils = SdcardUtils()
                 val fileDir = "${sdUtils.sdCardPath}GuanJiaPo/file"
                 sdUtils.createDir(fileDir)
-                val fileName = "$fileDir/data.xls"
+                val fileName = "$fileDir/汇总交接单${TimeUtil.getDayByType(System.currentTimeMillis(),TimeUtil.DATE_YMS)}.xls"
                 if (sdUtils.isFileExist(fileName)) {
                     sdUtils.deleteFile(fileName)
                 }
                 initExcel(fileName, tempList.toTypedArray(), "data")
                 alltemp.removeAt(0)
                 val flag = writeObjListToExcel(alltemp, fileName, this)
-                toast(
-                    if (flag) "保存成功"
-                    else "保存失败"
-                )
+                if (flag)
+                    shareFile(fileName)
+                else
+                    toast("文件保存失败")
             }
             R.id.tvWxShare,
             R.id.tvYun -> share()
@@ -250,6 +255,23 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         textIntent.type = "text/plain"
         textIntent.putExtra(Intent.EXTRA_TEXT, "手机就能开单管帐，您专属的物流管理工具《物流管家婆》 http://wl.hfuture.cn")
         startActivity(Intent.createChooser(textIntent, "分享到"))
+    }
+
+//    private fun shareimg(imgFile: String) {
+//        val intent = Intent(Intent.ACTION_SEND)
+//        intent.type = "image/*" //设置MIME类型
+//        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile)) //需要分享的文件URI
+//        startActivity(Intent.createChooser(intent, "分享到"))
+//    }
+
+    private fun shareFile(filePath: String) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.putExtra(
+            Intent.EXTRA_STREAM,
+            Uri.fromFile(File(filePath))
+        )
+        shareIntent.type = "*/*"
+        startActivity(Intent.createChooser(shareIntent, "分享到"))
     }
 
     private fun showListDialog() {
