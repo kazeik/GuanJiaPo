@@ -9,7 +9,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.RemoteException
+import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Base64
@@ -20,6 +22,7 @@ import com.gprinter.command.GpCom
 import com.gprinter.command.GpUtils
 import com.gprinter.command.LabelCommand
 import com.gprinter.service.GpPrintService
+import com.hope.guanjiapo.BuildConfig
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.CollectAdapter
 import com.hope.guanjiapo.base.BaseActivity
@@ -327,7 +330,8 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     sdUtils.deleteFile(fileName)
                 }
                 initExcel(fileName, tempList.toTypedArray(), "data")
-                alltemp.removeAt(0)
+                if (alltemp.isNotEmpty())
+                    alltemp.removeAt(0)
                 val flag = writeObjListToExcel(alltemp, fileName, this)
                 if (flag)
                     shareFile(fileName)
@@ -369,11 +373,20 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun shareFile(filePath: String) {
+        val file = File(filePath)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.putExtra(
-            Intent.EXTRA_STREAM,
-            Uri.fromFile(File(filePath))
-        )
+        if (Build.VERSION.SDK_INT >= 24) { //判读版本是否在7.0以上
+            val apkUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            shareIntent.putExtra(
+                Intent.EXTRA_STREAM, apkUri
+            )
+        } else {
+            shareIntent.putExtra(
+                Intent.EXTRA_STREAM,
+                Uri.fromFile(file)
+            )
+        }
         shareIntent.type = "*/*"
         startActivity(Intent.createChooser(shareIntent, "分享到"))
     }
