@@ -52,7 +52,7 @@ import java.util.*
  *         2019 03 12 10:17
  * 类说明:
  */
-@Suppress("UNREACHABLE_CODE")
+@Suppress("UNREACHABLE_CODE", "IMPLICIT_CAST_TO_ANY")
 class CollectActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutView(): Int {
         return R.layout.activity_collect
@@ -117,6 +117,13 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 val index = it.toInt()
                 tempList.add(itemArr[index])
                 when (index) {
+                    10 -> {
+                        var value = 0.0
+                        for (item in allData!!) {
+                            value += checkDValue(item.productcount)
+                        }
+                        all.add("$value")
+                    }
                     11 -> {
                         var value = 0.0
                         for (item in allData!!) {
@@ -148,7 +155,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     15 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += checkDValue(item.baseshipfee)
+                            value += checkDValue(item.shipfee)
                         }
                         all.add("$value")
                     }
@@ -169,14 +176,14 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     20 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += checkDValue(item.shipfeestate.toString())
+                            value += checkDValue(if (item.shipfeestate == 0) "0" else item.shipfee)
                         }
                         all.add("$value")
                     }
                     21 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += checkDValue(item.shipfeestate.toString())
+                            value += checkDValue(if (item.shipfeestate == 0) item.shipfee else "0")
                         }
                         all.add("$value")
                     }
@@ -253,7 +260,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                             )
                         )
                         //件数
-                        11 -> sublist.add("")
+                        11 -> sublist.add(checkValue(allData?.get(j)?.productcount))
 //                        重重
                         12 -> sublist.add(checkValue(allData?.get(j)?.productweight))
 //                        体积
@@ -263,7 +270,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
 //                        保费
                         15 -> sublist.add(checkValue(allData?.get(j)?.insurancefee))
 //                        应收运费
-                        16 -> sublist.add(checkValue(allData?.get(j)?.baseshipfee))
+                        16 -> sublist.add(checkValue(allData?.get(j)?.shipfee))
 //                        成本
                         17 -> sublist.add(checkValue(allData?.get(j)?.costFee))
 //                        利润
@@ -280,9 +287,9 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                             }
                         )
 //                        已付
-                        21 -> sublist.add("${allData?.get(j)?.shipfeestate}")
+                        21 -> sublist.add("${if (allData?.get(j)?.shipfeestate == 0) 0 else allData?.get(j)?.shipfee}")
 //                        欠款
-                        22 -> sublist.add("${allData?.get(j)?.shipfeestate}")
+                        22 -> sublist.add("${if (allData?.get(j)?.shipfeestate == 0) allData?.get(j)?.shipfee else 0}")
 //                        代收款
                         23 -> sublist.add(checkValue(allData?.get(j)?.agentmoney))
 //                        小计

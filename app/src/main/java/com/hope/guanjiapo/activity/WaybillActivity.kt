@@ -137,6 +137,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
 
+        cbAll.visibility = View.VISIBLE
         cbAll.setOnCheckedChangeListener(this)
 
         btnPrintBq.setOnClickListener(this)

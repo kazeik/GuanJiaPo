@@ -17,7 +17,10 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
+import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.activity_waybill_controll.*
+import kotlinx.android.synthetic.main.activity_waybill_controll.cbAll
+import kotlinx.android.synthetic.main.activity_waybill_controll.rcvData
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -123,6 +126,7 @@ class WaybillControlActivity : BaseActivity(), View.OnClickListener, CompoundBut
         tvTitleRight.setOnClickListener(this)
         btnChangeStatus.setOnClickListener(this)
         btnAllow.setOnClickListener(this)
+        cbAll.visibility = View.VISIBLE
         cbAll.setOnCheckedChangeListener(this)
 
         rcvData.layoutManager = LinearLayoutManager(this)

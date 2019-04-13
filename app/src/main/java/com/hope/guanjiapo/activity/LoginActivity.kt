@@ -87,6 +87,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (!perfent.contains("auto"))
             PreferencesUtils.putBoolean(this, "auto", true)
 
+        if (!perfent.contains("prefer")) {
+            val temp = "0,5,7,8,9,11,13,16,29,"
+            PreferencesUtils.putString(this, "prefer", temp)
+        }
+
 //        if (BuildConfig.DEBUG) {
 //            etPhone.setText("15988879319")
 //            password.setText("1234")

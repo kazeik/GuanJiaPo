@@ -54,15 +54,13 @@ class CollectPreferenceActivity : BaseActivity(), OnItemEventListener, View.OnCl
             allItem.add(item)
         }
 
-        if (PreferencesUtils.getShared(this).contains("prefer")) {
-            var tempstr = PreferencesUtils.getString(this, "prefer")
-            if (!TextUtils.isEmpty(tempstr)) {
-                tempstr = tempstr?.substring(0, tempstr.length - 1)
-                val tempArr = tempstr?.split(",")
-                tempArr?.forEach {
-                    allItem[it.toInt()].flag = true
-                    map[it.toInt()] = true
-                }
+        var tempstr = PreferencesUtils.getString(this, "prefer")
+        if (!TextUtils.isEmpty(tempstr)) {
+            tempstr = tempstr?.substring(0, tempstr.length - 1)
+            val tempArr = tempstr?.split(",")
+            tempArr?.forEach {
+                allItem[it.toInt()].flag = true
+                map[it.toInt()] = true
             }
         }
 

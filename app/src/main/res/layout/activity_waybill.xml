@@ -50,6 +50,7 @@
             android:padding="@dimen/dp_5"
             android:text="点击全选"
             android:id="@+id/cbAll"
+            android:visibility="gone"
             android:background="@color/orger"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"

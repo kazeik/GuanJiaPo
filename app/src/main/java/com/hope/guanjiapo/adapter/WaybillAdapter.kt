@@ -57,7 +57,7 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
         }
 
         cbCheck.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) itemsStatus.put(position, true) else itemsStatus.remove(position)
+            if (isChecked) itemsStatus[position] = true else itemsStatus.remove(position)
         }
 
         if (itemsStatus.isNotEmpty() && itemsStatus.containsKey(position))
