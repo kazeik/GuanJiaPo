@@ -304,11 +304,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
             adapter.setDataEntityList(alltemp)
         }
     }
-
-    private fun getAll() {
-
-    }
-
     private fun checkValue(value: String?): String {
         return if (TextUtils.isEmpty(value)) "" else value!!
     }
