@@ -282,13 +282,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         startActivity(Intent.createChooser(textIntent, "分享到"))
     }
 
-//    private fun shareimg(imgFile: String) {
-//        val intent = Intent(Intent.ACTION_SEND)
-//        intent.type = "image/*" //设置MIME类型
-//        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile)) //需要分享的文件URI
-//        startActivity(Intent.createChooser(intent, "分享到"))
-//    }
-
     private fun shareFile(filePath: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.putExtra(
