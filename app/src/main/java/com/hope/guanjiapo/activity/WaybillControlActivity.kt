@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.CompoundButton
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.adapter.WaybillAdapter
 import com.hope.guanjiapo.base.BaseActivity
@@ -24,7 +25,17 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.util.*
 
-class WaybillControlActivity : BaseActivity(), View.OnClickListener {
+class WaybillControlActivity : BaseActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+        if (p1) {
+            for (i in 0 until allItem.size)
+                adapter.itemsStatus.put(i, true)
+        } else {
+            for (i in 0 until allItem.size)
+                adapter.itemsStatus.put(i, false)
+        }
+        adapter.notifyDataSetChanged()
+    }
 
     private fun showOrderStatusDialog() {
         val items = resources.getStringArray(R.array.orderstatus)
@@ -112,6 +123,7 @@ class WaybillControlActivity : BaseActivity(), View.OnClickListener {
         tvTitleRight.setOnClickListener(this)
         btnChangeStatus.setOnClickListener(this)
         btnAllow.setOnClickListener(this)
+        cbAll.setOnCheckedChangeListener(this)
 
         rcvData.layoutManager = LinearLayoutManager(this)
         rcvData.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
@@ -142,6 +154,8 @@ class WaybillControlActivity : BaseActivity(), View.OnClickListener {
                     }
                     allItem.clear()
                     allItem.addAll(data.data!!)
+                    for (i in 0 until allItem.size)
+                        adapter.itemsStatus.put(i, false)
                     adapter.setDataEntityList(allItem)
                 }
             })

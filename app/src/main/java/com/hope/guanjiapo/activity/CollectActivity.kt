@@ -114,52 +114,59 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 val index = it.toInt()
                 tempList.add(itemArr[index])
                 when (index) {
-                    12 -> {
+                    11 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productweight)
                         }
                         all.add("$value")
                     }
-                    13 -> {
+                    12 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productsize)
                         }
                         all.add("$value")
                     }
-                    14 -> {
+                    13 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.shipfeesendpay)
                         }
                         all.add("$value")
                     }
-                    15 -> {
+                    14 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.insurancefee)
                         }
                         all.add("$value")
                     }
-                    16 -> {
+                    15 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.baseshipfee)
                         }
                         all.add("$value")
                     }
-                    17 -> {
+                    16 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.costFee)
                         }
                         all.add("$value")
                     }
-                    18 -> {
+                    17 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += (checkDValue(item.shipfee) - checkDValue(item.costFee))
+                        }
+                        all.add("$value")
+                    }
+                    20 -> {
+                        var value = 0.0
+                        for (item in allData!!) {
+                            value += checkDValue(item.shipfeestate.toString())
                         }
                         all.add("$value")
                     }
@@ -173,32 +180,25 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     22 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += checkDValue(item.shipfeestate.toString())
+                            value += checkDValue(item.agentmoney)
                         }
                         all.add("$value")
                     }
                     23 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += checkDValue(item.agentmoney)
-                        }
-                        all.add("$value")
-                    }
-                    24 -> {
-                        var value = 0.0
-                        for (item in allData!!) {
                             value += (checkDValue(item.shipfee) + checkDValue(item.shipfeesendpay) + checkDValue(item.agentmoney))
                         }
                         all.add("$value")
                     }
-                    26 -> {
+                    25 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.returnmoney)
                         }
                         all.add("$value")
                     }
-                    27 -> {
+                    26 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.copycount)
@@ -304,6 +304,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
             adapter.setDataEntityList(alltemp)
         }
     }
+
     private fun checkValue(value: String?): String {
         return if (TextUtils.isEmpty(value)) "" else value!!
     }

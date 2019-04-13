@@ -45,7 +45,15 @@
                 android:layout_marginTop="16dp"
                 android:text="汇总打印"/>
     </LinearLayout>
-
+    <CheckBox
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp_5"
+            android:text="点击全选"
+            android:id="@+id/cbAll"
+            android:background="@color/orger"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rcvData"
             android:layout_width="match_parent"

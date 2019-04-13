@@ -41,10 +41,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
         rcvDataList.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         rcvDataList.adapter = adapter
         adapter.itemListener = this
-    }
 
-    override fun onResume() {
-        super.onResume()
         searchOrder()
     }
 
@@ -92,7 +89,7 @@ class SubscribeActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
                 val senderphone = data.getStringExtra("senderphone")
                 val startDate = data.getStringExtra("startDate")
 
-                val map = hashMapOf<String, Any>(
+                val map = hashMapOf(
                     "id" to loginModel?.id!!,
                     "clientCategory" to 4,
                     "clientVersion" to 1.0,

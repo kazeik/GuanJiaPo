@@ -8,6 +8,7 @@ import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Base64
 import android.view.View
+import android.widget.CompoundButton
 import com.gprinter.command.EscCommand
 import com.gprinter.command.GpCom
 import com.gprinter.command.GpUtils
@@ -42,7 +43,17 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
 
-class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener {
+class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener ,CompoundButton.OnCheckedChangeListener{
+    override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+        if (p1) {
+            for (i in 0 until allItem.size)
+                adapter.itemsStatus.put(i, true)
+        } else {
+            for (i in 0 until allItem.size)
+                adapter.itemsStatus.put(i, false)
+        }
+        adapter.notifyDataSetChanged()
+    }
 
     override fun onItemEvent(pos: Int) {
         startActivityForResult<PrintOrderInfoActivity>(99, "data" to allItem[pos])
@@ -126,6 +137,8 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         ivBackup.setOnClickListener(this)
         tvTitleRight.setOnClickListener(this)
 
+        cbAll.setOnCheckedChangeListener(this)
+
         btnPrintBq.setOnClickListener(this)
         btnPrintXp.setOnClickListener(this)
         btnAllPrint.setOnClickListener(this)
@@ -164,6 +177,8 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     }
                     allItem.clear()
                     allItem.addAll(data.data!!)
+                    for (i in 0 until allItem.size)
+                        adapter.itemsStatus.put(i, false)
                     adapter.setDataEntityList(allItem)
                 }
             })

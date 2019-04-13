@@ -60,7 +60,8 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
             if (isChecked) itemsStatus.put(position, true) else itemsStatus.remove(position)
         }
 
-        cbCheck.isChecked = itemsStatus.isNotEmpty() && itemsStatus.containsKey(position)
+        if (itemsStatus.isNotEmpty() && itemsStatus.containsKey(position))
+            cbCheck.isChecked = itemsStatus[position]!!
 
 
         val entity = dataList?.get(position) as? WaybillModel
