@@ -10,19 +10,32 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.format.Formatter
 
-import java.io.BufferedOutputStream
-import java.io.ByteArrayInputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.FileWriter
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
+import android.graphics.Bitmap.CompressFormat
+import android.graphics.Bitmap
+import java.io.*
+
 
 //import org.apache.http.util.EncodingUtils;
 
 @SuppressLint("NewApi")
 class SdcardUtils {
+
+    fun saveBitmapAsFile(saveFile: File, bitmap: Bitmap): Boolean {
+        var saved = false
+        var os: FileOutputStream? = null
+        try {
+            os = FileOutputStream(saveFile)
+            bitmap.compress(CompressFormat.PNG, 100, os)
+            os.flush()
+            os.close()
+            saved = true
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return saved
+    }
 
     /**
      * 获取SD路径
@@ -136,8 +149,10 @@ class SdcardUtils {
      * @param input    输入流
      * @return
      */
-    fun writeFileToSDCard(path: String, fileName: String,
-                          input: InputStream): File? {
+    fun writeFileToSDCard(
+        path: String, fileName: String,
+        input: InputStream
+    ): File? {
         var file: File? = null
         var ops: OutputStream? = null
 
@@ -300,7 +315,7 @@ class SdcardUtils {
     fun getSystemAvaialbeMemorySize(ct: Context): String {
         // 获得ActivityManager服务的对象
         val mActivityManager = ct
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         // 获得MemoryInfo对象
         val memoryInfo = MemoryInfo()
         // 获得系统可用内存，保存在MemoryInfo对象上

@@ -1,11 +1,13 @@
 package com.hope.guanjiapo.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
@@ -233,7 +235,8 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 val sdUtils = SdcardUtils()
                 val fileDir = "${sdUtils.sdCardPath}GuanJiaPo/file"
                 sdUtils.createDir(fileDir)
-                val fileName = "$fileDir/汇总交接单${TimeUtil.getDayByType(System.currentTimeMillis(),TimeUtil.DATE_YMS)}.xls"
+                val fileName =
+                    "$fileDir/汇总交接单${TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)}.xls"
                 if (sdUtils.isFileExist(fileName)) {
                     sdUtils.deleteFile(fileName)
                 }
@@ -245,9 +248,31 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 else
                     toast("文件保存失败")
             }
-            R.id.tvWxShare,
+            R.id.tvWxShare -> {
+                val sdUtils = SdcardUtils()
+                val fileDir = "${sdUtils.sdCardPath}GuanJiaPo/imgs"
+                sdUtils.createDir(fileDir)
+                val fileName = "$fileDir/${System.currentTimeMillis()}.jpg"
+                if (sdUtils.isFileExist(fileName)) {
+                    sdUtils.deleteFile(fileName)
+                }
+                val bmg = captureScreen(this)
+                val flag = sdUtils.saveBitmapAsFile(File(fileName), bmg)
+                if (flag)
+                    shareFile(fileName)
+            }
             R.id.tvYun -> share()
         }
+    }
+
+    private fun captureScreen(context: Activity): Bitmap {
+        val cv = context.window.decorView
+        cv.setDrawingCacheEnabled(true)
+        cv.buildDrawingCache()
+        val bmp = cv.getDrawingCache() ?: return null!!
+        bmp.setHasAlpha(false)
+        bmp.prepareToDraw()
+        return bmp
     }
 
     private fun share() {
