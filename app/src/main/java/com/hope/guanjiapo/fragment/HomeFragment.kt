@@ -2,8 +2,8 @@ package com.hope.guanjiapo.fragment
 
 
 import android.annotation.SuppressLint
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.hope.guanjiapo.R
 import com.hope.guanjiapo.activity.OrderInfoActivity
@@ -14,7 +14,6 @@ import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.fragment_data.*
@@ -55,11 +54,12 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
 
-        version.text = "${vehicleModel?.companyname}\n${loginModel?.userName}  ${when (loginModel?.userType) {
-            1 -> "经理"
-            2 -> "员工"
-            10 -> "VIP 客户"
-            else -> ""
-        }}\n版本：1.0"
+        version.text =
+            "${if (TextUtils.isEmpty(vehicleModel?.companyname)) "" else vehicleModel?.companyname}\n${loginModel?.userName}  ${when (loginModel?.userType) {
+                1 -> "经理"
+                2 -> "员工"
+                10 -> "VIP 客户"
+                else -> ""
+            }}\n版本：1.0"
     }
 }

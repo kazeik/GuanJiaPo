@@ -23,7 +23,7 @@ import org.jetbrains.anko.textColor
  *         2019 02 25 09:43
  * 类说明:
  */
-class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
+class WaybillAdapter<A>(private val context: Context) : BaseAdapter<A>() {
     internal var itemListener: OnItemEventListener? = null
     internal var itemLongListener: OnItemLongEventListener? = null
 
@@ -68,8 +68,10 @@ class WaybillAdapter<A>(context: Context) : BaseAdapter<A>() {
 
         if (entity?.shipfeestate == 1) {
             tvItem2.textColor = Color.BLACK
+            tvItem1.setTextColor(context.resources.getColor(R.color.actionbar_color))
         } else {
             tvItem1.textColor = Color.RED
+            tvItem2.setTextColor(context.resources.getColor(R.color.red))
         }
 
         val lele = allStaffModel?.filter { it.mobile == entity?.operatorMobile }
