@@ -22,11 +22,11 @@ import com.hope.guanjiapo.adapter.CollectAdapter
 import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.model.WaybillModel
 import com.hope.guanjiapo.service.PrinterServiceConnection
+import com.hope.guanjiapo.utils.*
 import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
-import com.hope.guanjiapo.utils.PreferencesUtils
-import com.hope.guanjiapo.utils.TimeUtil
-import com.hope.guanjiapo.utils.Utils
+import com.hope.guanjiapo.utils.ExcelUtils.initExcel
+import com.hope.guanjiapo.utils.ExcelUtils.writeObjListToExcel
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_collect.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -59,6 +59,8 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
     private var allData: ArrayList<WaybillModel>? = null
     private val adapter: CollectAdapter<LinkedList<String>> by lazy { CollectAdapter<LinkedList<String>>(this) }
     private var conn: PrinterServiceConnection? = null
+
+    private val alltemp by lazy { ArrayList<LinkedList<String>>() }
 
     private val tempList by lazy { LinkedList<String>() }
 
@@ -104,8 +106,8 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
             temp = temp?.substring(0, temp.length - 1)
             val arr = temp?.split(",")
             val itemArr = resources.getStringArray(R.array.hzdata)
-            val alltemp = ArrayList<LinkedList<String>>()
 
+            alltemp.clear()
             tempList.clear()
             arr?.forEach {
                 tempList.add(itemArr[it.toInt()])
@@ -222,7 +224,22 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> showListDialog()
-            R.id.tvSendDl,
+            R.id.tvSendDl -> {
+                val sdUtils = SdcardUtils()
+                val fileDir = "${sdUtils.sdCardPath}GuanJiaPo/file"
+                sdUtils.createDir(fileDir)
+                val fileName = "$fileDir/data.xls"
+                if (sdUtils.isFileExist(fileName)) {
+                    sdUtils.deleteFile(fileName)
+                }
+                initExcel(fileName, tempList.toTypedArray(), "data")
+                alltemp.removeAt(0)
+                val flag = writeObjListToExcel(alltemp, fileName, this)
+                toast(
+                    if (flag) "保存成功"
+                    else "保存失败"
+                )
+            }
             R.id.tvWxShare,
             R.id.tvYun -> share()
         }
