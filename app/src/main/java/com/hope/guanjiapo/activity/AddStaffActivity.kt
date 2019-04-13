@@ -58,7 +58,7 @@ class AddStaffActivity : BaseActivity(), View.OnClickListener, RadioGroup.OnChec
             etPhone.isEnabled = false
         }
 
-        when (itemData?.userLevel) {
+        when (itemData?.userType) {
             1 -> radioButtonOne.isChecked = true
             2 -> radioButtonTwo.isChecked = true
             10 -> radioButtonThree.isChecked = true

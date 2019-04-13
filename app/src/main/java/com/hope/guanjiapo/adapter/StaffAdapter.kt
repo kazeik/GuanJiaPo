@@ -33,7 +33,7 @@ class StaffAdapter<A> : BaseAdapter<A>() {
         tvType.text = when (entity.userType) {
             1 -> "经理"
             2 -> "员工"
-            10 -> "VIP 客户"
+            10 -> "客户"
             else -> ""
         }
 
