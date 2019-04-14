@@ -110,6 +110,7 @@
                 android:name=".activity.PrintOrderInfoActivity"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.CollectActivity"/>
+        <activity android:name=".activity.ZdyActivity"/>
 
         <meta-data
                 android:name="UMENG_APPKEY"
