@@ -542,14 +542,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         etFhd.setText(waybillModel?.senderaddress)
         etBf.setText(waybillModel?.insurancefee)
         tvCc.text = waybillModel?.carname
-//        etFk.setText(waybillModel?.returnmoney  )
-//        etHdfs.setText(waybillModel?.copycount  )
 
         val yf =
             getValue(waybillModel?.baseshipfee) + getValue(waybillModel?.dispatchfee) + getValue(waybillModel?.insurancefee)
         val al = yf + getValue(waybillModel?.agentmoney) + getValue(waybillModel?.shipfeesendpay)
         tvAllMoney.text =
-            "运费：$yf 合计(含代收中转):$al"
+            "运费：${formatDouble(yf)} 合计(含代收中转):${formatDouble(al)}"
 
         if (staffModel != null && staffModel?.isNotEmpty()!!) {
             val tempStaff = staffModel?.singleOrNull { it.mobile == waybillModel?.operatorMobile }
