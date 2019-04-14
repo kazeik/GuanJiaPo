@@ -16,7 +16,6 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.view.RecycleViewDivider
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_search_recycler.*
 import kotlinx.android.synthetic.main.view_title.*
 import org.jetbrains.anko.startActivity
