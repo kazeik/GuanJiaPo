@@ -183,6 +183,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         logs("tag", "type = $type")
         if (type == GpCom.ESC_COMMAND) {
             toast("请切换到标签模式下打印")
+            startActivityForResult<ConfigPrintActivity>(120)
             return
         }
         val xstart = 2
@@ -388,6 +389,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
         if (type == GpCom.LABEL_COMMAND) {
             toast("请切换到小票模式下打印")
+            startActivityForResult<ConfigPrintActivity>(120)
             return
         }
         val esc = EscCommand()
@@ -833,6 +835,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 ccStr = data.getStringExtra("data")
                 tvCc.text = ccStr
             }
+            120 -> checkGPprinter()
         }
     }
 

@@ -322,6 +322,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
         if (type == GpCom.ESC_COMMAND) {
             toast("请切换到标签模式下打印")
+            startActivityForResult<ConfigPrintActivity>(120)
             return
         }
         val xstart = 2
@@ -520,6 +521,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
         if (type == GpCom.LABEL_COMMAND) {
             toast("请切换到小票模式下打印")
+            startActivityForResult<ConfigPrintActivity>(120)
             return
         }
         val waybillModel: WaybillModel = allItem[pos]
@@ -642,9 +644,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                         }
                     })
             }
-            120 -> {
-                checkGPprinter()
-            }
+            120 ->  checkGPprinter()
             99 -> getOrderList()
         }
     }

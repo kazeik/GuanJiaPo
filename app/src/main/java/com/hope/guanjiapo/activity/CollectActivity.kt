@@ -36,7 +36,6 @@ import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.SdcardUtils
 import com.hope.guanjiapo.utils.TimeUtil
 import com.hope.guanjiapo.utils.Utils
-import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_collect.*
 import kotlinx.android.synthetic.main.view_title.*
