@@ -318,7 +318,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                 val fileDir = "${sdUtils.sdCardPath}GuanJiaPo/file"
                 sdUtils.createDir(fileDir)
                 val fileName =
-                    "$fileDir/汇总交接单${TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)}.xls"
+                    "$fileDir/汇总交接单${TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMD_HMS)}.xls"
                 if (sdUtils.isFileExist(fileName)) {
                     sdUtils.deleteFile(fileName)
                 }
