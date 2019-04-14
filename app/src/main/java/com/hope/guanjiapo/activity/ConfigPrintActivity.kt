@@ -154,6 +154,9 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 //                    setProgressBarIndeterminateVisibility(false)
 //                    SetLinkButtonEnable(ListViewAdapter.ENABLE)
 //                    messageBox("Please use Gprinter!")
+                    allDevice[choiceIndex!!].status = 2
+                    adapter.setDataEntityList(allDevice)
+                    hideDialog()
                 }
             }
         }

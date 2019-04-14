@@ -27,6 +27,7 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.service.PrinterServiceConnection
 import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.staffModel
@@ -77,6 +78,8 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
     private fun connection() {
         conn = PrinterServiceConnection()
         bindService(Intent(this, GpPrintService::class.java), conn, Context.BIND_AUTO_CREATE) // bindService
+        logs("tag", "connection")
+        checkGPprinter()
     }
 
     private val mBroadcastReceiver = object : BroadcastReceiver() {
@@ -92,7 +95,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                     val status = intent.getIntExtra(GpCom.EXTRA_PRINTER_REAL_STATUS, 16)
                     var str: String
                     if (status == GpCom.STATE_NO_ERR) {
-                        ApiUtils.connectionStatus = true
+                        connectionStatus = true
                         str = "打印机正常"
                     } else {
                         str = "打印机 "
@@ -176,7 +179,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
      */
     private fun printBq() {
         val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
-        Utils.logs("tag", "type = $type")
+        logs("tag", "type = $type")
         if (type == GpCom.ESC_COMMAND) {
             toast("请切换到标签模式下打印")
             return
@@ -616,7 +619,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         hdfsStr = waybillModel?.copycount
         tzfh = if (TextUtils.isEmpty(waybillModel?.waitnotify)) 0 else waybillModel?.waitnotify?.toInt()!!
         initDevice()
-        checkGPprinter()
     }
 
     private fun checkGPprinter() {
@@ -679,12 +681,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.ivGys -> startActivityForResult<SupplierActivity>(197)
             R.id.ivLxr -> startActivityForResult<ConsignerActivity>(196)
             R.id.btnPrintBq -> //sendLabel()
-                if (ApiUtils.connectionStatus)
+                if (connectionStatus)
                     printBq()
                 else
                     startActivityForResult<ConfigPrintActivity>(120)
             R.id.btnPrintXp -> {
-                if (!ApiUtils.connectionStatus) {
+                if (!connectionStatus) {
                     startActivityForResult<ConfigPrintActivity>(120)
                     return
                 }
@@ -793,6 +795,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 120) checkGPprinter()
         if (null == data) return
         when (requestCode) {
             200 -> {
@@ -824,9 +827,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
             201 -> {
                 ccStr = data.getStringExtra("data")
                 tvCc.text = ccStr
-            }
-            120 -> {
-                checkGPprinter()
             }
         }
     }
