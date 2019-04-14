@@ -80,7 +80,6 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
 
     private fun connection() {
         conn = PrinterServiceConnection()
-        logs("tag", "connection")
         bindService(Intent(this, GpPrintService::class.java), conn, Context.BIND_AUTO_CREATE) // bindService
     }
 
