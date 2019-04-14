@@ -517,6 +517,11 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
      *   扫码查询运单
      */
     private fun printXp(pos: Int) {
+        val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
+        if (type == GpCom.LABEL_COMMAND) {
+            toast("请切换到小票模式下打印")
+            return
+        }
         val waybillModel: WaybillModel = allItem[pos]
         val esc = EscCommand()
         esc.addInitializePrinter()
