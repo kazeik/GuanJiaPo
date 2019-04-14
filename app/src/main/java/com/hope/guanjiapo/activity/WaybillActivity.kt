@@ -119,6 +119,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
 
     private val paytype: Array<String> by lazy { resources.getStringArray(R.array.paytype) }
     private val recwaytype: Array<String> by lazy { resources.getStringArray(R.array.recwaytype) }
+    private val bzdw by lazy { resources.getStringArray(R.array.bzdw) }
 
     private fun connection() {
         conn = PrinterServiceConnection()
@@ -529,7 +530,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             EscCommand.FONT.FONTA,
             EscCommand.ENABLE.OFF,
             EscCommand.ENABLE.ON,
-            EscCommand.ENABLE.ON,
+            EscCommand.ENABLE.OFF,
             EscCommand.ENABLE.OFF
         )// 设置为倍高倍宽
         esc.addText("${vehicleModel?.companyname}\n")
@@ -560,7 +561,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addText(line)
         esc.addText("发货人:${waybillModel.sendername}\n")
         esc.addText(line)
-        esc.addText("品名:${waybillModel.productdescript} 件数:${waybillModel.productcount}  包装:\n")
+        esc.addText("品名:${waybillModel.productdescript} 件数:${waybillModel.productcount}  包装:${bzdw[waybillModel.recno!!]}\n")
         esc.addText(line)
         esc.addText("付款方式:${paytype[waybillModel.shipfeepaytype!!]} 提货方式:${recwaytype[waybillModel.recway!!]}  回单:${waybillModel.copycount}\n")
         esc.addText(line)
