@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.RemoteException
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.util.Base64
 import android.view.View
 import android.widget.CompoundButton
@@ -24,10 +25,12 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.service.PrinterServiceConnection
+import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.line
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
+import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
 import com.hope.guanjiapo.utils.Utils
@@ -43,7 +46,8 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
 
-class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener ,CompoundButton.OnCheckedChangeListener{
+class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListener,
+    CompoundButton.OnCheckedChangeListener {
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
         if (p1) {
             for (i in 0 until allItem.size)
@@ -293,6 +297,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     }
 
     /**
+     * 公司名（大字号）
      * 发货点：            单号：   业务：18888888888（业务员的电话，中字号）
      * ------------------
      * 收货方：（大字号）                    电话：
@@ -325,79 +330,116 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         tsc.addReference(0, 10)// 设置原点坐标
         tsc.addTear(EscCommand.ENABLE.ON) // 撕纸模式开启
         tsc.addCls()// 清除打印缓冲区
-        // 绘制简体中文
+
         tsc.addText(
-            xstart,
+            200,
             ystart,
             LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
             LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_2,
+            LabelCommand.FONTMUL.MUL_2,
+            "${vehicleModel?.companyname}"
+        )
+
+        // 绘制简体中文
+        tsc.addText(
+            xstart,
+            200,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
-            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_2,
             "${item.senderaddress}=>${item.receivepoint}   单号:${item.id} 业务:${item.operatorMobile}"
         )
 
-        tsc.addBar(xstart, 175, 520, 2)
+        tsc.addBar(xstart, 250, 550, 2)
         tsc.addText(
             xstart,
-            190,
+            265,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_2,
+            "收货方:${item.receivername}"
+        )
+        tsc.addText(
+            330,
+            265,
             LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "收货方:${item.receivername}           电话:${item.receiverphone}"
+            "电话:${item.receiverphone}"
+        )
+        tsc.addText(
+            xstart,
+            320,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_1,
+            "收货地址:${item.receiveraddress}"
         )
 
         tsc.addText(
             xstart,
-            230,
+            360,
             LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "发货方:${item.receivername}           电话:${item.senderphone}"
+            "发货方:${item.sendername}           电话:${item.senderphone}"
+        )
+        tsc.addText(
+            xstart,
+            400,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_2,
+            "数量:${item.productcount}"
+        )
+        tsc.addText(
+            xstart,
+            470,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_1,
+            "货物名称:${item.productdescript}(${item.productcount})"
+        )
+        tsc.addText(
+            xstart,
+            520,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_1,
+            "代收款:${if (TextUtils.isEmpty(item.agentmoney)) "0" else item.agentmoney}  中转:${if (TextUtils.isEmpty(item.shipfeesendpay)) "" else item.agentmoney}"
+        )
+        tsc.addText(
+            xstart,
+            570,
+            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
+            LabelCommand.ROTATION.ROTATION_0,
+            LabelCommand.FONTMUL.MUL_1,
+            LabelCommand.FONTMUL.MUL_1,
+            "运费:${item.shipfee}  ${paytype[item.shipfeepaytype!!]}"
         )
 
         tsc.addText(
             xstart,
-            270,
+            620,
             LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "名称:${item.productdescript}(${item.productcount})"
-        )
-        tsc.addText(
-            xstart,
-            310,
-            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
-            LabelCommand.ROTATION.ROTATION_0,
-            LabelCommand.FONTMUL.MUL_1,
-            LabelCommand.FONTMUL.MUL_1,
-            "代收款:${item.agentmoney}  中转:${item.agentmoney}"
-        )
-        tsc.addText(
-            xstart,
-            350,
-            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
-            LabelCommand.ROTATION.ROTATION_0,
-            LabelCommand.FONTMUL.MUL_1,
-            LabelCommand.FONTMUL.MUL_1,
-            "运费:${item.baseshipfee}  ${paytype[item.shipfeepaytype!!]}"
+            "备注:${if (TextUtils.isEmpty(item.comment)) "" else item.comment}"
         )
 
         tsc.addText(
             xstart,
-            390,
-            LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
-            LabelCommand.ROTATION.ROTATION_0,
-            LabelCommand.FONTMUL.MUL_1,
-            LabelCommand.FONTMUL.MUL_1,
-            "备注:${item.comment}"
-        )
-
-        tsc.addText(
-            xstart,
-            455,
+            660,
             LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE,
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
@@ -410,7 +452,14 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
 //        val b = BitmapFactory.decodeResource(resources, R.drawable.gprinter)
 //        tsc.addBitmap(20, 50, LabelCommand.BITMAP_MODE.OVERWRITE, b.width, b)
 
-        tsc.addQRCode(350, 280, LabelCommand.EEC.LEVEL_L, 8, LabelCommand.ROTATION.ROTATION_0, " www.smarnet.cc")
+        tsc.addQRCode(
+            320,
+            400,
+            LabelCommand.EEC.LEVEL_L,
+            6,
+            LabelCommand.ROTATION.ROTATION_0,
+            "https://wl56.mmd520.cn/api/order/wlcustomersearch?orderid=${item.id}"
+        )
 //        // 绘制一维条码
 //        tsc.add1DBarcode(
 //            20,
@@ -427,11 +476,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         val datas = tsc.command // 发送数据
         val bytes = GpUtils.ByteTo_byte(datas)
         val str = Base64.encodeToString(bytes, Base64.DEFAULT)
-        logs("tag", "str =$str")
         val rel: Int
         try {
             rel = conn?.mGpService?.sendLabelCommand(mPrinterIndex, str)!!
-            Utils.logs("tag", "错误 =  $rel")
+            logs("tag", "错误 =  $rel")
             val r = GpCom.ERROR_CODE.values()[rel]
             if (r != GpCom.ERROR_CODE.SUCCESS) {
                 toast(GpCom.getErrorText(r))

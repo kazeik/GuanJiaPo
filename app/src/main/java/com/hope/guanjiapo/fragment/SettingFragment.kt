@@ -113,6 +113,9 @@ class SettingFragment : BaseFragment(), OnItemEventListener {
                 ?.subscribe(object : ProgressSubscriber<BaseModel<String>>(activity!!) {
                     override fun onSuccess(data: BaseModel<String>?) {
                         toast(data?.msg!!)
+                        if(data.code == "success"){
+                            vehicleModel?.companyname = editText.text.toString()
+                        }
                     }
                 })
         }
