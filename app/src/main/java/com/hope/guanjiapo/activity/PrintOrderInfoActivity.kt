@@ -33,7 +33,8 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.staffModel
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
-import com.hope.guanjiapo.utils.Utils
+import com.hope.guanjiapo.utils.Utils.digitUppercase
+import com.hope.guanjiapo.utils.Utils.formatDouble
 import com.hope.guanjiapo.utils.Utils.logs
 import kotlinx.android.synthetic.main.activity_print_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -434,7 +435,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         esc.addText(ApiUtils.line)
         esc.addText("付款方式:${paytype[waybillModel?.shipfeepaytype!!]} 提货方式:${recwaytype[waybillModel?.recway!!]}  回单:${waybillModel?.copycount}\n")
         esc.addText(ApiUtils.line)
-        esc.addText("运费合计:${waybillModel?.shipfee} ${Utils.toChinese(waybillModel?.shipfee!!)}元整\n")
+        esc.addText("运费合计:${waybillModel?.shipfee} ${digitUppercase(if (TextUtils.isEmpty(waybillModel?.shipfee)) 0.0 else waybillModel?.shipfee?.toDouble()!!)}\n")
         esc.addText("代收款:${waybillModel?.agentmoney} \n")
         esc.addText(ApiUtils.line)
         esc.addText("备注:${waybillModel?.comment}\n")
@@ -652,7 +653,7 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
         val yf = p0!! + p1!! + p2!!
         val hj = p0 + p1 + p2 + p3!! + p4!!
-        tvAllMoney.text = "运费：$yf 合计(含代收中转):$hj"
+        tvAllMoney.text = "运费：${formatDouble(yf)} 合计(含代收中转):${formatDouble(hj)}"
     }
 
     private fun showBzdwListDialog() {
@@ -677,12 +678,12 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
                 "hdfs" to hdfsStr,
                 "tzfh" to tzfh
             )
-            R.id.tvCc -> startActivityForResult<VehicleActivity>(201)
+            R.id.tvCc -> startActivityForResult<VehicleActivity>(201, "a" to true)
             R.id.tvBzdw -> showBzdwListDialog()
             R.id.ivFhd -> startActivityForResult<ShipmentsActivity>(195)
             R.id.ivMdd -> startActivityForResult<DestinationActivity>(199)
             R.id.ivShr -> startActivityForResult<ConsigneeActivity>(198)
-            R.id.ivGys -> startActivityForResult<SupplierActivity>(197)
+            R.id.ivGys -> startActivityForResult<SupplierActivity>(197, "a" to true)
             R.id.ivLxr -> startActivityForResult<ConsignerActivity>(196)
             R.id.btnPrintBq -> //sendLabel()
                 if (connectionStatus)

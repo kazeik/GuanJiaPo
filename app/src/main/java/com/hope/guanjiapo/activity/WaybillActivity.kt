@@ -32,8 +32,8 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
+import com.hope.guanjiapo.utils.Utils.digitUppercase
 import com.hope.guanjiapo.utils.Utils.logs
-import com.hope.guanjiapo.utils.Utils.toChinese
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_waybill.*
 import kotlinx.android.synthetic.main.view_title.*
@@ -568,7 +568,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addText(line)
         esc.addText("付款方式:${paytype[waybillModel.shipfeepaytype!!]} 提货方式:${recwaytype[waybillModel.recway!!]}  回单:${waybillModel.copycount}\n")
         esc.addText(line)
-        esc.addText("运费合计:${waybillModel.shipfee} ${toChinese(waybillModel.shipfee!!)}元整\n")
+        esc.addText("运费合计:${waybillModel.shipfee} ${digitUppercase(if (TextUtils.isEmpty(waybillModel.shipfee)) 0.0 else waybillModel.shipfee?.toDouble()!!)}元整\n")
         esc.addText("代收款:${waybillModel.agentmoney} \n")
         esc.addText(line)
         esc.addText("备注:${waybillModel.comment}\n")

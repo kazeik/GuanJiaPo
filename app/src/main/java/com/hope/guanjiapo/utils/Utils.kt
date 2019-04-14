@@ -2,9 +2,12 @@ package com.hope.guanjiapo.utils
 
 import android.content.Context
 import android.content.pm.PackageInfo
+import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.hope.guanjiapo.BuildConfig
+import java.math.RoundingMode
+import java.text.NumberFormat
 import java.util.regex.Pattern
 
 /**
@@ -39,22 +42,55 @@ object Utils {
         }
     }
 
-    fun toChinese(str: String): String {
-        val s1: Array<String> = arrayOf("零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖")
-        val s2: Array<String> = arrayOf("拾", "佰", "仟", "萬", "拾", "佰", "仟", "亿", "拾", "佰", "仟")
-        var result: String = ""
-        val n: Int = str.length
-        for (i in 0 until n) {
-            val num: Int = str.get(i) - '0'
-            if (i != n - 1 && num != 0) {
-                result += s1[num] + s2[n - 2 - i]
-            } else {
-                result += s1[num]
-            }
-        }
-        return result
+    fun formatDouble(d: Double): String {
+        val nf = NumberFormat.getNumberInstance()
+        nf.maximumFractionDigits = 2
+        nf.roundingMode = RoundingMode.UP
+        return nf.format(d)
     }
 
+    fun digitUppercase(value: Double): String {
+        var n = value
+        val fraction = arrayOf("角", "分")
+        val digit = arrayOf("零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖")
+        val unit = arrayOf(arrayOf("元", "万", "亿"), arrayOf("", "拾", "佰", "仟"))
+
+        val head = if (n < 0) "负" else ""
+        n = Math.abs(n)
+
+        var s = ""
+        for (i in fraction.indices) {
+            s += (digit[(Math.floor(
+                n * 10.0 * Math.pow(
+                    10.0,
+                    i.toDouble()
+                )
+            ) % 10).toInt()] + fraction[i]).replace("(零.)+".toRegex(), "")
+        }
+        if (s.length < 1) {
+            s = "整"
+        }
+        var integerPart = Math.floor(n).toInt()
+
+        var i = 0
+        while (i < unit[0].size && integerPart > 0) {
+            var p = ""
+            var j = 0
+            while (j < unit[1].size && n > 0) {
+                p = digit[integerPart % 10] + unit[1][j] + p
+                integerPart = integerPart / 10
+                j++
+            }
+            s = p.replace("(零.)*零$".toRegex(), "").replace("^$".toRegex(), "零") + unit[0][i] + s
+            i++
+        }
+        return head + s.replace("(零.)*零元".toRegex(), "元").replaceFirst("(零.)+".toRegex(), "").replace(
+            "(零.)+".toRegex(),
+            "零"
+        ).replace(
+            "^整$".toRegex(), "零元整"
+        )
+    }
 
     /**
      * 检测程序是否安装

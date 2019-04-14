@@ -110,6 +110,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
             logs("tag", "连接状态$flag & $r")
             if (r != GpCom.ERROR_CODE.SUCCESS) {
                 if (r == GpCom.ERROR_CODE.DEVICE_ALREADY_OPEN) {
+                    hideDialog()
                     allDevice[choiceIndex!!].status = 3
                     adapter.setDataEntityList(allDevice)
                 }
