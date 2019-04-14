@@ -454,19 +454,11 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             "https://wl56.mmd520.cn/api/order/wlcustomersearch?orderid=${item.id}"
         )
-//        // 绘制一维条码
-//        tsc.add1DBarcode(
-//            20,
-//            250,
-//            LabelCommand.BARCODETYPE.CODE128,
-//            100,
-//            LabelCommand.READABEL.EANBEL,
-//            LabelCommand.ROTATION.ROTATION_0,
-//            "SMARNET"
-//        )
         tsc.addPrint(1, 1) // 打印标签
 //        tsc.addSound(2, 100) // 打印标签后 蜂鸣器响
         tsc.addCashdrwer(LabelCommand.FOOT.F5, 255, 255)
+        //用于连续打印
+//        tsc.addQueryPrinterStatus(LabelCommand.RESPONSE_MODE.ON)
         val datas = tsc.command // 发送数据
         val bytes = GpUtils.ByteTo_byte(datas)
         val str = Base64.encodeToString(bytes, Base64.DEFAULT)

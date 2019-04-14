@@ -25,7 +25,7 @@
         android:padding="@dimen/dp_5"
         android:visibility="invisible"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_16" />
 
 
     <ImageView

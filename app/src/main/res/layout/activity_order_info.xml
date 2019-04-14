@@ -34,7 +34,7 @@
                         android:text="车次"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
@@ -46,7 +46,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -59,13 +59,13 @@
                 <TextView
                         android:text="快递单号"
                         android:layout_margin="@dimen/dp_10"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="@dimen/dp_70"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etKddh"
                         android:layout_gravity="center_vertical"
@@ -97,11 +97,11 @@
                         android:id="@+id/tvMdd"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etMdd"
                         android:layout_toLeftOf="@id/ivMdd"
@@ -130,7 +130,7 @@
 
                 <TextView
                         android:text="收货人"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:id="@+id/tvShr"
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etShr"
                         android:hint="请输入收货人"
@@ -159,7 +159,7 @@
 
                 <TextView
                         android:text="收货方式"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
@@ -222,7 +222,7 @@
 
                 <TextView
                         android:text="货物名称"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:id="@+id/tvHwmc"
@@ -230,7 +230,7 @@
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etHwmc"
                         android:hint="请输入货物名称"
@@ -251,7 +251,7 @@
 
                 <TextView
                         android:text="包装单位"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:layout_gravity="center_vertical"
@@ -265,7 +265,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -277,14 +277,14 @@
 
                 <TextView
                         android:text="货物数量"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="@dimen/dp_120"
                         android:id="@+id/etHwsl"
                         android:hint="请输入数量"
@@ -300,7 +300,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -312,14 +312,14 @@
 
                 <TextView
                         android:text="重量"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="@dimen/dp_120"
                         android:id="@+id/etZl"
                         android:layout_gravity="center_vertical"
@@ -335,7 +335,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -347,14 +347,14 @@
 
                 <TextView
                         android:text="体积"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="@dimen/dp_120"
                         android:id="@+id/etTj"
                         android:layout_gravity="center_vertical"
@@ -370,14 +370,14 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <TextView
                     android:id="@+id/tvAllMoney"
                     android:text="运费：0"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     android:layout_margin="@dimen/dp_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -390,7 +390,7 @@
 
                 <TextView
                         android:text="基本运费"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:drawableRight="@drawable/ic_star"
@@ -398,7 +398,7 @@
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etJbyf"
                         android:hint="请输入基本运费"
@@ -417,7 +417,7 @@
 
                 <TextView
                         android:text="派送费"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:layout_gravity="center_vertical"
@@ -428,7 +428,7 @@
                         android:id="@+id/etPsh"
                         android:layout_gravity="center_vertical"
                         android:hint="请输入派送费"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -443,14 +443,14 @@
 
                 <TextView
                         android:text="保费"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etBf"
                         android:layout_gravity="center_vertical"
@@ -469,14 +469,14 @@
 
                 <TextView
                         android:text="中转费"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/etZzh"
@@ -495,14 +495,14 @@
 
                 <TextView
                         android:text="代收款"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etDsk"
                         android:hint="请输入代收款"
@@ -521,14 +521,14 @@
 
                 <TextView
                         android:text="成本"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etCb"
                         android:layout_gravity="center_vertical"
@@ -555,7 +555,7 @@
 
                 <TextView
                         android:text="供应商"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:id="@+id/tvGys"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
@@ -563,7 +563,7 @@
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etGys"
                         android:layout_toLeftOf="@id/ivGys"
@@ -583,7 +583,7 @@
 
                 <TextView
                         android:text="服务及费用"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_80"
@@ -596,7 +596,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -608,7 +608,7 @@
 
                 <TextView
                         android:text="支付方式"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
@@ -683,11 +683,11 @@
                         android:id="@+id/tvFhd"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etFhd"
                         android:layout_toLeftOf="@id/ivFhd"
@@ -717,7 +717,7 @@
                 <TextView
                         android:text="发货人"
                         android:id="@+id/tvFhr"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
@@ -725,7 +725,7 @@
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etFhr"
                         android:layout_toRightOf="@id/tvFhr"
@@ -747,14 +747,14 @@
 
                 <TextView
                         android:text="备注"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etBz"
                         android:layout_gravity="center_vertical"

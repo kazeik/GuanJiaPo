@@ -26,7 +26,7 @@
                 android:hint="员工名字"
                 android:singleLine="true"
                 android:maxLines="1"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -49,7 +49,7 @@
                 android:id="@+id/etPhone"
                 android:hint="登录手机号"
                 android:singleLine="true"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_16"
                 android:maxLines="1"
                 android:inputType="phone"
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                 android:hint="登录密码"
                 android:singleLine="true"
                 android:maxLines="1"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_16"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

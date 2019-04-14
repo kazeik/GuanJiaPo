@@ -43,7 +43,7 @@
             android:id="@+id/cbAll"
             android:background="@color/orger"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_14"
+            android:textSize="@dimen/sp_16"
             android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView

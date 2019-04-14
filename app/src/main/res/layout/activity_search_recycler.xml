@@ -14,7 +14,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:id="@+id/etSearch"
-            android:textSize="@dimen/sp_14"
+            android:textSize="@dimen/sp_16"
             android:imeOptions="actionSearch"
             android:layout_margin="@dimen/dp_10"/>
 

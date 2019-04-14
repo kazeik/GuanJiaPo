@@ -26,7 +26,7 @@
                         android:text="开始日期"
                         android:layout_margin="@dimen/dp_10"
                         android:layout_width="@dimen/dp_70"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"/>
 
@@ -38,7 +38,7 @@
                         android:padding="@dimen/dp_5"
                         android:layout_width="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -52,7 +52,7 @@
             <!--android:text="结束日期"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_gravity="center_vertical"-->
             <!--android:layout_height="wrap_content"/>-->
 
@@ -64,7 +64,7 @@
             <!--android:padding="@dimen/dp_5"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
             <!--</LinearLayout>-->
 
@@ -78,7 +78,7 @@
             <!--android:text="车次"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_gravity="center_vertical"-->
             <!--android:layout_height="wrap_content"/>-->
 
@@ -90,7 +90,7 @@
             <!--android:padding="@dimen/dp_5"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
             <!--</LinearLayout>-->
 
@@ -104,7 +104,7 @@
             <!--android:text="业务员"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_gravity="center_vertical"-->
             <!--android:layout_height="wrap_content"/>-->
 
@@ -116,7 +116,7 @@
             <!--android:padding="@dimen/dp_5"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
             <!--</LinearLayout>-->
 
@@ -141,11 +141,11 @@
             <!--android:id="@+id/tvMdd"-->
             <!--android:layout_alignParentLeft="true"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
 
             <!--<EditText-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_width="match_parent"-->
             <!--android:id="@+id/etMdd"-->
             <!--android:inputType="phone"-->
@@ -180,7 +180,7 @@
                         android:id="@+id/tvShdh"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
@@ -190,7 +190,7 @@
                         android:layout_marginBottom="@dimen/dp_10"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etShdh"
                         android:inputType="phone"
@@ -215,7 +215,7 @@
             <!--android:text="发货点"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_gravity="center_vertical"-->
             <!--android:layout_height="wrap_content"/>-->
 
@@ -227,7 +227,7 @@
             <!--android:padding="@dimen/dp_5"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
             <!--</LinearLayout>-->
 
@@ -251,7 +251,7 @@
                         android:id="@+id/tvFhdh"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
@@ -261,7 +261,7 @@
                         android:layout_marginBottom="@dimen/dp_10"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etFhdh"
                         android:inputType="phone"
@@ -296,7 +296,7 @@
                         android:id="@+id/tvDh"
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
@@ -306,7 +306,7 @@
                         android:layout_marginBottom="@dimen/dp_10"/>
 
                 <EditText
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:layout_width="match_parent"
                         android:id="@+id/etDh"
                         android:inputType="textEmailAddress"
@@ -330,7 +330,7 @@
             <!--android:text="运单状态"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_gravity="center_vertical"-->
             <!--android:layout_height="wrap_content"/>-->
 
@@ -342,7 +342,7 @@
             <!--android:padding="@dimen/dp_5"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_gravity="center_vertical"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_height="wrap_content"/>-->
             <!--</LinearLayout>-->
 
@@ -356,7 +356,7 @@
             <!--android:text="代收款"-->
             <!--android:layout_margin="@dimen/dp_10"-->
             <!--android:layout_width="@dimen/dp_70"-->
-            <!--android:textSize="@dimen/sp_14"-->
+            <!--android:textSize="@dimen/sp_16"-->
             <!--android:layout_centerVertical="true"-->
             <!--android:layout_alignParentLeft="true"-->
             <!--android:layout_gravity="center_vertical"-->

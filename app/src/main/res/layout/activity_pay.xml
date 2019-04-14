@@ -15,7 +15,7 @@
 
     <TextView
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_14"
+            android:textSize="@dimen/sp_16"
             android:layout_margin="@dimen/dp_25"
             android:text="物流管家婆与你一起拓展事业版图，\n试用期到后，请付费使用"
             android:gravity="center_horizontal"
@@ -43,7 +43,7 @@
 
     <TextView
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_14"
+            android:textSize="@dimen/sp_16"
             android:layout_margin="@dimen/dp_25"
             android:text="邮箱：37688599@qq.com，\n客服QQ：37688599"
             android:layout_width="wrap_content"

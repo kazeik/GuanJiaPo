@@ -15,6 +15,6 @@
             android:maxLines="5"
             android:gravity="top|left"
             android:id="@+id/etFooter"
-            android:textSize="@dimen/sp_14"
+            android:textSize="@dimen/sp_16"
             android:layout_height="wrap_content"/>
 </LinearLayout>
