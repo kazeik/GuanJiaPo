@@ -18,6 +18,7 @@ import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.PreferencesUtils
+import com.hope.guanjiapo.utils.Utils.formatDouble
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.view_title.*
 import okhttp3.MediaType
@@ -47,7 +48,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
     private var change: Boolean? = false
     private var flag: Boolean? = false
 
-    private var yf:Double?=0.0
+    private var yf: Double? = 0.0
 
     private val hwmc: ArrayList<String> by lazy { arrayListOf<String>() }
 
@@ -137,7 +138,7 @@ class OrderInfoActivity : BaseActivity(), View.OnClickListener {
         val p4: Double? = if (TextUtils.isEmpty(item5)) 0.0 else item5.toDouble()
         yf = p0!! + p1!! + p2!!
         val hj = p0 + p1 + p2 + p3!! + p4!!
-        tvAllMoney.text = "运费：$yf 合计(含代收中转):$hj"
+        tvAllMoney.text = "运费：${formatDouble(yf!!)} 合计(含代收中转):${formatDouble(hj)}"
     }
 
 

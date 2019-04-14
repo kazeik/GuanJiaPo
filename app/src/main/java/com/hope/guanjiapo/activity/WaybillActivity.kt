@@ -614,9 +614,10 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 120) checkGPprinter()
+        if (null == data) return
         when (requestCode) {
             119 -> {
-                if (null == data) return
                 val map = data.getSerializableExtra("data") as HashMap<String, Any>
                 var tempData =
                     "onlyDriver=0&clientCategory=4&clientVersion=1.0&mobile=${loginModel?.mobile!!}&sessionId=$sessionid&id=${loginModel?.id!!}"
@@ -644,7 +645,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                         }
                     })
             }
-            120 ->  checkGPprinter()
             99 -> getOrderList()
         }
     }
