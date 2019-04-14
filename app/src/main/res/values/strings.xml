@@ -208,12 +208,8 @@
     <string name="register_ok">注册成功</string>
     <string name="error_address_empty">地址信息不能为空</string>
     <string name="error_password_length">密码长度不能小于6位或大于16位</string>
-    <string name="str">2019-05-15 23:59:59</string>
+    <string name="str">2019-04-20 23:59:59</string>
     <string name="payaccount">购买会员</string>
     <string name="perfersetting">偏好设置</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>
