@@ -343,7 +343,6 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
         val rel: Int
         try {
             rel = conn?.mGpService?.sendLabelCommand(mPrinterIndex, str)!!
-            Utils.logs("tag", "错误 =  $rel")
             val r = GpCom.ERROR_CODE.values()[rel]
             if (r != GpCom.ERROR_CODE.SUCCESS) {
                 toast(GpCom.getErrorText(r))
@@ -385,6 +384,11 @@ class PrintOrderInfoActivity : BaseActivity(), View.OnClickListener {
      *   扫码查询运单
      */
     private fun printXp() {
+        val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
+        if (type == GpCom.LABEL_COMMAND) {
+            toast("请切换到小票模式下打印")
+            return
+        }
         val esc = EscCommand()
         esc.addInitializePrinter()
         esc.addPrintAndFeedLines(3.toByte())
