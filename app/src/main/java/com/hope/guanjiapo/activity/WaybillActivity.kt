@@ -25,7 +25,6 @@ import com.hope.guanjiapo.net.HttpNetUtils
 import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.service.PrinterServiceConnection
-import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.line
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
@@ -33,7 +32,6 @@ import com.hope.guanjiapo.utils.ApiUtils.sessionid
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.TimeUtil
-import com.hope.guanjiapo.utils.Utils
 import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.utils.Utils.toChinese
 import com.hope.guanjiapo.view.RecycleViewDivider
@@ -68,7 +66,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
             R.id.btnPrintBq -> //sendLabel()
-//                printBq(0)
                 if (connectionStatus)
                     printBq(0)
                 else
@@ -492,11 +489,14 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
     /**
      * @param pos
      *          打印小票
+     *          公司名称
      *          现付 自提
+     *   ---------------
      *   单号：     日期：
      *   广州 =》 江苏
      *   ----------------
      *   收货人：   电话：
+     *   收货地址
      *   ----------------
      *   发货人：
      *   ----------------
@@ -507,6 +507,8 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
      *   运费合计： 108  壹佰零捌元整
      *   代收款：
      *   ----------------
+     *   备注
+     *   -----------------
      *   谢谢惠顾
      *    **********
      *    **********
@@ -530,6 +532,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             EscCommand.ENABLE.ON,
             EscCommand.ENABLE.OFF
         )// 设置为倍高倍宽
+        esc.addText("${vehicleModel?.companyname}\n")
         esc.addText("${paytype[waybillModel.shipfeepaytype!!]} ${recwaytype[waybillModel.recway!!]}\n") // 打印文字
         esc.addPrintAndLineFeed()
 
@@ -553,6 +556,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addText(line)
         /* 绝对位置 具体详细信息请查看GP58编程手册 */
         esc.addText("收货人:${waybillModel.receivername}  电话:${waybillModel.receiverphone}\n")
+        esc.addText("收货地址:${waybillModel.receiveraddress}\n")
         esc.addText(line)
         esc.addText("发货人:${waybillModel.sendername}\n")
         esc.addText(line)
@@ -563,14 +567,16 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         esc.addText("运费合计:${waybillModel.shipfee} ${toChinese(waybillModel.shipfee!!)}元整\n")
         esc.addText("代收款:${waybillModel.agentmoney} \n")
         esc.addText(line)
+        esc.addText("备注:${waybillModel.comment}\n")
+        esc.addText(line)
         /*
 		 * QRCode命令打印 此命令只在支持QRCode命令打印的机型才能使用。 在不支持二维码指令打印的机型上，则需要发送二维条码图片
 		 */
         val footer = PreferencesUtils.getString(this, "footer")
         esc.addText("$footer\n") // 打印文字
         esc.addSelectErrorCorrectionLevelForQRCode(0x31.toByte()) // 设置纠错等级
-        esc.addSelectSizeOfModuleForQRCode(12.toByte())// 设置qrcode模块大小
-        esc.addStoreQRCodeData("www.smarnet.cc")// 设置qrcode内容
+        esc.addSelectSizeOfModuleForQRCode(6.toByte())// 设置qrcode模块大小
+        esc.addStoreQRCodeData("https://wl56.mmd520.cn/api/order/wlcustomersearch?orderid=${waybillModel.id}")// 设置qrcode内容
         esc.addPrintQRCode()// 打印QRCode
         esc.addPrintAndLineFeed()
 
