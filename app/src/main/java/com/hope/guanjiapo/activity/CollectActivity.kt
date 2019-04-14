@@ -183,7 +183,7 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                     21 -> {
                         var value = 0.0
                         for (item in allData!!) {
-                            value += if (item.shipfeestate == 0) 0.0 else checkDValue(item.shipfee)
+                            value += if (item.shipfeestate == 0 || TextUtils.isEmpty(item.shipfee)) 0.0 else item.shipfee?.toDouble()!!
                         }
                         all.add("$value")
                     }
