@@ -150,6 +150,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     loginModel = data?.data!!
                     sessionid = data.sessionId!!
                     startActivity<MainActivity>()
+                    finish()
                 }
 
                 override fun reLogin() {

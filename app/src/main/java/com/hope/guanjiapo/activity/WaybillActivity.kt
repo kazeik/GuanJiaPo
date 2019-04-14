@@ -65,11 +65,19 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         when (v?.id) {
             R.id.ivBackup -> finish()
             R.id.tvTitleRight -> startActivityForResult<SearchActivity>(119)
-            R.id.btnPrintBq -> //sendLabel()
-                if (connectionStatus)
-                    printBq(0)
-                else
+            R.id.btnPrintBq -> {
+                if (connectionStatus) {
+                    val temp = getChooice()
+                    if (temp.isNullOrEmpty()) {
+                        toast("请选择您要打印的数据")
+                        return
+                    }
+                    temp.forEach {
+                        printBq(it)
+                    }
+                } else
                     startActivityForResult<ConfigPrintActivity>(120)
+            }
             R.id.btnPrintXp -> {
                 if (!connectionStatus) {
                     startActivityForResult<ConfigPrintActivity>(120)
@@ -80,7 +88,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     toast("请选择您要打印的数据")
                     return
                 }
-                printXp(getChooice()[0])
+                temp.forEach { printXp(temp[it]) }
             }
             R.id.btnAllPrint -> {
                 val choice = getChooice()
@@ -263,7 +271,8 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     }
                 } else if (action == GpCom.ACTION_RECEIPT_RESPONSE) {
                     if (--mTotalCopies > 0) {
-//                    sendReceiptWithResponse()
+//                        printXp(0)
+                        logs("tag", "receipt = mTotalCopies = $mTotalCopies")
                     }
                 } else if (action == GpCom.ACTION_LABEL_RESPONSE) {
                     val data = intent.getByteArrayExtra(GpCom.EXTRA_PRINTER_LABEL_RESPONSE)
@@ -278,7 +287,9 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
                     logs("LABEL RESPONSE", d)
 
                     if (--mTotalCopies > 0 && d[1].toInt() == 0x00) {
-//                        sendLabelWithResponse()
+//                        val temp = getChooice()
+//                        printBq(0)
+                        logs("tag", "label = mTotalCopies = $mTotalCopies")
                     }
                 } else if (action == GpCom.ACTION_CONNECT_STATUS) {
                     val status = intent.getStringExtra(GpPrintService.CONNECT_STATUS)
@@ -309,7 +320,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
      */
     private fun printBq(pos: Int) {
         val type = conn?.mGpService?.getPrinterCommandType(mPrinterIndex)
-        logs("tag", "type = $type")
         if (type == GpCom.ESC_COMMAND) {
             toast("请切换到标签模式下打印")
             return
