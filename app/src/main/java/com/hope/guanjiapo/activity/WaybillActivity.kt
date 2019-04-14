@@ -406,7 +406,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "货物名称:${item.productdescript}(${item.productcount})"
+            "货物名称:${item.productdescript}"
         )
         tsc.addText(
             xstart,
@@ -415,7 +415,7 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
             LabelCommand.ROTATION.ROTATION_0,
             LabelCommand.FONTMUL.MUL_1,
             LabelCommand.FONTMUL.MUL_1,
-            "代收款:${if (TextUtils.isEmpty(item.agentmoney)) "0" else item.agentmoney}  中转:${if (TextUtils.isEmpty(item.shipfeesendpay)) "" else item.agentmoney}"
+            "代收款:${if (TextUtils.isEmpty(item.agentmoney)) "0" else item.agentmoney}  中转:${if (TextUtils.isEmpty(item.shipfeesendpay)) "" else item.shipfeesendpay}"
         )
         tsc.addText(
             xstart,
