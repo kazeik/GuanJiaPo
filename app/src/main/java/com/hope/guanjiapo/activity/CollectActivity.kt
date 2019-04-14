@@ -36,6 +36,7 @@ import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.SdcardUtils
 import com.hope.guanjiapo.utils.TimeUtil
 import com.hope.guanjiapo.utils.Utils
+import com.hope.guanjiapo.utils.Utils.formatDouble
 import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_collect.*
@@ -122,84 +123,78 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productcount)
-                            logs("tag", "件数 = ${item.productcount}")
                         }
-                        logs("tag", "总件数 = $value")
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     12 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productweight)
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     13 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productsize)
-                            logs("tag", "体积 = ${item.productsize}")
                         }
-                        logs("tag", "总体积 = $value")
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     14 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.shipfeesendpay)
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     15 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.insurancefee)
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     16 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.shipfee)
-                            logs("tag", "运费 = ${item.shipfee}")
                         }
-                        logs("tag", "总应收运费 = $value")
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     17 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.costFee)
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     18 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += (checkDValue(item.shipfee) - checkDValue(item.costFee))
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     21 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += if (item.shipfeestate == 0 || TextUtils.isEmpty(item.shipfee)) 0.0 else item.shipfee?.toDouble()!!
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     22 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += (checkDValue(item.shipfee) + checkDValue(item.shipfeesendpay) + checkDValue(item.agentmoney))
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     24 -> {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.shipfee) + checkDValue(item.shipfeesendpay) + checkDValue(item.agentmoney)
                         }
-                        all.add("$value")
+                        all.add(formatDouble(value))
                     }
                     else -> all.add("")
                 }
