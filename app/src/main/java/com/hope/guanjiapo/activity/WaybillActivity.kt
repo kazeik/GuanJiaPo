@@ -97,10 +97,6 @@ class WaybillActivity : BaseActivity(), OnItemEventListener, View.OnClickListene
         }
     }
 
-    /**
-     * 获取已选中的项
-     * @return ArrayList<Int>
-     */
     private fun getChooice(): ArrayList<Int> {
         val arrayInt: ArrayList<Int> = arrayListOf()
         for (entry in adapter.itemsStatus.entries) {
