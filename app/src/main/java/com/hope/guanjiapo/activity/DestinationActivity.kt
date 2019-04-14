@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.hope.guanjiapo.R
@@ -78,7 +79,11 @@ class DestinationActivity : BaseActivity(), View.OnClickListener, OnItemEventLis
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
-                val templist = allitem.filter { it.receivepoint.contains(msg) || it.operatorMobile.contains(msg) }
+                val templist = allitem.filter {
+                    (!TextUtils.isEmpty(it.receivepoint) && it.receivepoint.contains(msg)) || (!TextUtils.isEmpty(it.operatorMobile) && it.operatorMobile.contains(
+                        msg
+                    ))
+                }
                 adapter.setDataEntityList(templist)
             }
         })

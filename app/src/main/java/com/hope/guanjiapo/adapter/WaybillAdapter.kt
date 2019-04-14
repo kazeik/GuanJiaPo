@@ -3,6 +3,7 @@ package com.hope.guanjiapo.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.text.TextUtils
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -87,6 +88,6 @@ class WaybillAdapter<A>(private val context: Context) : BaseAdapter<A>() {
         tvItem2.text =
             "${entity.carname} ${orderstatus[entity.oderstate!!]} 件数:${entity.productcount} ${paytype[entity.shipfeepaytype!!]}  ${entity.shipfee}"
         tvItem3.text =
-            "代收款:${entity.agentmoney}  发货人:${entity.sendername} ${entity.senderaddress} => ${entity.receivepoint} ${entity.receivername}"
+            "代收款:${if (TextUtils.isEmpty(entity.agentmoney)) "0" else entity.agentmoney}  发货人:${entity.sendername} ${entity.senderaddress} => ${entity.receivepoint} ${entity.receivername}"
     }
 }

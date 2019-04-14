@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.hope.guanjiapo.R
@@ -107,7 +108,11 @@ class ConsignerActivity : BaseActivity(), View.OnClickListener, OnItemEventListe
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val msg = etSearch.text.toString()
                 val templist =
-                    allitem.filter { it.addr.contains(msg) || it.mobile.contains(msg) || it.name.contains(msg) }
+                    allitem.filter {
+                        (!TextUtils.isEmpty(it.addr) && it.addr.contains(msg)) || (!TextUtils.isEmpty(it.mobile) && it.mobile.contains(
+                            msg
+                        )) || (!TextUtils.isEmpty(it.name) && it.name.contains(msg))
+                    }
                 adapter.setDataEntityList(templist)
             }
         })
