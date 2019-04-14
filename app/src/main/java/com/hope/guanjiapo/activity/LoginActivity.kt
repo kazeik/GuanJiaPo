@@ -133,6 +133,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun relogin(isFore: Int) {
+        val session = PreferencesUtils.getString(this, "session")
         HttpNetUtils.getInstance().getManager()?.login(
             hashMapOf(
                 "account" to phone,
@@ -141,7 +142,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 "isForce" to isFore,
                 "mobile" to phone,
                 "password" to MD5Utils.MD5Encode(pass, "utf-8"),
-                "sessionId" to 0
+                "sessionId" to session!!
             )
         )
             ?.compose(NetworkScheduler.compose())
@@ -149,6 +150,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 override fun onSuccess(data: BaseModel<LoginModel>?) {
                     loginModel = data?.data!!
                     sessionid = data.sessionId!!
+                    PreferencesUtils.putString(this@LoginActivity, "session", data.sessionId!!)
                     startActivity<MainActivity>()
                     finish()
                 }
