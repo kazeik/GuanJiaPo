@@ -3,6 +3,7 @@ package com.hope.guanjiapo.utils
 import com.hope.guanjiapo.model.LoginModel
 import com.hope.guanjiapo.model.StaffModel
 import com.hope.guanjiapo.model.VehicleModel
+import com.hope.guanjiapo.service.PrinterServiceConnection
 
 
 /**
@@ -15,6 +16,7 @@ object ApiUtils {
     var loginModel: LoginModel? = null
     var connectionStatus: Boolean = false
     var sessionid: String? = null
+    var conn: PrinterServiceConnection? = null
     val line = "----------------------------------------\n"
 
     var vehicleModel: VehicleModel? = null

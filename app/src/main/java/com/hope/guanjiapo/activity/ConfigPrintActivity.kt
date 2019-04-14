@@ -19,6 +19,8 @@ import com.hope.guanjiapo.base.BaseActivity
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.PrintDeviceModel
 import com.hope.guanjiapo.service.PrinterServiceConnection
+import com.hope.guanjiapo.utils.ApiUtils
+import com.hope.guanjiapo.utils.PreferencesUtils
 import com.hope.guanjiapo.utils.Utils.logs
 import com.hope.guanjiapo.view.RecycleViewDivider
 import kotlinx.android.synthetic.main.activity_config_print.*
@@ -81,6 +83,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
     private fun connection() {
         conn = PrinterServiceConnection()
         bindService(Intent(this, GpPrintService::class.java), conn, Context.BIND_AUTO_CREATE) // bindService
+        ApiUtils.conn = conn
     }
 
     override fun onDestroy() {
@@ -100,6 +103,7 @@ class ConfigPrintActivity : BaseActivity(), OnItemEventListener, View.OnClickLis
     private fun connectOrDisconnetDevice() {
         try {
 //            conn?.mGpService?.closePort(index)
+            PreferencesUtils.putInt(this,"index",choiceIndex!!)
             val flag =
                 conn?.mGpService?.openPort(choiceIndex!!, PortParameters.BLUETOOTH, allDevice[choiceIndex!!].address, 0)
             val r = GpCom.ERROR_CODE.values()[flag!!]

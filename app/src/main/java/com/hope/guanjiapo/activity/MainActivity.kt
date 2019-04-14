@@ -18,9 +18,12 @@ import com.hope.guanjiapo.net.NetworkScheduler
 import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils
 import com.hope.guanjiapo.utils.ApiUtils.allStaffModel
+import com.hope.guanjiapo.utils.ApiUtils.conn
+import com.hope.guanjiapo.utils.ApiUtils.connectionStatus
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.staffModel
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
+import com.hope.guanjiapo.utils.PreferencesUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -99,6 +102,13 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
                 toast(R.string.msg_app_exit)
                 firstTime = System.currentTimeMillis()
             } else {
+                connectionStatus = false
+                if (conn != null) {
+                    val index = PreferencesUtils.getInt(this, "index", 0)
+                    conn?.mGpService?.closePort(index)
+                    unbindService(conn)
+                    conn = null
+                }
                 myApplicaton?.exitApp()
                 finish()
             }
