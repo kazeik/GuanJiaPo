@@ -136,7 +136,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.productsize)
-                            logs("tag", "体积 = ${item.productcount}  | $value")
                         }
                         all.add("$value")
                     }
@@ -158,7 +157,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
                         var value = 0.0
                         for (item in allData!!) {
                             value += checkDValue(item.shipfee)
-                            logs("tag", "应收运费 = ${item.shipfee} | $value")
                         }
                         all.add("$value")
                     }
