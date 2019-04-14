@@ -12,8 +12,13 @@ import com.hope.guanjiapo.activity.WaybillActivity
 import com.hope.guanjiapo.activity.WaybillControlActivity
 import com.hope.guanjiapo.adapter.DataAdapter
 import com.hope.guanjiapo.base.BaseFragment
+import com.hope.guanjiapo.base.BaseModel
 import com.hope.guanjiapo.iter.OnItemEventListener
 import com.hope.guanjiapo.model.AdapterItemModel
+import com.hope.guanjiapo.model.VehicleModel
+import com.hope.guanjiapo.net.HttpNetUtils
+import com.hope.guanjiapo.net.NetworkScheduler
+import com.hope.guanjiapo.net.ProgressSubscriber
 import com.hope.guanjiapo.utils.ApiUtils.loginModel
 import com.hope.guanjiapo.utils.ApiUtils.vehicleModel
 import kotlinx.android.synthetic.main.fragment_data.*
@@ -54,12 +59,27 @@ class HomeFragment : BaseFragment(), OnItemEventListener {
         adapter.setDataEntityList(allItem)
         adapter.itemListener = this
 
-        version.text =
-            "${if (TextUtils.isEmpty(vehicleModel?.companyname)) "" else vehicleModel?.companyname}\n${loginModel?.userName}  ${when (loginModel?.userType) {
-                1 -> "经理"
-                2 -> "员工"
-                10 -> "VIP 客户"
-                else -> ""
-            }}\n版本：1.0"
+        getInfo()
+    }
+
+    private fun getInfo() {
+        HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
+            hashMapOf(
+                "id" to loginModel?.id!!
+            )
+        )?.compose(NetworkScheduler.compose())
+            ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(activity) {
+                @SuppressLint("SetTextI18n")
+                override fun onSuccess(data: BaseModel<VehicleModel>?) {
+                    vehicleModel = data?.data
+                    version.text =
+                        "${if (TextUtils.isEmpty(vehicleModel?.companyname)) "" else vehicleModel?.companyname}\n${loginModel?.userName}  ${when (loginModel?.userType) {
+                            1 -> "经理"
+                            2 -> "员工"
+                            10 -> "VIP 客户"
+                            else -> ""
+                        }}\n版本：1.0"
+                }
+            })
     }
 }

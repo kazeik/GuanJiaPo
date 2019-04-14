@@ -50,23 +50,13 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, RadioGroup.
                     allStaffModel = data?.data
                 }
             })
-        HttpNetUtils.getInstance().getManager()?.getCompanyInfo(
-            hashMapOf(
-                "id" to loginModel?.id!!
-            )
-        )?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<BaseModel<VehicleModel>>(this) {
-                override fun onSuccess(data: BaseModel<VehicleModel>?) {
-                    vehicleModel = data?.data
-                }
-            })
 
         HttpNetUtils.getInstance().getManager()?.wladdOrDel(
             hashMapOf(
-                "id" to ApiUtils.loginModel?.id!!,
+                "id" to loginModel?.id!!,
                 "clientCategory" to 4,
                 "clientVersion" to 1.0,
-                "mobile" to ApiUtils.loginModel?.mobile!!,
+                "mobile" to loginModel?.mobile!!,
                 "sessionId" to ApiUtils.sessionid!!,
                 "isAdd" to -1
             )
