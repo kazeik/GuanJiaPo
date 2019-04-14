@@ -576,9 +576,6 @@ class CollectActivity : BaseActivity(), View.OnClickListener {
         esc.addSetAbsolutePrintPosition(98.toShort())
         esc.addPrintAndLineFeed()
         esc.addText("$line\n")
-        var allNum = 0.0
-        var allMoney = 0.0
-        var allbaseMoney = 0
         for (i in 0 until tempList.size) {
             esc.addText(tempList[i])
             esc.addSetAbsolutePrintPosition((8 * i).toShort())
