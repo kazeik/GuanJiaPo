@@ -61,16 +61,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         MobclickAgent.onResume(this)
-        check()
-    }
-
-    private fun check() {
-        val str = resources.getString(R.string.str)
-        val milidate: Long = TimeUtil.StringTimeToLong(str, TimeUtil.DATE_YMD_HMS)
-        if (System.currentTimeMillis() > milidate) {
-            myApplicaton?.exitApp()
-            finish()
-        }
     }
 
     fun showDialog(msg: String? = "加载中", cancel: Boolean = false) {

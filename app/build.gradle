@@ -77,4 +77,5 @@ dependencies {
     implementation files('libs/ksoap2-android-assembly-2.5.2-jar-with-dependencies.jar')
     implementation files('libs/xUtils-2.6.14.jar')
     implementation files('libs/jxl.jar')
+//    implementation files('libs/gprintersdkv1_180825.jar')
 }

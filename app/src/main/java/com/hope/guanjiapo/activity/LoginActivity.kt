@@ -142,7 +142,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 "isForce" to isFore,
                 "mobile" to phone,
                 "password" to MD5Utils.MD5Encode(pass, "utf-8"),
-                "sessionId" to session!!
+                "sessionId" to if (TextUtils.isEmpty(session)) "" else session!!
             )
         )
             ?.compose(NetworkScheduler.compose())
